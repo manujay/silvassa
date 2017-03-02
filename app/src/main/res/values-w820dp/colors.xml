@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="login_color">#bc0807</color>
+    <color name="base_color">#d9eafe</color>
+    <color name="dark_gray">#5e5c5c</color>
+    <color name="color_toolbar">#e7ecef</color>
+    <color name="color_strip">#cfd8dd</color>
+</resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/base_color"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.mapmyindia.ceinfo.sivassa.ui.activity.ActivityLogin">
+
+    <android.support.v7.widget.ContentFrameLayout
+        android:id="@+id/cf_login_logo"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/logo_height">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </android.support.v7.widget.ContentFrameLayout>
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_login_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cf_login_logo"
+        android:layout_marginTop="@dimen/et_margin"
+        android:gravity="center"
+        android:hint="@string/et_username_hint"
+        android:imeOptions="actionNext|flagNoExtractUi"
+        android:inputType="none|textNoSuggestions"
+        android:maxLines="1" />
+
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/et_login_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_login_username"
+        android:layout_marginTop="@dimen/et_margin"
+        android:gravity="center"
+        android:hint="@string/et_password_hint"
+        android:imeOptions="actionDone|flagNoExtractUi"
+        android:inputType="textPassword"
+        android:maxLines="1" />
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/et_login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:background="@drawable/drawable_background_login_button"
+        android:text="@string/login"
+        android:textColor="@android:color/white" />
+
+</RelativeLayout>
