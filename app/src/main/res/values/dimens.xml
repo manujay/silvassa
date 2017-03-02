@@ -6,4 +6,5 @@
     <dimen name="border_login_radius">25dp</dimen>
     <dimen name="et_margin">16dp</dimen>
     <dimen name="logo_height">150dp</dimen>
+    <dimen name="border_spinner_radius">5dp</dimen>
 </resources>

@@ -7,7 +7,7 @@
         android:left="@dimen/border_login_padding"
         android:right="@dimen/border_login_padding"
         android:top="@dimen/border_login_padding" />
-    <corners android:radius="@dimen/border_login_radius" />
+    <corners android:radius="@dimen/border_spinner_radius" />
     <solid android:color="@android:color/white" />
 
 </shape>

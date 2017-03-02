@@ -1,7 +1,6 @@
 package com.mapmyindia.ceinfo.sivassa.adapter;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import com.mapmyindia.ceinfo.sivassa.R;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by ceinfo on 02-03-2017.
@@ -57,7 +57,6 @@ public class AdapterExpandableListView extends BaseExpandableListAdapter {
 
         TextView iblChildText = (TextView) convertView.findViewById(R.id.lblListItemChild);
         iblChildText.setText(childText);
-        iblChildText.setTypeface(null, Typeface.BOLD);
 
         return convertView;
     }
@@ -95,8 +94,7 @@ public class AdapterExpandableListView extends BaseExpandableListAdapter {
 
         TextView lblListHeader = (TextView) convertView
                 .findViewById(R.id.lblListHeader);
-        lblListHeader.setTypeface(null, Typeface.BOLD);
-        lblListHeader.setText(headerTitle);
+        lblListHeader.setText(String.format(Locale.getDefault(), "Property ID   :%s", headerTitle));
 
         ImageView imageView = (ImageView) convertView.findViewById(R.id.addbutton);
 

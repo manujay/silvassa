@@ -1,5 +1,6 @@
 package com.mapmyindia.ceinfo.sivassa.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -88,6 +89,9 @@ public class ActivityLogin extends AppCompatActivity {
         UserModel payload = new UserModel();
         payload.setUserName(username);
         payload.setPassword(pwd);
+
+        startActivity(new Intent(this, ActivitySyncSearch.class));
+        finish();
     }
 
 

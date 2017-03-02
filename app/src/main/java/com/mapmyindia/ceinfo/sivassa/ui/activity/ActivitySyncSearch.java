@@ -1,8 +1,10 @@
 package com.mapmyindia.ceinfo.sivassa.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatButton;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -50,5 +52,13 @@ public class ActivitySyncSearch extends BaseActivity {
         spinner_row1.setAdapter(adapter);
         spinner_row2.setAdapter(adapter);
         spinner_row3.setAdapter(adapter);
+
+        mSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ActivitySyncSearch.this, ActivityResults.class));
+                finish();
+            }
+        });
     }
 }
