@@ -1,4 +1,4 @@
-package com.mapmyindia.ceinfo.sivassa;
+package com.mapmyindia.ceinfo.silvassa;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

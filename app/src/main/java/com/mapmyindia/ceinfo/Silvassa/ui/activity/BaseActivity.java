@@ -1,4 +1,4 @@
-package com.mapmyindia.ceinfo.sivassa.ui.activity;
+package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
-import com.mapmyindia.ceinfo.sivassa.R;
+import com.mapmyindia.ceinfo.silvassa.R;
 
 /**
  * Created by ceinfo on 27-02-2017.

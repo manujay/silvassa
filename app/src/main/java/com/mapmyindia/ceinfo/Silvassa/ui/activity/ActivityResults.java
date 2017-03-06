@@ -1,11 +1,11 @@
-package com.mapmyindia.ceinfo.sivassa.ui.activity;
+package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.ExpandableListView;
 
-import com.mapmyindia.ceinfo.sivassa.R;
-import com.mapmyindia.ceinfo.sivassa.adapter.AdapterExpandableListView;
+import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.adapter.AdapterExpandableListView;
 
 import java.util.ArrayList;
 import java.util.HashMap;

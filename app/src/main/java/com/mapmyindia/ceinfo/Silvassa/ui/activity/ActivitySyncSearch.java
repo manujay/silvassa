@@ -1,4 +1,4 @@
-package com.mapmyindia.ceinfo.sivassa.ui.activity;
+package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import com.mapmyindia.ceinfo.sivassa.R;
-import com.mapmyindia.ceinfo.sivassa.utils.ViewUtils;
+import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 
 /**
  * Created by ceinfo on 27-02-2017.

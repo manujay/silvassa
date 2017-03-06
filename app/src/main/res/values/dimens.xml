@@ -7,4 +7,6 @@
     <dimen name="et_margin">16dp</dimen>
     <dimen name="logo_height">150dp</dimen>
     <dimen name="border_spinner_radius">5dp</dimen>
+    <dimen name="spacing_large">20dp</dimen>
+    <dimen name="spacing_medium">10dp</dimen>
 </resources>

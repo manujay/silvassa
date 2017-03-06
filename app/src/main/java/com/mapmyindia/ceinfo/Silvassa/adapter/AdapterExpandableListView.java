@@ -1,4 +1,4 @@
-package com.mapmyindia.ceinfo.sivassa.adapter;
+package com.mapmyindia.ceinfo.silvassa.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mapmyindia.ceinfo.sivassa.R;
+import com.mapmyindia.ceinfo.silvassa.R;
 
 import java.util.HashMap;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.mapmyindia.ceinfo.sivassa.utils;
+package com.mapmyindia.ceinfo.silvassa.utils;
 
 import android.util.Log;
 

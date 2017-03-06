@@ -1,4 +1,4 @@
-package com.mapmyindia.ceinfo.sivassa.ui.activity;
+package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,9 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import com.mapmyindia.ceinfo.sivassa.R;
-import com.mapmyindia.ceinfo.sivassa.utils.StringUtils;
+import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
+import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 
 /**
  * Created by ceinfo on 27-02-2017.
@@ -58,7 +59,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void doLogin() {
-        View focusView = null;
+//        View focusView = null;
         boolean isvalid = true;
         String username = mEditTextUname.getText().toString();
         String paswd = mEditTextPaswd.getText().toString();
@@ -66,19 +67,20 @@ public class ActivityLogin extends AppCompatActivity {
 
         if (StringUtils.isNullOrEmpty(username)) {
             isvalid = false;
-            mEditTextUname.setError("Please provide a valid username");
-            focusView = mEditTextUname;
+//            mEditTextUname.setError("Please provide a valid username");
+//            focusView = mEditTextUname;
         }
         if (StringUtils.isNullOrEmpty(paswd)) {
             isvalid = false;
-            mEditTextPaswd.setError("Please provide a valid username/password");
-            focusView = mEditTextPaswd;
+//            mEditTextPaswd.setError("Please provide a valid username/password");
+//            focusView = mEditTextPaswd;
         }
 
         if (isvalid) {
             attemptLogin(username, paswd);
         } else {
-            focusView.requestFocus();
+//            focusView.requestFocus();
+            new DialogHandler(ActivityLogin.this).showAlertDialog("Please provide a valid username/password");
         }
 
 //        mEditTextUname.setText("");

@@ -1,10 +1,10 @@
-package com.mapmyindia.ceinfo.sivassa.ui.activity;
+package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import com.mapmyindia.ceinfo.sivassa.R;
+import com.mapmyindia.ceinfo.silvassa.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TopBottomDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowAnimationStyle">@style/TopBottomAnimation</item>
+    </style>
+
+    <style name="TopBottomAnimation">
+        <item name="android:windowEnterAnimation">@anim/slide_in_top</item>
+        <item name="android:windowExitAnimation">@anim/slide_out_bottom</item>
+    </style>
+
 </resources>
