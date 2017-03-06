@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 
 /**
@@ -20,6 +21,10 @@ public class ActivitySyncSearch extends BaseActivity {
     private static final String TAG = ActivitySyncSearch.class.getSimpleName();
 
     private AppCompatButton mSyncButton, mSearchButton;
+    private Spinner spinner_row0;
+    private Spinner spinner_row1;
+    private Spinner spinner_row2;
+    private Spinner spinner_row3;
 
 
     @Override
@@ -37,10 +42,10 @@ public class ActivitySyncSearch extends BaseActivity {
         ViewUtils.setColorToView("#bc0807", mSearchButton);
         ViewUtils.setColorToView("#4c4b97", mSyncButton);
 
-        Spinner spinner_row0 = (Spinner) findViewById(R.id.spinner_row0);
-        Spinner spinner_row1 = (Spinner) findViewById(R.id.spinner_row1);
-        Spinner spinner_row2 = (Spinner) findViewById(R.id.spinner_row2);
-        Spinner spinner_row3 = (Spinner) findViewById(R.id.spinner_row3);
+        spinner_row0 = (Spinner) findViewById(R.id.spinner_row0);
+        spinner_row1 = (Spinner) findViewById(R.id.spinner_row1);
+        spinner_row2 = (Spinner) findViewById(R.id.spinner_row2);
+        spinner_row3 = (Spinner) findViewById(R.id.spinner_row3);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -56,9 +61,31 @@ public class ActivitySyncSearch extends BaseActivity {
         mSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ActivitySyncSearch.this, ActivityResults.class));
-                finish();
+                if (isValidated()) {
+                    startActivity(new Intent(ActivitySyncSearch.this, ActivityResults.class));
+                    finish();
+                } else {
+                    new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select \nOwner Name, Occupier Name or Property ID");
+                }
             }
         });
+    }
+
+    private boolean isValidated() {
+        boolean isValid = true;
+
+        if (spinner_row0.getSelectedItemPosition() < 1)
+            isValid = false;
+
+        if (spinner_row1.getSelectedItemPosition() < 1)
+            isValid = false;
+
+        if (spinner_row2.getSelectedItemPosition() < 1)
+            isValid = false;
+
+        if (spinner_row3.getSelectedItemPosition() < 1)
+            isValid = false;
+
+        return isValid;
     }
 }
