@@ -3,12 +3,14 @@ package com.mapmyindia.ceinfo.silvassa.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 
@@ -63,9 +65,18 @@ public class ActivitySyncSearch extends BaseActivity {
             public void onClick(View v) {
                 if (isValidated()) {
                     startActivity(new Intent(ActivitySyncSearch.this, ActivityResults.class));
-                    finish();
+//                    finish();
                 } else {
                     new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select \nOwner Name, Occupier Name or Property ID");
+                }
+            }
+        });
+
+        mSyncButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!Connectivity.isConnected(ActivitySyncSearch.this)) {
+                    Snackbar.make(getWindow().getDecorView(), "No Internet Connectivity", Snackbar.LENGTH_SHORT).show();
                 }
             }
         });

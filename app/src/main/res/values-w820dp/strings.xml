@@ -15,4 +15,6 @@
     <string name="cheque">Cheque</string>
     <string name="print">Print</string>
     <string name="alert_message">Please provide valid input</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="amount">Amount</string>
 </resources>

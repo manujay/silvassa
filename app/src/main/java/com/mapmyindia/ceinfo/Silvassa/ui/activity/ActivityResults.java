@@ -1,11 +1,17 @@
 package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.AppCompatButton;
+import android.view.View;
 import android.widget.ExpandableListView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.adapter.AdapterExpandableListView;
+import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
+import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,6 +25,8 @@ import java.util.Locale;
 public class ActivityResults extends BaseActivity {
 
     private static final String TAG = ActivityResults.class.getSimpleName();
+
+    AppCompatButton mPayNowButton, mBackToResults;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,5 +63,24 @@ public class ActivityResults extends BaseActivity {
         AdapterExpandableListView mAdapterExpandListView = new AdapterExpandableListView(this, listDataHeader, listChildData);
 
         expandableListView.setAdapter(mAdapterExpandListView);
+
+        mPayNowButton = (AppCompatButton) findViewById(R.id.et_pay_buttom);
+        mBackToResults = (AppCompatButton) findViewById(R.id.et_back_button);
+
+        ViewUtils.setColorToView("#bc0807", mPayNowButton);
+        ViewUtils.setColorToView("#4c4b97", mBackToResults);
+
+        mPayNowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!Connectivity.isConnected(ActivityResults.this)) {
+                    Snackbar.make(getWindow().getDecorView(), "No Internet Connectivity", Snackbar.LENGTH_SHORT).show();
+                } else {
+                    startActivity(new Intent(ActivityResults.this, ActivityPayment.class));
+                }
+//        finish();
+            }
+        });
+
     }
 }
