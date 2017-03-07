@@ -32,11 +32,14 @@ public class ActivityLogin extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.layout_activity_login);
-        intitViews();
+
+        findViewByIDs();
+
     }
 
-    private void intitViews() {
+    private void findViewByIDs() {
         mEditTextUname = (AppCompatEditText) findViewById(R.id.et_login_username);
         mEditTextPaswd = (AppCompatEditText) findViewById(R.id.et_login_password);
         mButtonLogin = (AppCompatButton) findViewById(R.id.et_login_button);

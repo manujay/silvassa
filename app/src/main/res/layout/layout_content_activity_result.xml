@@ -1,53 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/parent_relative_result"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@null">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ExpandableListView
-        android:id="@+id/expandable_list"
+    <RelativeLayout
+        android:id="@+id/parent_relative_result"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/container_back_pay"
-        android:divider="@android:color/white"
-        android:dividerHeight="2dp"
-        tools:listheader="@layout/list_group"
-        tools:listitem="@layout/list_item">
+        android:background="@null">
 
-    </ExpandableListView>
+        <ExpandableListView
+            android:id="@+id/expandable_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/container_back_pay"
+            android:divider="@android:color/white"
+            android:dividerHeight="2dp" />
 
-    <LinearLayout
-        android:id="@+id/container_back_pay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:orientation="horizontal"
-        android:padding="16dp">
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/et_back_button"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:id="@+id/container_back_pay"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/et_margin"
-            android:layout_weight="1"
-            android:background="@drawable/drawable_background_login_button"
-            android:gravity="center"
-            android:text="@string/back"
-            android:textColor="@android:color/white"
-            android:visibility="gone" />
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:orientation="horizontal"
+            android:padding="16dp">
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/et_pay_buttom"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/et_margin"
-            android:layout_weight="1"
-            android:background="@drawable/drawable_background_login_button"
-            android:gravity="center"
-            android:text="@string/pay_now"
-            android:textColor="@android:color/white" />
-    </LinearLayout>
-</RelativeLayout>
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/et_back_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/et_margin"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_background_login_button"
+                android:gravity="center"
+                android:text="@string/back"
+                android:textColor="@android:color/white"
+                android:visibility="gone" />
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/et_pay_buttom"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/et_margin"
+                android:layout_weight="1"
+                android:background="@drawable/drawable_background_login_button"
+                android:gravity="center"
+                android:text="@string/pay_now"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </RelativeLayout>
+</layout>

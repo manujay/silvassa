@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+<layout>
 
-    <include
-        android:id="@+id/toolbar"
-        layout="@layout/layout_toolbar" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <include layout="@layout/layout_content_activity_result" />
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/layout_toolbar" />
 
-</LinearLayout>
+        <include
+            android:id="@+id/results_layout"
+            layout="@layout/layout_content_activity_result" />
+
+    </LinearLayout>
+</layout>
