@@ -4,7 +4,7 @@
     <color name="base_color">#d9eafe</color>
     <color name="dark_gray">#5e5c5c</color>
     <color name="color_toolbar">#e7ecef</color>
-    <color name="color_strip">#cfd8dd</color>
+    <color name="color_strip">#9e9e9e</color>
     <color name="transparent">#00000000</color>
     <color name="white">#ffffffff</color>
 </resources>

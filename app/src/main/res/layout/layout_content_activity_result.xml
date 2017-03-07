@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:background="@drawable/drawable_background_login_button"
             android:gravity="center"
-            android:text="@string/sync"
+            android:text="@string/back"
             android:textColor="@android:color/white"
             android:visibility="gone" />
 

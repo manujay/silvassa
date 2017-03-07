@@ -59,8 +59,8 @@ public class ActivityResults extends BaseActivity {
             listChildData.put(e, childlist);
         }
 
-        ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandable_list);
-        AdapterExpandableListView mAdapterExpandListView = new AdapterExpandableListView(this, listDataHeader, listChildData);
+        final ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandable_list);
+        final AdapterExpandableListView mAdapterExpandListView = new AdapterExpandableListView(this, listDataHeader, listChildData);
 
         expandableListView.setAdapter(mAdapterExpandListView);
 
@@ -79,6 +79,32 @@ public class ActivityResults extends BaseActivity {
                     startActivity(new Intent(ActivityResults.this, ActivityPayment.class));
                 }
 //        finish();
+            }
+        });
+
+
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+                if (mBackToResults.getVisibility() == View.GONE) {
+                    mBackToResults.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
+            @Override
+            public void onGroupCollapse(int groupPosition) {
+                if (mBackToResults.getVisibility() == View.VISIBLE) {
+                    mBackToResults.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        mBackToResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Todo Collapse expanded group
             }
         });
 
