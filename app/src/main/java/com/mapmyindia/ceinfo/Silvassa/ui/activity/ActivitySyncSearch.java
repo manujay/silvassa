@@ -1,15 +1,16 @@
 package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
 
 import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.databinding.LayoutActivitySyncsearchBinding;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
@@ -22,32 +23,30 @@ public class ActivitySyncSearch extends BaseActivity {
 
     private static final String TAG = ActivitySyncSearch.class.getSimpleName();
 
-    private AppCompatButton mSyncButton, mSearchButton;
-    private Spinner spinner_row0;
-    private Spinner spinner_row1;
-    private Spinner spinner_row2;
-    private Spinner spinner_row3;
-
+    private LayoutActivitySyncsearchBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        setContentView(R.layout.layout_activity_syncsearch);
-        initViews();
-
         super.onCreate(savedInstanceState);
+
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_activity_syncsearch);
+
+        findViewByIDs();
     }
 
-    private void initViews() {
-        mSearchButton = (AppCompatButton) findViewById(R.id.et_search_button);
-        mSyncButton = (AppCompatButton) findViewById(R.id.et_sync_button);
+    @Override
+    public void setTitle(String mTitle) {
+        binding.toolbar.setMTitle(mTitle);
+    }
 
-        ViewUtils.setColorToView("#bc0807", mSearchButton);
-        ViewUtils.setColorToView("#4c4b97", mSyncButton);
+    private void findViewByIDs() {
 
-        spinner_row0 = (Spinner) findViewById(R.id.spinner_row0);
-        spinner_row1 = (Spinner) findViewById(R.id.spinner_row1);
-        spinner_row2 = (Spinner) findViewById(R.id.spinner_row2);
-        spinner_row3 = (Spinner) findViewById(R.id.spinner_row3);
+        setToolbar((Toolbar) binding.toolbar.getRoot());
+
+        setTitle(getResources().getString(R.string.app_name));
+
+        ViewUtils.setColorToView("#bc0807", binding.contentLayout.etSearchButton);
+        ViewUtils.setColorToView("#4c4b97", binding.contentLayout.etSyncButton);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -55,12 +54,12 @@ public class ActivitySyncSearch extends BaseActivity {
 // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
-        spinner_row0.setAdapter(adapter);
-        spinner_row1.setAdapter(adapter);
-        spinner_row2.setAdapter(adapter);
-        spinner_row3.setAdapter(adapter);
+        binding.contentLayout.spinnerRow0.setAdapter(adapter);
+        binding.contentLayout.spinnerRow1.setAdapter(adapter);
+        binding.contentLayout.spinnerRow2.setAdapter(adapter);
+        binding.contentLayout.spinnerRow3.setAdapter(adapter);
 
-        mSearchButton.setOnClickListener(new View.OnClickListener() {
+        binding.contentLayout.etSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isValidated()) {
@@ -72,7 +71,7 @@ public class ActivitySyncSearch extends BaseActivity {
             }
         });
 
-        mSyncButton.setOnClickListener(new View.OnClickListener() {
+        binding.contentLayout.etSyncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!Connectivity.isConnected(ActivitySyncSearch.this)) {
@@ -85,16 +84,16 @@ public class ActivitySyncSearch extends BaseActivity {
     private boolean isValidated() {
         boolean isValid = true;
 
-        if (spinner_row0.getSelectedItemPosition() < 1)
+        if (binding.contentLayout.spinnerRow0.getSelectedItemPosition() < 1)
             isValid = false;
 
-        if (spinner_row1.getSelectedItemPosition() < 1)
+        if (binding.contentLayout.spinnerRow1.getSelectedItemPosition() < 1)
             isValid = false;
 
-        if (spinner_row2.getSelectedItemPosition() < 1)
+        if (binding.contentLayout.spinnerRow2.getSelectedItemPosition() < 1)
             isValid = false;
 
-        if (spinner_row3.getSelectedItemPosition() < 1)
+        if (binding.contentLayout.spinnerRow3.getSelectedItemPosition() < 1)
             isValid = false;
 
         return isValid;

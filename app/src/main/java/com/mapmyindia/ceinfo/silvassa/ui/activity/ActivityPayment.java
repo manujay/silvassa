@@ -4,9 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
@@ -23,14 +25,24 @@ public class ActivityPayment extends BaseActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         setContentView(R.layout.layout_activity_payment);
 
-        findViewByID();
+        findViewByIDs();
 
-        super.onCreate(savedInstanceState);
     }
 
-    private void findViewByID() {
+    @Override
+    public void setTitle(String mTitle) {
+        ((TextView) getToolbar().findViewById(R.id.tv_toolbar)).setText(mTitle);
+    }
+
+    private void findViewByIDs() {
+
+        setToolbar(((Toolbar) findViewById(R.id.toolbar)));
+
+        setTitle(getResources().getString(R.string.app_name));
 
         RadioGroup rgPtop = (RadioGroup) findViewById(R.id.rg_ptp);
 
