@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/lblListItemChild"
-        android:layout_width="fill_parent"
+    <data>
+
+        <variable
+            name="itemHeader"
+            type="String" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="5dp"
-        android:paddingEnd="?android:attr/expandableListPreferredItemIndicatorRight"
-        android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:paddingRight="?android:attr/expandableListPreferredItemIndicatorRight"
-        android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
-        android:paddingTop="5dp"
-        android:textSize="17sp" />
-</LinearLayout>
+        android:background="@null"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/lblListItemChild"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingEnd="?android:attr/expandableListPreferredItemIndicatorRight"
+            android:paddingLeft="?android:attr/expandableListPreferredItemPaddingLeft"
+            android:paddingRight="?android:attr/expandableListPreferredItemIndicatorRight"
+            android:paddingStart="?android:attr/expandableListPreferredItemPaddingLeft"
+            android:paddingTop="5dp"
+            android:text="@{itemHeader}"
+            android:textSize="17sp" />
+    </LinearLayout>
+</layout>

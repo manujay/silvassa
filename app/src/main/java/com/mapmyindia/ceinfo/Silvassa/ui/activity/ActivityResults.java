@@ -94,7 +94,6 @@ public class ActivityResults extends BaseActivity {
             }
         });
 
-
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {

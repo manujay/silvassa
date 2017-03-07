@@ -5,10 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.databinding.ListGroupBinding;
+import com.mapmyindia.ceinfo.silvassa.databinding.ListItemBinding;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,17 +46,17 @@ public class AdapterExpandableListView extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int groupPosition, final int childPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-
-        final String childText = (String) getChild(groupPosition, childPosition);
-
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_item, parent, false);
+        MyViewHolder holder;
+        String itemTitle = (String) getChild(groupPosition, childPosition);
+        if (null == convertView) {
+            holder = new MyViewHolder(LayoutInflater.from(parent.getContext()), parent);
+            convertView = holder.item.getRoot();
+            convertView.setTag(holder);
+        } else {
+            holder = (MyViewHolder) convertView.getTag();
         }
 
-        TextView iblChildText = (TextView) convertView.findViewById(R.id.lblListItemChild);
-        iblChildText.setText(childText);
+        holder.bindItem(itemTitle);
 
         return convertView;
     }
@@ -85,23 +85,22 @@ public class AdapterExpandableListView extends BaseExpandableListAdapter {
     @Override
     public View getGroupView(int groupPosition, final boolean isExpanded,
                              View convertView, ViewGroup parent) {
+        MyViewHolder holder;
         String headerTitle = (String) getGroup(groupPosition);
-        if (convertView == null) {
-            LayoutInflater infalInflater = (LayoutInflater) this._context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = infalInflater.inflate(R.layout.list_group, parent, false);
+        if (null == convertView) {
+            holder = new MyViewHolder(LayoutInflater.from(parent.getContext()), parent);
+            convertView = holder.group.getRoot();
+            convertView.setTag(holder);
+        } else {
+            holder = (MyViewHolder) convertView.getTag();
         }
 
-        TextView lblListHeader = (TextView) convertView
-                .findViewById(R.id.lblListHeader);
-        lblListHeader.setText(String.format(Locale.getDefault(), "Property ID   :%s", headerTitle));
-
-        ImageView imageView = (ImageView) convertView.findViewById(R.id.addbutton);
+        holder.bindGroup(headerTitle);
 
         if (isExpanded) {
-            imageView.setImageDrawable(AdapterExpandableListView.this._context.getResources().getDrawable(R.drawable.ic_remove_circle_outline_black_24dp));
+            holder.group.addbutton.setImageDrawable(AdapterExpandableListView.this._context.getResources().getDrawable(R.drawable.ic_remove_circle_outline_black_24dp));
         } else {
-            imageView.setImageDrawable(AdapterExpandableListView.this._context.getResources().getDrawable(R.drawable.ic_add_circle_outline_black_24dp));
+            holder.group.addbutton.setImageDrawable(AdapterExpandableListView.this._context.getResources().getDrawable(R.drawable.ic_add_circle_outline_black_24dp));
         }
 
         return convertView;
@@ -115,5 +114,25 @@ public class AdapterExpandableListView extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {
         return true;
+    }
+
+    static class MyViewHolder {
+        private ListGroupBinding group;
+        private ListItemBinding item;
+
+        private MyViewHolder(LayoutInflater inflater, ViewGroup parent) {
+            this.group = ListGroupBinding.inflate(inflater, parent, false);
+            this.item = ListItemBinding.inflate(inflater, parent, false);
+        }
+
+        private void bindItem(String itemTitle) {
+            item.setItemHeader(itemTitle);
+            item.executePendingBindings();
+        }
+
+        private void bindGroup(String headerTitle) {
+            group.setGroupHeader(String.format(Locale.getDefault(), "Property ID   :%s", headerTitle));
+            group.executePendingBindings();
+        }
     }
 }
