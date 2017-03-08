@@ -40,7 +40,7 @@ public class ActivityPayment extends BaseActivity {
 
     private void findViewByIDs() {
 
-        setToolbar(((Toolbar) findViewById(R.id.toolbar)));
+        setToolbar((Toolbar) findViewById(R.id.toolbar));
 
         setTitle(getResources().getString(R.string.app_name));
 

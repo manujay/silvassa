@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by ceinfo on 02-03-2017.
+ * Implementation of ExpandableListview using Databinding
+ * @author Manujay K. Yadav
  */
 
 public class AdapterExpandableListView extends BaseExpandableListAdapter {
