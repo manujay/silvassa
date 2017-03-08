@@ -33,16 +33,10 @@
                     app:layout_gravity="start|fill_horizontal"
                     app:layout_row="0" />
 
-                <TextView
+                <Spinner
                     android:id="@+id/spinner_row0"
                     android:background="@drawable/drawable_background_edittext"
-                    android:clickable="true"
-                    android:hint="Select Zone"
-                    android:inputType="none"
-                    android:onClick="onClick"
                     android:padding="@dimen/spacing_medium"
-                    android:textColor="@android:color/black"
-                    android:textColorHint="@android:color/darker_gray"
                     app:layout_column="1"
                     app:layout_gravity="start|fill_horizontal"
                     app:layout_row="0" />

@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.databinding.LayoutActivitySyncsearchBinding;
@@ -70,6 +71,15 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
             }
         });
 
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.spinner_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+
+        binding.contentLayout.spinnerRow0.setAdapter(adapter);
+
     }
 
     @Override
@@ -77,9 +87,6 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         Bundle bundle = new Bundle();
 
         switch (v.getId()) {
-            case R.id.spinner_row0:
-                bundle.putString(INTENT_PARAMETERS._PREFILL_KEY, INTENT_PARAMETERS._PREFILL_ZONE);
-                break;
             case R.id.spinner_row1:
                 bundle.putString(INTENT_PARAMETERS._PREFILL_KEY, INTENT_PARAMETERS._PREFILL_OWNER);
                 break;
@@ -101,12 +108,11 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
     private boolean isValidated() {
         boolean isValid = true;
 
-        String zone = binding.contentLayout.spinnerRow0.getText().toString();
         String owner = binding.contentLayout.spinnerRow1.getText().toString();
         String occupier = binding.contentLayout.spinnerRow2.getText().toString();
         String property_id = binding.contentLayout.spinnerRow3.getText().toString();
 
-        if (TextUtils.isEmpty(zone))
+        if (binding.contentLayout.spinnerRow0.getSelectedItemPosition() < 1)
             isValid = false;
 
         if (TextUtils.isEmpty(owner))
@@ -132,9 +138,7 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
                         String key = bundle.getString(INTENT_PARAMETERS._PREFILL_KEY);
                         String value = bundle.getString(INTENT_PARAMETERS._PREFILL_RESULT);
                         if (null != key) {
-                            if (key.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_ZONE))
-                                binding.contentLayout.spinnerRow0.setText(value);
-                            else if (key.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OWNER))
+                            if (key.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OWNER))
                                 binding.contentLayout.spinnerRow1.setText(value);
                             else if (key.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OCCUPIER))
                                 binding.contentLayout.spinnerRow2.setText(value);
