@@ -76,8 +76,16 @@ public class FilterableRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
+            ArrayList<String> filterResults = ((ArrayList<String>) results.values);
+
             mFilteredArrayList.clear();
-            mFilteredArrayList.addAll((ArrayList<String>) results.values);
+
+            if (constraint.length() == 0) {
+                mFilteredArrayList.addAll(mArrayList);
+            } else {
+                mFilteredArrayList.addAll(filterResults);
+            }
+
             notifyDataSetChanged();
         }
     }

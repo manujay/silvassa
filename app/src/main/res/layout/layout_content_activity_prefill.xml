@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/base_color"
+    android:background="@null"
     tools:showIn="@layout/layout_activity_prefill">
 
     <android.support.v7.widget.ContentFrameLayout
@@ -14,7 +14,8 @@
         <android.support.v7.widget.SearchView
             android:id="@+id/search_et"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize" />
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/cardview_light_background" />
 
     </android.support.v7.widget.ContentFrameLayout>
 
