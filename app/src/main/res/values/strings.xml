@@ -26,4 +26,27 @@
         <item name="OccupierName">@string/occupier_name</item>
         <item name="PropertyId">@string/property_id</item>
     </string-array>
+
+    <string-array name="filterable_array">
+        <item name="Zone">Zone</item>
+        <item name="OwnerName">@string/owner_name</item>
+        <item name="OccupierName">@string/occupier_name</item>
+        <item name="PropertyId">@string/property_id</item>
+        <item name="Zone">Zone</item>
+        <item name="OwnerName">@string/owner_name</item>
+        <item name="OccupierName">@string/occupier_name</item>
+        <item name="PropertyId">@string/property_id</item>
+        <item name="Zone">Zone</item>
+        <item name="OwnerName">@string/owner_name</item>
+        <item name="OccupierName">@string/occupier_name</item>
+        <item name="PropertyId">@string/property_id</item>
+        <item name="Zone">Zone</item>
+        <item name="OwnerName">@string/owner_name</item>
+        <item name="OccupierName">@string/occupier_name</item>
+        <item name="PropertyId">@string/property_id</item>
+        <item name="Zone">Zone</item>
+        <item name="OwnerName">@string/owner_name</item>
+        <item name="OccupierName">@string/occupier_name</item>
+        <item name="PropertyId">@string/property_id</item>
+    </string-array>
 </resources>

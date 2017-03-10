@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -78,7 +79,9 @@ public class ActivityPrefill extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
         recyclerAdapter = new FilterableRecyclerAdapter(ActivityPrefill.this, mFilterableList);
 
         recyclerView.setAdapter(recyclerAdapter);
@@ -111,7 +114,7 @@ public class ActivityPrefill extends BaseActivity {
 
     private void doPost() {
         for (int i = 0; i < 20; i++) {
-            mFilterableList.add(String.format(Locale.getDefault(), "ID%d", (System.currentTimeMillis() / 1000) - i));
+            mFilterableList.add(String.format(Locale.getDefault(), "%s", getResources().getStringArray(R.array.filterable_array)[i]));
             recyclerAdapter.notifyDataSetChanged();
         }
     }

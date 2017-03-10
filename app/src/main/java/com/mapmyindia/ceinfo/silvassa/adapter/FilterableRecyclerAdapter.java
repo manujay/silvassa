@@ -19,15 +19,16 @@ import java.util.ArrayList;
 
 public class FilterableRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
-    private static Filterable mFilterable;
     private ArrayList<String> mArrayList;
     private ArrayList<String> mFilteredArrayList;
     private Context mActivityContext;
+    private CustomFilter mFilter;
 
     public FilterableRecyclerAdapter(Context mActivityContext, ArrayList<String> mArrayList) {
         this.mActivityContext = mActivityContext;
         this.mArrayList = mArrayList;
         this.mFilteredArrayList = mArrayList;
+        this.mFilter = new CustomFilter(FilterableRecyclerAdapter.this);
     }
 
     @Override
@@ -47,23 +48,29 @@ public class FilterableRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public Filter getFilter() {
-        if (null == mFilterable)
-            mFilterable = new Filterable();
-        return mFilterable;
+        return mFilter;
     }
 
-    private class Filterable extends Filter {
+    public class CustomFilter extends Filter {
+
+        FilterableRecyclerAdapter mAdapter;
+
+        public CustomFilter(FilterableRecyclerAdapter adapter) {
+            super();
+            this.mAdapter = adapter;
+        }
+
         @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
+        protected Filter.FilterResults performFiltering(CharSequence constraint) {
             ArrayList<String> temp = new ArrayList<>();
-            final FilterResults results = new FilterResults();
+            final Filter.FilterResults results = new Filter.FilterResults();
             if (constraint.length() == 0) {
                 temp.addAll(mArrayList);
             } else {
                 final String filterPattern = constraint.toString().toLowerCase().trim();
 
                 for (String item : mArrayList) {
-                    if (item.contains(filterPattern)) {
+                    if (item.toLowerCase().trim().contains(filterPattern)) {
                         temp.add(item);
                     }
                 }
@@ -75,21 +82,16 @@ public class FilterableRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         }
 
         @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            ArrayList<String> filterResults = ((ArrayList<String>) results.values);
+        protected void publishResults(CharSequence constraint, Filter.FilterResults results) {
 
-            mFilteredArrayList.clear();
-
-            if (constraint.length() == 0) {
-                mFilteredArrayList.addAll(mArrayList);
-            } else {
-                mFilteredArrayList.addAll(filterResults);
+            if (results.count > 0) {
+                mFilteredArrayList.clear();
+                mFilteredArrayList.addAll((ArrayList<String>) results.values);
             }
 
-            notifyDataSetChanged();
+            this.mAdapter.notifyDataSetChanged();
         }
     }
-
 
     private class ItemViewHolder extends RecyclerView.ViewHolder {
 
