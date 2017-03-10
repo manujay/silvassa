@@ -9,11 +9,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.adapter.FilterableRecyclerAdapter;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
+import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -75,7 +77,7 @@ public class ActivityPrefill extends BaseActivity {
             }
         });
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rcv);
+        final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rcv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
@@ -85,6 +87,15 @@ public class ActivityPrefill extends BaseActivity {
         recyclerAdapter = new FilterableRecyclerAdapter(ActivityPrefill.this, mFilterableList);
 
         recyclerView.setAdapter(recyclerAdapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String itemAtPosition = ((TextView) (recyclerView.getChildAt(position)).findViewById(R.id.item_tv)).getText().toString();
+
+                setResult(itemAtPosition);
+            }
+        }));
     }
 
     private void setResult(String itemAtPosition) {
