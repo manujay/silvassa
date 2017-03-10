@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,7 +32,7 @@ public class ActivityPrefill extends BaseActivity {
     private String preString;
     private ArrayList<String> mFilterableList = new ArrayList<>();
     private FilterableRecyclerAdapter recyclerAdapter;
-    private SearchView mSearchableEditText;
+    private AppCompatEditText mSearchableEditText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,18 +64,22 @@ public class ActivityPrefill extends BaseActivity {
         else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_PROPERTYID))
             setTitle(getResources().getString(R.string.property_id));
 
-        mSearchableEditText = (SearchView) findViewById(R.id.search_et);
+        mSearchableEditText = (AppCompatEditText) findViewById(R.id.search_et);
 
-        mSearchableEditText.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        mSearchableEditText.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                recyclerAdapter.getFilter().filter(newText);
-                return true;
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                recyclerAdapter.getFilter().filter(s.toString());
             }
         });
 

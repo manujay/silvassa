@@ -9,13 +9,18 @@
     <android.support.v7.widget.ContentFrameLayout
         android:id="@+id/container_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/cardview_light_background"
+        android:paddingEnd="@dimen/padding_small"
+        android:paddingLeft="@dimen/padding_small"
+        android:paddingRight="@dimen/padding_small"
+        android:paddingStart="@dimen/padding_small">
 
-        <android.support.v7.widget.SearchView
+        <android.support.v7.widget.AppCompatEditText
             android:id="@+id/search_et"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/cardview_light_background" />
+            android:padding="@dimen/border_login_padding" />
 
     </android.support.v7.widget.ContentFrameLayout>
 
@@ -23,7 +28,9 @@
         android:id="@+id/rcv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/container_frame">
+        android:layout_below="@id/container_frame"
+        android:layout_marginTop="@dimen/border_login_padding"
+        android:padding="@dimen/border_login_padding">
 
     </android.support.v7.widget.RecyclerView>
 
