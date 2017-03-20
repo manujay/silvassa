@@ -33,6 +33,11 @@
         <activity
             android:name=".ui.activity.ActivityPrefill"
             android:screenOrientation="portrait" />
+
+        <provider
+            android:name="com.mapmyindia.ceinfo.silvassa.provider.SilvassaProvider"
+            android:authorities="com.mapmyindia.ceinfo.silvassa.provider"
+            android:exported="false" />
     </application>
 
 </manifest>

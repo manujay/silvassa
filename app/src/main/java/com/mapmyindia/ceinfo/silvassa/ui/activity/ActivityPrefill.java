@@ -11,16 +11,31 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.adapter.FilterableRecyclerAdapter;
+import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
+import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
+import com.mapmyindia.ceinfo.silvassa.wsmodel.SearchCWSModel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by ceinfo on 07-03-2017.
@@ -46,6 +61,15 @@ public class ActivityPrefill extends BaseActivity {
         }
 
         findViewByIDs();
+
+        if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_ZONE))
+            setTitle(getResources().getString(R.string.zone));
+        else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OWNER))
+            setTitle(getResources().getString(R.string.owner_name));
+        else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OCCUPIER))
+            setTitle(getResources().getString(R.string.occupier_name));
+        else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_PROPERTYID))
+            setTitle(getResources().getString(R.string.property_id));
 
         doPost();
     }
@@ -134,5 +158,42 @@ public class ActivityPrefill extends BaseActivity {
             mFilterableList.add(String.format(Locale.getDefault(), "%s", getResources().getStringArray(R.array.filterable_array)[i]));
             recyclerAdapter.notifyDataSetChanged();
         }
+    }
+
+    private void getSearchCriteria(String zoneId) {
+
+        RestApiClient apiClient = RestAppController.getRetrofitinstance().create(RestApiClient.class);
+        Call<ResponseBody> call = apiClient.getSearchCriteria(zoneId);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+
+                        ArrayList<SearchCWSModel> data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<SearchCWSModel>>() {
+                        }.getType());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.d(TAG, " @getZone : SUCCESS : " + response.body());
+
+                } else {
+
+                    Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(TAG, " @getZone : FAILURE : " + call.request());
+            }
+        });
     }
 }

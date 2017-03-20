@@ -6,19 +6,34 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.adapter.AdapterExpandableListView;
+import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
+import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
+import com.mapmyindia.ceinfo.silvassa.wsmodel.PropertWSModel;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by ceinfo on 01-03-2017.
@@ -119,5 +134,42 @@ public class ActivityResults extends BaseActivity {
             }
         });
 
+    }
+
+    private void SearchPropertyForCriteria(String pojo) {
+
+        RestApiClient apiClient = RestAppController.getRetrofitinstance().create(RestApiClient.class);
+        Call<ResponseBody> call = apiClient.searchProperty(pojo);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+
+                        ArrayList<PropertWSModel> data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<PropertWSModel>>() {
+                        }.getType());
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.d(TAG, " @getZone : SUCCESS : " + response.body());
+
+                } else {
+
+                    Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(TAG, " @getZone : FAILURE : " + call.request());
+            }
+        });
     }
 }
