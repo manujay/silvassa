@@ -17,15 +17,15 @@ import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
  * Created by ceinfo on 21-03-2017.
  */
 
-public class FilterableCursorRecyclerAdapter extends CursorRecyclerAdapter<RecyclerView.ViewHolder> {
+public class FilterRecyclerAdapter extends CursorRecyclerAdapter<RecyclerView.ViewHolder> {
 
     private Bundle mExtras;
 
-    public FilterableCursorRecyclerAdapter(Context context, Cursor cursor) {
+    public FilterRecyclerAdapter(Context context, Cursor cursor) {
         super(cursor);
     }
 
-    public FilterableCursorRecyclerAdapter setBundleExtras(Bundle extras) {
+    public FilterRecyclerAdapter setBundleExtras(Bundle extras) {
         this.mExtras = extras;
         return this;
     }

@@ -19,7 +19,7 @@ import android.widget.FilterQueryProvider;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
-import com.mapmyindia.ceinfo.silvassa.adapter.FilterableCursorRecyclerAdapter;
+import com.mapmyindia.ceinfo.silvassa.adapter.FilterRecyclerAdapter;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertySelection;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
@@ -34,7 +34,7 @@ public class ActivityPrefill extends BaseActivity {
     private static final String TAG = ActivityPrefill.class.getSimpleName();
     private static final int INIT_PREFILL_ADAPTER = 10010;
     private String preString;
-    private FilterableCursorRecyclerAdapter filterableCursorAdapter;
+    private FilterRecyclerAdapter filterableCursorAdapter;
     private RecyclerView recyclerView;
 
     @Override
@@ -96,7 +96,7 @@ public class ActivityPrefill extends BaseActivity {
             @Override
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
                 if (null == filterableCursorAdapter) {
-                    filterableCursorAdapter = new FilterableCursorRecyclerAdapter(ActivityPrefill.this, data).setBundleExtras(getIntent().getExtras());
+                    filterableCursorAdapter = new FilterRecyclerAdapter(ActivityPrefill.this, data).setBundleExtras(getIntent().getExtras());
                     recyclerView.setAdapter(filterableCursorAdapter);
                     setfilterQueryProvider();
                 }
@@ -150,7 +150,7 @@ public class ActivityPrefill extends BaseActivity {
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
 
-        filterableCursorAdapter = new FilterableCursorRecyclerAdapter(ActivityPrefill.this, null).setBundleExtras(getIntent().getExtras());
+        filterableCursorAdapter = new FilterRecyclerAdapter(ActivityPrefill.this, null).setBundleExtras(getIntent().getExtras());
 
         setfilterQueryProvider();
 

@@ -14,5 +14,4 @@ public class INTENT_PARAMETERS {
     public static final String _PREFILL_PROPERTYID = "prefill-propertyid";
     /* Request Codes*/
     public static final int _PREFILL_REQUEST = 11101;
-    public static final String _POSTJSONPAYLOAD = "post-json-payload";
 }
