@@ -158,17 +158,17 @@ public class ActivityResults extends BaseActivity {
                         e.printStackTrace();
                     }
 
-                    Log.d(TAG, " @getZone : SUCCESS : " + response.body());
+                    Log.d(TAG, " @SearchPropertyForCriteria : SUCCESS : " + response.body());
 
                 } else {
 
-                    Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                    Log.e(TAG, " @SearchPropertyForCriteria : FAILURE : " + call.request());
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                Log.e(TAG, " @SearchPropertyForCriteria : FAILURE : " + call.request());
             }
         });
     }

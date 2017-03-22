@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,6 +36,7 @@ import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
+import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
 
@@ -60,21 +62,12 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
     private static final int INIT_ZONE_LOADER = 12212;
     private LayoutActivitySyncsearchBinding binding;
     private SyncSpinnerAdapter spinnerAdapter;
+    private ProgressBar progressBar;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = DataBindingUtil.setContentView(this, R.layout.layout_activity_syncsearch);
-
-        if (Connectivity.isConnected(ActivitySyncSearch.this)) {
-
-            getZone();
-
-        } else {
-
-            Snackbar.make(getWindow().getDecorView(), "No Network Connectivity", Snackbar.LENGTH_SHORT);
-
-        }
 
         findViewByIDs();
     }
@@ -122,16 +115,18 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                ZoneCursor cursor = ((ZoneCursor) ((SyncSpinnerAdapter) parent.getAdapter()).getCursor());
+
+                if (cursor.moveToFirst())
+                    SharedPrefeHelper.setZoneId(ActivitySyncSearch.this, cursor.getZoneid());
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
             }
         });
 
         populateZoneSpinnerAdapter();
-
     }
 
     private void populateZoneSpinnerAdapter() {
@@ -160,9 +155,6 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         Bundle bundle = new Bundle();
 
         switch (v.getId()) {
-            case R.id.spinner_row0:
-                bundle.putString(INTENT_PARAMETERS._PREFILL_KEY, INTENT_PARAMETERS._PREFILL_ZONE);
-                break;
             case R.id.spinner_row1:
                 bundle.putString(INTENT_PARAMETERS._PREFILL_KEY, INTENT_PARAMETERS._PREFILL_OWNER);
                 break;
@@ -176,6 +168,11 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
                 break;
         }
 
+        ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
+
+        if (zoneCursor.moveToFirst())
+            bundle.putString(INTENT_PARAMETERS._PREFILL_ZONE, zoneCursor.getZoneid());
+
         Intent intent = new Intent(ActivitySyncSearch.this, ActivityPrefill.class);
         intent.putExtras(bundle);
         startActivityForResult(intent, INTENT_PARAMETERS._PREFILL_REQUEST);
@@ -188,8 +185,8 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         String occupier = binding.contentLayout.spinnerRow2.getText().toString();
         String property_id = binding.contentLayout.spinnerRow3.getText().toString();
 
-        if (binding.contentLayout.spinnerRow0.getSelectedItemPosition() < 1)
-            isValid = false;
+//        if (binding.contentLayout.spinnerRow0.getSelectedItemPosition() < 1)
+//            isValid = false;
 
         if (TextUtils.isEmpty(owner))
             isValid = false;
@@ -279,6 +276,17 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         contentValues.putZonename(zoneName);
         Uri uri = contentValues.insert(getContentResolver());
         return ContentUris.parseId(uri);
+    }
+
+    private void showProgress(boolean show) {
+        if (null == progressBar) {
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        }
+        if (show && progressBar.getVisibility() != View.VISIBLE) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     public class SyncSpinnerAdapter extends CursorAdapter {
