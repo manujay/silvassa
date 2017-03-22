@@ -6,33 +6,20 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.adapter.AdapterExpandableListView;
-import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
-import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
-import com.mapmyindia.ceinfo.silvassa.wsmodel.PropertWSModel;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by ceinfo on 01-03-2017.
@@ -51,24 +38,6 @@ public class ActivityResults extends BaseActivity {
         setContentView(R.layout.layout_activity_result);
 
         findViewByIDs();
-
-        Bundle extras = getIntent().getExtras();
-
-//        if (null != extras && extras.containsKey(INTENT_PARAMETERS._POSTJSONPAYLOAD)) {
-//
-//            String payload = extras.getString(INTENT_PARAMETERS._POSTJSONPAYLOAD);
-//
-//            if (!Connectivity.isConnected(this)) {
-//
-//                showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
-//
-//            } else {
-//
-//                SearchPropertyForCriteria(payload);
-//
-//            }
-//
-//        }
 
     }
 
@@ -161,62 +130,5 @@ public class ActivityResults extends BaseActivity {
         } else {
             progressBar.setVisibility(View.GONE);
         }
-    }
-
-    private void SearchPropertyForCriteria(String pojo) {
-
-        RestApiClient apiClient = RestAppController.getRetrofitinstance().create(RestApiClient.class);
-        Call<ResponseBody> call = apiClient.searchProperty(pojo);
-
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                if (response.isSuccessful()) {
-
-                    showProgress(false);
-
-                    try {
-
-                        JSONObject jsonObject = new JSONObject(response.body().string());
-
-                        if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
-                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
-                            return;
-                        }
-
-                        if (Integer.parseInt(jsonObject.getString("status")) != 200) {
-                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
-                            return;
-                        }
-
-                        if (null == jsonObject.get("data")) {
-                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
-                            return;
-                        }
-
-                        ArrayList<PropertWSModel> data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<PropertWSModel>>() {
-                        }.getType());
-
-                        Log.d(TAG, " @SearchPropertyForCriteria: " + data);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                    Log.d(TAG, " @SearchPropertyForCriteria : SUCCESS : " + response.body());
-
-                } else {
-
-                    Log.e(TAG, " @SearchPropertyForCriteria : FAILURE : " + call.request());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e(TAG, " @SearchPropertyForCriteria : FAILURE : " + call.request());
-            }
-        });
-
-        showProgress(true);
     }
 }

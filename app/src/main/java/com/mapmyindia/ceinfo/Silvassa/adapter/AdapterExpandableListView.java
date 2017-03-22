@@ -16,6 +16,7 @@ import java.util.Locale;
 
 /**
  * Implementation of ExpandableListview using Databinding
+ *
  * @author Manujay K. Yadav
  */
 
@@ -117,7 +118,7 @@ public class AdapterExpandableListView extends BaseExpandableListAdapter {
         return true;
     }
 
-    static class MyViewHolder {
+    private class MyViewHolder {
         private ListGroupBinding group;
         private ListItemBinding item;
 
