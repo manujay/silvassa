@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
-import com.mapmyindia.ceinfo.silvassa.provider.criteria.CriteriaCursor;
+import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyCursor;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 
 /**
@@ -36,29 +36,23 @@ public class FilterableCursorRecyclerAdapter extends CursorRecyclerAdapter<Recyc
 
             String preString = mExtras.getString(INTENT_PARAMETERS._PREFILL_KEY);
 
-            CriteriaCursor criteriaCursor = new CriteriaCursor(cursor);
+            PropertyCursor propertyCursor = new PropertyCursor(cursor);
 
             if (null != preString && preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OWNER)) {
 
-//                OwnerCursor ownerCursor = new OwnerCursor(cursor);
-
-                String ownerName = (criteriaCursor.getOwnername() == null ? "" : criteriaCursor.getOwnername());
+                String ownerName = (propertyCursor.getPropertyowner() == null ? "" : propertyCursor.getPropertyowner());
 
                 ((ViewHolder) holder).mItemTextView.setText(ownerName);
 
             } else if (null != preString && preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OCCUPIER)) {
 
-//                OccupierCursor occupierCursor = new OccupierCursor(cursor);
-
-                String occupierName = (criteriaCursor.getOccupiername() == null ? "" : criteriaCursor.getOccupiername());
+                String occupierName = (propertyCursor.getPropertyoccupiername() == null ? "" : propertyCursor.getPropertyoccupiername());
 
                 ((ViewHolder) holder).mItemTextView.setText(occupierName);
 
             } else if (null != preString && preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_PROPERTYID)) {
 
-//                PropertyCursor propertyCursor = new PropertyCursor(cursor);
-
-                String propertyId = (criteriaCursor.getPropid() == null ? "" : criteriaCursor.getPropid());
+                String propertyId = (propertyCursor.getPropertyuniqueid() == null ? "" : propertyCursor.getPropertyuniqueid());
 
                 ((ViewHolder) holder).mItemTextView.setText(propertyId);
             }

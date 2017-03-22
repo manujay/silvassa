@@ -18,6 +18,8 @@
     <string name="pay_now">Pay Now</string>
     <string name="amount">Amount</string>
     <string name="back">Back</string>
+    <string name="error_network">No Internet Connectivity</string>
+    <string name="error_server">Sorry, we r currently under maintenance!!</string>
 
 
     <string-array name="spinner_array">

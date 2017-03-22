@@ -9,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -21,10 +22,8 @@ import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.PropertWSModel;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +41,7 @@ import retrofit2.Response;
 public class ActivityResults extends BaseActivity {
 
     private static final String TAG = ActivityResults.class.getSimpleName();
-
+    ProgressBar progressBar;
     AppCompatButton mPayNowButton, mBackToResults;
 
     @Override
@@ -52,6 +51,24 @@ public class ActivityResults extends BaseActivity {
         setContentView(R.layout.layout_activity_result);
 
         findViewByIDs();
+
+        Bundle extras = getIntent().getExtras();
+
+//        if (null != extras && extras.containsKey(INTENT_PARAMETERS._POSTJSONPAYLOAD)) {
+//
+//            String payload = extras.getString(INTENT_PARAMETERS._POSTJSONPAYLOAD);
+//
+//            if (!Connectivity.isConnected(this)) {
+//
+//                showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
+//
+//            } else {
+//
+//                SearchPropertyForCriteria(payload);
+//
+//            }
+//
+//        }
 
     }
 
@@ -101,11 +118,10 @@ public class ActivityResults extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (!Connectivity.isConnected(ActivityResults.this)) {
-                    Snackbar.make(getWindow().getDecorView(), "No Internet Connectivity", Snackbar.LENGTH_SHORT).show();
+                    Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
                 } else {
                     startActivity(new Intent(ActivityResults.this, ActivityPayment.class));
                 }
-//        finish();
             }
         });
 
@@ -136,6 +152,17 @@ public class ActivityResults extends BaseActivity {
 
     }
 
+    private void showProgress(boolean show) {
+        if (null == progressBar) {
+            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        }
+        if (show && progressBar.getVisibility() != View.VISIBLE) {
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
+    }
+
     private void SearchPropertyForCriteria(String pojo) {
 
         RestApiClient apiClient = RestAppController.getRetrofitinstance().create(RestApiClient.class);
@@ -146,15 +173,33 @@ public class ActivityResults extends BaseActivity {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
+                    showProgress(false);
+
                     try {
+
                         JSONObject jsonObject = new JSONObject(response.body().string());
+
+                        if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
+                        if (Integer.parseInt(jsonObject.getString("status")) != 200) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
+                        if (null == jsonObject.get("data")) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
 
                         ArrayList<PropertWSModel> data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<PropertWSModel>>() {
                         }.getType());
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                        Log.d(TAG, " @SearchPropertyForCriteria: " + data);
+
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
@@ -171,5 +216,7 @@ public class ActivityResults extends BaseActivity {
                 Log.e(TAG, " @SearchPropertyForCriteria : FAILURE : " + call.request());
             }
         });
+
+        showProgress(true);
     }
 }

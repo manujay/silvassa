@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -19,10 +18,8 @@ import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
@@ -30,10 +27,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     private ProgressBar progressBar;
+
+    @Override
+    public void setTitle(String mTitle) {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         if (!Connectivity.isConnected(MainActivity.this)) {
-            Snackbar.make(getWindow().getDecorView(), "No Internet Connectivity", Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
         } else {
             getZone();
         }
@@ -66,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
 
+                        if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
+                        if (Integer.parseInt(jsonObject.getString("status")) != 200) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
                         ArrayList<ZoneWSModel> data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<ZoneWSModel>>() {
                         }.getType());
 
@@ -73,9 +85,7 @@ public class MainActivity extends AppCompatActivity {
                             insertZone(zoneWSModel.getZoneName(), zoneWSModel.getZoneId());
                         }
 
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 
