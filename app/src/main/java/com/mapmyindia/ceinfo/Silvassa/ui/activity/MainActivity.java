@@ -16,15 +16,20 @@ import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneContentValues;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
+import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
+import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
+import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.HttpException;
 import retrofit2.Response;
 
 public class MainActivity extends BaseActivity {
@@ -42,14 +47,16 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if (!Connectivity.isConnected(MainActivity.this)) {
-            Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+        if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
+            if (!Connectivity.isConnected(this)) {
+                Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+            } else {
+                getZone();
+            }
         } else {
-            getZone();
+            startActivity(new Intent(MainActivity.this, ActivityLogin.class));
+            finish();
         }
-
-        startActivity(new Intent(MainActivity.this, ActivityLogin.class));
-        finish();
     }
 
     private void getZone() {
@@ -61,20 +68,27 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                showProgress(false);
+
                 if (response.isSuccessful()) {
 
-                    showProgress(false);
-
                     try {
+
                         JSONObject jsonObject = new JSONObject(response.body().string());
 
                         if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
-                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            new DialogHandler(MainActivity.this).showAlertDialog(getString(R.string.error_server));
                             return;
                         }
 
                         if (Integer.parseInt(jsonObject.getString("status")) != 200) {
-                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            new DialogHandler(MainActivity.this).showAlertDialog(getString(R.string.error_server));
+                            return;
+                        }
+
+                        if (null == jsonObject.get("data")) {
+                            new DialogHandler(MainActivity.this).showAlertDialog(getString(R.string.error_server));
                             return;
                         }
 
@@ -85,7 +99,11 @@ public class MainActivity extends BaseActivity {
                             insertZone(zoneWSModel.getZoneName(), zoneWSModel.getZoneId());
                         }
 
+                        startActivity(new Intent(MainActivity.this, ActivityLogin.class));
+                        finish();
+
                     } catch (Exception e) {
+                        new DialogHandler(MainActivity.this).showAlertDialog(e.getMessage());
                         e.printStackTrace();
                     }
 
@@ -93,12 +111,25 @@ public class MainActivity extends BaseActivity {
 
                 } else {
                     Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                    new DialogHandler(MainActivity.this).showAlertDialog(call.request().toString());
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showProgress(false);
                 Log.e(TAG, " @getZone : FAILURE : " + call.request());
+
+                try {
+                    if (t instanceof IOException) {
+                        throw new IOException(t);
+                    } else if (t instanceof HttpException) {
+                        throw new Exception(t.getMessage());
+                    }
+                } catch (Exception e) {
+                    new DialogHandler(MainActivity.this).showAlertDialog(e.getMessage());
+                    e.printStackTrace();
+                }
             }
         });
 

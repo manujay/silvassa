@@ -1,18 +1,20 @@
 package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,19 +23,34 @@ import android.widget.AdapterView;
 import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.databinding.LayoutActivitySyncsearchBinding;
+import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyCursor;
+import com.mapmyindia.ceinfo.silvassa.provider.property.PropertySelection;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneColumns;
+import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneContentValues;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneSelection;
+import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
+import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.sync.SyncProvider;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
-import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
+import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
+import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.Locale;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by ceinfo on 27-02-2017.
@@ -50,9 +67,18 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         binding = DataBindingUtil.setContentView(this, R.layout.layout_activity_syncsearch);
 
         findViewByIDs();
+
+        if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
+            if (!Connectivity.isConnected(this)) {
+                Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+            } else {
+                getZone();
+            }
+        }
     }
 
     @Override
@@ -66,17 +92,10 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
 
         setTitle(getResources().getString(R.string.app_name));
 
-        ViewUtils.setColorToView("#bc0807", binding.contentLayout.etSearchButton);
-        ViewUtils.setColorToView("#4c4b97", binding.contentLayout.etSyncButton);
-
         binding.contentLayout.etSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isValidate()) {
-                    startActivity(new Intent(ActivitySyncSearch.this, ActivityResults.class));
-                } else {
-                    new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select \nOwner Name, Occupier Name or Property ID");
-                }
+                doSearch();
             }
         });
 
@@ -86,7 +105,7 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
                 if (!Connectivity.isConnected(ActivitySyncSearch.this)) {
                     showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
                 } else {
-                    doPost();
+                    doSync();
                 }
             }
         });
@@ -152,14 +171,18 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
                 break;
         }
 
-        ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
+        PropertySelection selection = new PropertySelection();
+        PropertyCursor cursor = selection.query(getContentResolver());
 
-        if (zoneCursor.moveToFirst())
-            bundle.putString(INTENT_PARAMETERS._PREFILL_ZONE, zoneCursor.getZoneid());
+        if (cursor.getCount() > 1) {
 
-        Intent intent = new Intent(ActivitySyncSearch.this, ActivityPrefill.class);
-        intent.putExtras(bundle);
-        startActivityForResult(intent, INTENT_PARAMETERS._PREFILL_REQUEST);
+            Intent intent = new Intent(ActivitySyncSearch.this, ActivityPrefill.class);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, INTENT_PARAMETERS._PREFILL_REQUEST);
+
+        } else {
+            new DialogHandler(ActivitySyncSearch.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
+        }
     }
 
     private void showProgress(boolean show) {
@@ -173,33 +196,52 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         }
     }
 
-    private boolean isValidate() {
+    private void doSearch() {
         boolean isValid = true;
 
         ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
         zoneCursor.moveToFirst();
 
-        String zoneId = !TextUtils.isEmpty(SharedPrefeHelper.getZoneId(this)) ? SharedPrefeHelper.getZoneId(this) : zoneCursor.getZoneid();
+        String zoneId = !StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this)) ? SharedPrefeHelper.getZoneId(this) : zoneCursor.getZoneid();
         String owner = binding.contentLayout.spinnerRow1.getText().toString();
         String occupier = binding.contentLayout.spinnerRow2.getText().toString();
         String property_id = binding.contentLayout.spinnerRow3.getText().toString();
 
-        if (TextUtils.isEmpty(zoneId))
+        if (StringUtils.isNullOrEmpty(zoneId))
             isValid = false;
 
-        if (TextUtils.isEmpty(owner))
+        if (StringUtils.isNullOrEmpty(owner))
             isValid = false;
 
-        if (TextUtils.isEmpty(occupier))
+        if (StringUtils.isNullOrEmpty(occupier))
             isValid = false;
 
-        if (TextUtils.isEmpty(property_id))
+        if (StringUtils.isNullOrEmpty(property_id))
             isValid = false;
 
-        return isValid;
+        if (isValid) {
+
+            PropertySelection selection = new PropertySelection();
+            PropertyCursor cursor = selection.query(getContentResolver());
+
+            if (cursor.getCount() > 1) {
+                Intent intent = new Intent(ActivitySyncSearch.this, ActivityResults.class);
+                Bundle bundle = new Bundle();
+                bundle.putString(INTENT_PARAMETERS._PREFILL_ZONE, zoneId);
+                bundle.putString(INTENT_PARAMETERS._PREFILL_OCCUPIER, occupier);
+                bundle.putString(INTENT_PARAMETERS._PREFILL_OWNER, owner);
+                bundle.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, property_id);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            } else {
+                new DialogHandler(ActivitySyncSearch.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
+            }
+        } else {
+            new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select\n\n\t Owner Name, Occupier Name or PropertyID");
+        }
     }
 
-    private void doPost() {
+    private void doSync() {
 
         showProgress(true);
 
@@ -208,9 +250,9 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
         zoneCursor.moveToFirst();
 
-        String zoneId = !TextUtils.isEmpty(SharedPrefeHelper.getZoneId(this)) ? SharedPrefeHelper.getZoneId(this) : zoneCursor.getZoneid();
+        String zoneId = !StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this)) ? SharedPrefeHelper.getZoneId(this) : zoneCursor.getZoneid();
 
-        if (!TextUtils.isEmpty(zoneId))
+        if (!StringUtils.isNullOrEmpty(zoneId))
             isValid = true;
 
         if (isValid) {
@@ -221,18 +263,18 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
                 @Override
                 public void onSyncResponse(String msg) {
                     showProgress(false);
-                    showToast(ActivitySyncSearch.this, msg);
+                    new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Data Synced Successfully");
                 }
 
                 @Override
                 public void onSyncError(String msg) {
                     showProgress(false);
-                    showSnackBar(getWindow().getDecorView(), msg);
+                    new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Data Synced Failed :Error\n\n\t" + msg);
                 }
             }, payload);
 
         } else {
-            new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select \nOwner Name, Occupier Name or Property ID");
+            new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select \n\n\tZone ID");
         }
     }
 
@@ -279,6 +321,75 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         Log.d(TAG, " @payload:toJson : " + toJson);
 
         return toJson;
+    }
+
+    private void getZone() {
+        RestApiClient apiClient = RestAppController.getRetrofitinstance().create(RestApiClient.class);
+
+        Call<ResponseBody> call = apiClient.getZone();
+
+        call.enqueue(new Callback<ResponseBody>() {
+
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                showProgress(false);
+
+                if (response.isSuccessful()) {
+
+                    try {
+
+                        JSONObject jsonObject = new JSONObject(response.body().string());
+
+                        if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
+                        if (Integer.parseInt(jsonObject.getString("status")) != 200) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
+                        if (null == jsonObject.get("data")) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
+                        ArrayList<ZoneWSModel> data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<ZoneWSModel>>() {
+                        }.getType());
+
+                        for (ZoneWSModel zoneWSModel : data) {
+                            insertZone(zoneWSModel.getZoneName(), zoneWSModel.getZoneId());
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    Log.d(TAG, " @getZone : SUCCESS : " + response.body());
+
+                } else {
+                    Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                showProgress(false);
+                Log.e(TAG, " @getZone : FAILURE : " + call.request());
+            }
+        });
+
+        showProgress(true);
+    }
+
+    private long insertZone(String zoneName, String zoneId) {
+        ZoneContentValues contentValues = new ZoneContentValues();
+        contentValues.putZoneid(zoneId);
+        contentValues.putZonename(zoneName);
+        Uri uri = contentValues.insert(getContentResolver());
+        return ContentUris.parseId(uri);
     }
 
     public class SyncSpinnerAdapter extends CursorAdapter {

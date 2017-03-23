@@ -107,13 +107,15 @@ public class SyncProvider {
                         Log.d(TAG, " @SyncProvider:doSync : " + data);
 
                     } catch (Exception e) {
+
+                        sendErrorResponse(listener, e.getMessage());
                         e.printStackTrace();
                     }
 
                     Log.d(TAG, " @SyncProvider:doSync : SUCCESS : " + response.body());
 
                 } else {
-
+                    sendErrorResponse(listener, response.message());
                     Log.e(TAG, " @SyncProvider:doSync : FAILURE : " + call.request());
                 }
             }

@@ -1,24 +1,30 @@
 package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
-import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
-import android.support.v7.widget.AppCompatButton;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ExpandableListView;
-import android.widget.ProgressBar;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
-import com.mapmyindia.ceinfo.silvassa.adapter.AdapterExpandableListView;
-import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
-import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
+import com.mapmyindia.ceinfo.silvassa.adapter.ResultsCursorAdapter;
+import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyCursor;
+import com.mapmyindia.ceinfo.silvassa.provider.property.PropertySelection;
+import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
+import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
+import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 
 /**
@@ -28,17 +34,79 @@ import java.util.Locale;
 public class ActivityResults extends BaseActivity {
 
     private static final String TAG = ActivityResults.class.getSimpleName();
-    ProgressBar progressBar;
-    AppCompatButton mPayNowButton, mBackToResults;
+    private static final int INIT_RESULTS_LOADER = 110254;
+    private String zoneId, occupier, owner, propertyId;
+    private RecyclerView recyclerView;
+    private ResultsCursorAdapter resultsCursorAdapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        if (null != getIntent().getExtras()) {
+            Bundle extras = getIntent().getExtras();
+            if (extras.containsKey(INTENT_PARAMETERS._PREFILL_ZONE)) {
+                zoneId = extras.getString(INTENT_PARAMETERS._PREFILL_ZONE);
+            }
+            if (extras.containsKey(INTENT_PARAMETERS._PREFILL_OCCUPIER)) {
+                occupier = extras.getString(INTENT_PARAMETERS._PREFILL_OCCUPIER);
+            }
+            if (extras.containsKey(INTENT_PARAMETERS._PREFILL_OWNER)) {
+                owner = extras.getString(INTENT_PARAMETERS._PREFILL_OWNER);
+            }
+            if (extras.containsKey(INTENT_PARAMETERS._PREFILL_PROPERTYID)) {
+                propertyId = extras.getString(INTENT_PARAMETERS._PREFILL_PROPERTYID);
+            }
+        }
+
         setContentView(R.layout.layout_activity_result);
 
         findViewByIDs();
 
+        populateResults();
+
+    }
+
+    private void populateResults() {
+        getSupportLoaderManager().initLoader(INIT_RESULTS_LOADER, null, new LoaderManager.LoaderCallbacks<Cursor>() {
+            @Override
+            public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+                PropertySelection selection = new PropertySelection();
+
+                if (!StringUtils.isNullOrEmpty(zoneId)) {
+                    selection.zoneidContains(zoneId);
+                }
+
+                if (!StringUtils.isNullOrEmpty(propertyId)) {
+                    selection.and().propertyuniqueidContains(propertyId);
+                }
+
+                if (!StringUtils.isNullOrEmpty(owner)) {
+                    selection.and().propertyownerContains(owner);
+                }
+
+                if (!StringUtils.isNullOrEmpty(occupier)) {
+                    selection.and().propertyoccupiernameContains(occupier);
+                }
+
+                return selection.getCursorLoader(ActivityResults.this);
+            }
+
+            @Override
+            public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+                PropertyCursor cursor = new PropertyCursor(data);
+                if (null == resultsCursorAdapter) {
+                    resultsCursorAdapter = new ResultsCursorAdapter(cursor);
+                    recyclerView.setAdapter(resultsCursorAdapter);
+                }
+                resultsCursorAdapter.changeCursor(cursor);
+            }
+
+            @Override
+            public void onLoaderReset(Loader<Cursor> loader) {
+                resultsCursorAdapter.swapCursor(null);
+            }
+        });
     }
 
     @Override
@@ -52,83 +120,180 @@ public class ActivityResults extends BaseActivity {
 
         setTitle(getResources().getString(R.string.app_name));
 
-        List<String> listDataHeader = new ArrayList<>();
+        recyclerView = (RecyclerView) findViewById(R.id.expandable_list);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setHasFixedSize(true);
+        RecyclerView.ItemDecoration itemDecoration = new
+                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(itemDecoration);
 
-        for (int i = 0; i < 5; i++) {
-            listDataHeader.add("S" + System.currentTimeMillis() / 1000);
-        }
+        resultsCursorAdapter = new ResultsCursorAdapter(null);
 
-        HashMap<String, List<String>> listChildData = new HashMap<>();
+        recyclerView.setAdapter(resultsCursorAdapter);
 
-        for (String e : listDataHeader) {
-            List<String> childlist = new ArrayList<>();
-            childlist.add(String.format(Locale.getDefault(), "Property ID   :%s", e));
-            childlist.add(String.format(Locale.getDefault(), "Name          :%s", getString(R.string.app_name)));
-            childlist.add(String.format(Locale.getDefault(), "Father's Name :%s", getString(R.string.app_name)));
-            childlist.add(String.format(Locale.getDefault(), "Address       :%s", getString(R.string.app_name)));
-            childlist.add(String.format(Locale.getDefault(), "Email         :%s", getString(R.string.app_name)));
-            childlist.add(String.format(Locale.getDefault(), "Phone No.     :%s", getString(R.string.app_name)));
-
-            listChildData.put(e, childlist);
-        }
-
-        final ExpandableListView expandableListView = (ExpandableListView) findViewById(R.id.expandable_list);
-        final AdapterExpandableListView mAdapterExpandListView = new AdapterExpandableListView(this, listDataHeader, listChildData);
-
-        expandableListView.setAdapter(mAdapterExpandListView);
-
-        mPayNowButton = (AppCompatButton) findViewById(R.id.et_pay_buttom);
-        mBackToResults = (AppCompatButton) findViewById(R.id.et_back_button);
-
-        ViewUtils.setColorToView("#bc0807", mPayNowButton);
-        ViewUtils.setColorToView("#4c4b97", mBackToResults);
-
-        mPayNowButton.setOnClickListener(new View.OnClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                if (!Connectivity.isConnected(ActivityResults.this)) {
-                    Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+            public void onItemClick(View view, int position) {
+
+                String propertyId = view.getTag().toString();
+
+                PlaceHolderFragment fragment = (PlaceHolderFragment) getSupportFragmentManager().findFragmentById(R.id.frame_results);
+
+                if (null == fragment) {
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                            .add(R.id.frame_results, PlaceHolderFragment.getInstance(propertyId),
+                                    PlaceHolderFragment.TAG)
+                            .addToBackStack(PlaceHolderFragment.TAG)
+                            .commit();
                 } else {
-                    startActivity(new Intent(ActivityResults.this, ActivityPayment.class));
+                    replaceFragmentWithAnimation(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG);
                 }
             }
-        });
-
-        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
-            @Override
-            public void onGroupExpand(int groupPosition) {
-                if (mBackToResults.getVisibility() == View.GONE) {
-                    mBackToResults.setVisibility(View.VISIBLE);
-                }
-            }
-        });
-
-        expandableListView.setOnGroupCollapseListener(new ExpandableListView.OnGroupCollapseListener() {
-            @Override
-            public void onGroupCollapse(int groupPosition) {
-                if (mBackToResults.getVisibility() == View.VISIBLE) {
-                    mBackToResults.setVisibility(View.GONE);
-                }
-            }
-        });
-
-        mBackToResults.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Todo Collapse expanded group
-            }
-        });
-
+        }));
     }
 
-    private void showProgress(boolean show) {
-        if (null == progressBar) {
-            progressBar = (ProgressBar) findViewById(R.id.progressBar);
+    public void replaceFragmentWithAnimation(android.support.v4.app.Fragment fragment, String tag) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
+        transaction.replace(R.id.frame_results, fragment);
+        transaction.addToBackStack(tag);
+        transaction.commit();
+    }
+
+    public static class PlaceHolderFragment extends Fragment {
+
+        public static final String TAG = PlaceHolderFragment.class.getSimpleName();
+
+        public static final String PLACEHOLDER_KEY = "key-property";
+
+        public PlaceHolderFragment() {
         }
-        if (show && progressBar.getVisibility() != View.VISIBLE) {
-            progressBar.setVisibility(View.VISIBLE);
-        } else {
-            progressBar.setVisibility(View.GONE);
+
+        public static PlaceHolderFragment getInstance(String property) {
+            PlaceHolderFragment fragment = new PlaceHolderFragment();
+            Bundle args = new Bundle();
+            args.putString(PLACEHOLDER_KEY, property);
+            fragment.setArguments(args);
+            return fragment;
+        }
+
+        @Nullable
+        @Override
+        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.layout_fragment_result, container, false);
+        }
+
+        @Override
+        public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+
+            initViews(view);
+        }
+
+        private void initViews(View view) {
+            addChildViews(view);
+        }
+
+        private void addChildViews(View view) {
+
+            PropertySelection selection = new PropertySelection();
+
+            selection.propertyuniqueid(getArguments().getString(PLACEHOLDER_KEY));
+
+            PropertyCursor cursor = selection.query(getActivity().getContentResolver());
+
+            cursor.moveToFirst();
+
+            RelativeLayout parent = (RelativeLayout) view.findViewById(R.id.relative_parent_tax_detail);
+
+            if (cursor.getCount() > 0)
+                for (int i = 0; i < cursor.getColumnCount(); i++) {
+                    TextView tv_taxdetail = new TextView(getActivity());
+                    tv_taxdetail.setId(i + 101545);
+                    tv_taxdetail.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%s : %s", cursor.getColumnName(i), cursor.getString(cursor.getColumnIndexOrThrow(cursor.getColumnName(i)))));
+                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv_taxdetail.getLayoutParams();
+                    layoutParams.bottomMargin = 10;
+                    layoutParams.topMargin = 10;
+                    layoutParams.leftMargin = 10;
+                    layoutParams.rightMargin = 10;
+                    if (parent.getChildCount() > 0)
+                        layoutParams.addRule(RelativeLayout.BELOW, parent.getChildAt(parent.getChildCount() - 1).getId());
+                    tv_taxdetail.setLayoutParams(layoutParams);
+                    parent.addView(tv_taxdetail);
+                }
+
+            cursor.close();
+
+//            LinearLayout linearChild = new LinearLayout(getActivity());
+//            linearChild.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//            linearChild.setOrientation(LinearLayout.VERTICAL);
+
+//            LinearLayout.LayoutParams paramsImageView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//            final ImageView imageView = new ImageView(getActivity());
+//            paramsImageView.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
+//            paramsImageView.topMargin = 16;
+//            paramsImageView.bottomMargin = 16;
+//            paramsImageView.height = 64;
+//            imageView.setLayoutParams(paramsImageView);
+//            imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_circle_outline_black_24dp));
+//
+//            final RelativeLayout relativeChild = new RelativeLayout(getActivity());
+//            relativeChild.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 350));
+//            relativeChild.setBackgroundColor(getResources().getColor(R.color.color_toolbar));
+//            relativeChild.setVisibility(View.GONE);
+
+//            imageView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    if (relativeChild.getVisibility() == View.GONE) {
+//                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_remove_circle_outline_black_24dp));
+//                        relativeChild.setVisibility(View.VISIBLE);
+//                    } else {
+//                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_circle_outline_black_24dp));
+//                        relativeChild.setVisibility(View.GONE);
+//                    }
+//                }
+//            });
+
+//            TaxdetailSelection taxdetailSelection = new TaxdetailSelection();
+//
+//            taxdetailSelection.propid(getArguments().getString(PLACEHOLDER_KEY));
+//
+//            TaxdetailCursor taxdetailCursor = taxdetailSelection.query(getActivity().getContentResolver());
+//
+//            taxdetailCursor.moveToFirst();
+//
+//            if (taxdetailCursor.getCount() > 0)
+//
+//                for (int i = 0; i < cursor.getColumnCount(); i++) {
+//                    TextView tv_taxdetail = new TextView(getActivity());
+//                    tv_taxdetail.setId(i);
+//                    tv_taxdetail.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+//                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%s : %s", taxdetailCursor.getColumnName(i), taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))));
+//                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tv_taxdetail.getLayoutParams();
+//                    params.bottomMargin = 10;
+//                    params.topMargin = 10;
+//                    params.leftMargin = 10;
+//                    params.rightMargin = 10;
+//                    if (relativeChild.getChildCount() > 0)
+//                        params.addRule(RelativeLayout.BELOW, relativeChild.getChildAt(parent.getChildCount() - 1).getId());
+//                    tv_taxdetail.setLayoutParams(params);
+//                    relativeChild.addView(tv_taxdetail);
+//                }
+//
+//            taxdetailCursor.close();
+
+//            linearChild.addView(imageView);
+//            linearChild.addView(relativeChild);
+
+//            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) linearChild.getLayoutParams();
+//            layoutParams.addRule(RelativeLayout.BELOW, parent.getChildAt(parent.getChildCount() - 1).getId());
+//            linearChild.setLayoutParams(layoutParams);
+//            parent.addView(linearChild);
         }
     }
 }

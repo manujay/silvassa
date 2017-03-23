@@ -32,6 +32,7 @@ public class ResultsCursorAdapter extends CursorRecyclerAdapter<RecyclerView.Vie
     public void onBindViewHolderCursor(RecyclerView.ViewHolder holder, Cursor cursor) {
         PropertyCursor propertyCursor = new PropertyCursor(cursor);
         ((ViewHolder) holder).mItemTextView.setText(propertyCursor.getPropertyuniqueid());
+        holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
     }
 
     @Override
