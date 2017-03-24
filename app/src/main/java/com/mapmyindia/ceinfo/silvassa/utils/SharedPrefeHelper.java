@@ -11,6 +11,7 @@ public class SharedPrefeHelper {
 
     private static final String DEFAULT_PREF = "com.mapmyindia.ceinfo.silvassa";
     private static final String PREFRENCE_KEY_ZONE = "default-zone";
+    private static final String PREFRENCE_LAST_SYNC = "last-sync";
     private static SharedPreferences mDefaultPref;
 
     private static SharedPreferences getDefaultPref(Context context) {
@@ -28,5 +29,16 @@ public class SharedPrefeHelper {
 
     public static String getZoneId(Context context) {
         return getDefaultPref(context).getString(PREFRENCE_KEY_ZONE, "");
+    }
+
+    public static String getLastSync(Context context) {
+        return getDefaultPref(context).getString(PREFRENCE_LAST_SYNC, "");
+    }
+
+    public static void setLastSync(Context context, String lastSync) {
+        SharedPreferences pref = getDefaultPref(context);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString(PREFRENCE_LAST_SYNC, lastSync);
+        editor.commit();
     }
 }

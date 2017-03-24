@@ -1,5 +1,6 @@
 package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,6 +29,7 @@ import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailSelection;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
+import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 
 import java.util.Locale;
@@ -123,7 +125,7 @@ public class ActivityResults extends BaseActivity {
 
         setToolbar((Toolbar) findViewById(R.id.toolbar));
 
-        setTitle(getResources().getString(R.string.app_name));
+        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ActivityResults.this));
 
         recyclerView = (RecyclerView) findViewById(R.id.expandable_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -156,8 +158,27 @@ public class ActivityResults extends BaseActivity {
                 } else {
                     replaceFragmentWithAnimation(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG);
                 }
+
+                findViewById(R.id.container_back_pay).setVisibility(View.VISIBLE);
             }
         }));
+
+        findViewById(R.id.container_back_pay).setVisibility(View.GONE);
+
+        findViewById(R.id.et_back_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                findViewById(R.id.container_back_pay).setVisibility(View.GONE);
+                onBackPressed();
+            }
+        });
+
+        findViewById(R.id.et_pay_buttom).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(ActivityResults.this, ActivityPayment.class));
+            }
+        });
     }
 
     public void replaceFragmentWithAnimation(android.support.v4.app.Fragment fragment, String tag) {
@@ -166,6 +187,15 @@ public class ActivityResults extends BaseActivity {
         transaction.replace(R.id.frame_results, fragment);
         transaction.addToBackStack(tag);
         transaction.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+        if (findViewById(R.id.container_back_pay).getVisibility() == View.VISIBLE) {
+            findViewById(R.id.container_back_pay).setVisibility(View.GONE);
+        }
     }
 
     public static class PlaceHolderFragment extends Fragment {
@@ -225,7 +255,7 @@ public class ActivityResults extends BaseActivity {
                 for (int i = 1; i < cursor.getColumnCount(); i++) {
                     TextView tv_taxdetail = new TextView(getActivity());
                     tv_taxdetail.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%s : %s", cursor.getColumnName(i), cursor.getString(cursor.getColumnIndexOrThrow(cursor.getColumnName(i)))));
+                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%22s : %s", cursor.getColumnName(i), cursor.getString(cursor.getColumnIndexOrThrow(cursor.getColumnName(i)))));
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tv_taxdetail.getLayoutParams();
                     layoutParams.leftMargin = paddingLeft;
                     layoutParams.rightMargin = paddingRight;
@@ -297,7 +327,7 @@ public class ActivityResults extends BaseActivity {
                 for (int i = 1; i < taxdetailCursor.getColumnCount(); i++) {
                     TextView tv_taxdetail = new TextView(getActivity());
                     tv_taxdetail.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%s : %s", taxdetailCursor.getColumnName(i), taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))));
+                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%22s : %s", taxdetailCursor.getColumnName(i), taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))));
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tv_taxdetail.getLayoutParams();
                     params.leftMargin = paddingLeft;
                     params.rightMargin = paddingRight;

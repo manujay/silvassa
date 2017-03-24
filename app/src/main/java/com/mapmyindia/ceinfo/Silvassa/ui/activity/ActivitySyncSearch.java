@@ -44,7 +44,9 @@ import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import okhttp3.ResponseBody;
@@ -90,7 +92,7 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
 
         setToolbar((Toolbar) binding.toolbar.getRoot());
 
-        setTitle(getResources().getString(R.string.app_name));
+        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ActivitySyncSearch.this));
 
         binding.contentLayout.etSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -266,6 +268,9 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
                 public void onSyncResponse(String msg) {
                     showProgress(false);
                     new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Data Synced Successfully");
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    SharedPrefeHelper.setLastSync(ActivitySyncSearch.this, sdf.format(new Date()));
                 }
 
                 @Override
@@ -278,6 +283,8 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         } else {
             new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select \n\n\tZone ID");
         }
+
+        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ActivitySyncSearch.this));
     }
 
     @Override

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
+import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 
 /**
@@ -42,7 +43,7 @@ public class ActivityPayment extends BaseActivity {
 
         setToolbar((Toolbar) findViewById(R.id.toolbar));
 
-        setTitle(getResources().getString(R.string.app_name));
+        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ActivityPayment.this));
 
         RadioGroup rgPtop = (RadioGroup) findViewById(R.id.rg_ptp);
 
