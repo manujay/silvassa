@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.provider.property;
 // @formatter:off
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapmyindia.ceinfo.silvassa.provider.base.BaseModel;
 
@@ -51,6 +52,13 @@ public interface PropertyModel extends BaseModel {
      */
     @NonNull
     String getZoneid();
+
+    /**
+     * ward.
+     * Can be {@code null}.
+     */
+    @Nullable
+    String getWard();
 
     /**
      * propertySublocality.

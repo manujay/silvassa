@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.provider.property;
 // @formatter:off
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Property Table Schema
@@ -15,6 +16,7 @@ public class PropertyBean implements PropertyModel {
     private String mPropertyoccupiername;
     private String mPropertyrelationowner;
     private String mZoneid;
+    private String mWard;
     private String mPropertysublocality;
     private String mEmail;
     private String mPhone;
@@ -29,7 +31,7 @@ public class PropertyBean implements PropertyModel {
      * Instantiate a new PropertyBean with specified values.
      */
     @NonNull
-    public static PropertyBean newInstance(long id, @NonNull String propertyuniqueid, @NonNull String propertyowner, @NonNull String propertyoccupiername, @NonNull String propertyrelationowner, @NonNull String zoneid, @NonNull String propertysublocality, @NonNull String email, @NonNull String phone, @NonNull String propertylandmark, @NonNull String propertyplotno, @NonNull String propertyhouseno, @NonNull String propertyroad, @NonNull String propertypincode, @NonNull String propertybuildingname) {
+    public static PropertyBean newInstance(long id, @NonNull String propertyuniqueid, @NonNull String propertyowner, @NonNull String propertyoccupiername, @NonNull String propertyrelationowner, @NonNull String zoneid, @Nullable String ward, @NonNull String propertysublocality, @NonNull String email, @NonNull String phone, @NonNull String propertylandmark, @NonNull String propertyplotno, @NonNull String propertyhouseno, @NonNull String propertyroad, @NonNull String propertypincode, @NonNull String propertybuildingname) {
         if (propertyuniqueid == null)
             throw new IllegalArgumentException("propertyuniqueid must not be null");
         if (propertyowner == null)
@@ -62,6 +64,7 @@ public class PropertyBean implements PropertyModel {
         res.mPropertyoccupiername = propertyoccupiername;
         res.mPropertyrelationowner = propertyrelationowner;
         res.mZoneid = zoneid;
+        res.mWard = ward;
         res.mPropertysublocality = propertysublocality;
         res.mEmail = email;
         res.mPhone = phone;
@@ -86,6 +89,7 @@ public class PropertyBean implements PropertyModel {
         res.mPropertyoccupiername = from.getPropertyoccupiername();
         res.mPropertyrelationowner = from.getPropertyrelationowner();
         res.mZoneid = from.getZoneid();
+        res.mWard = from.getWard();
         res.mPropertysublocality = from.getPropertysublocality();
         res.mEmail = from.getEmail();
         res.mPhone = from.getPhone();
@@ -214,6 +218,24 @@ public class PropertyBean implements PropertyModel {
     public void setZoneid(@NonNull String zoneid) {
         if (zoneid == null) throw new IllegalArgumentException("zoneid must not be null");
         mZoneid = zoneid;
+    }
+
+    /**
+     * ward.
+     * Can be {@code null}.
+     */
+    @Nullable
+    @Override
+    public String getWard() {
+        return mWard;
+    }
+
+    /**
+     * ward.
+     * Can be {@code null}.
+     */
+    public void setWard(@Nullable String ward) {
+        mWard = ward;
     }
 
     /**
@@ -469,6 +491,15 @@ public class PropertyBean implements PropertyModel {
         public Builder zoneid(@NonNull String zoneid) {
             if (zoneid == null) throw new IllegalArgumentException("zoneid must not be null");
             mRes.mZoneid = zoneid;
+            return this;
+        }
+
+        /**
+         * ward.
+         * Can be {@code null}.
+         */
+        public Builder ward(@Nullable String ward) {
+            mRes.mWard = ward;
             return this;
         }
 

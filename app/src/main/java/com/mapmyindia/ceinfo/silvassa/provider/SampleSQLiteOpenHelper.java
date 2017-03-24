@@ -1,7 +1,6 @@
 package com.mapmyindia.ceinfo.silvassa.provider;
 
 // @formatter:off
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
@@ -46,6 +45,7 @@ public class SampleSQLiteOpenHelper extends SQLiteOpenHelper {
             + PropertyColumns.PROPERTYOCCUPIERNAME + " TEXT NOT NULL, "
             + PropertyColumns.PROPERTYRELATIONOWNER + " TEXT NOT NULL, "
             + PropertyColumns.ZONEID + " TEXT NOT NULL, "
+            + PropertyColumns.WARD + " TEXT, "
             + PropertyColumns.PROPERTYSUBLOCALITY + " TEXT NOT NULL, "
             + PropertyColumns.EMAIL + " TEXT NOT NULL, "
             + PropertyColumns.PHONE + " TEXT NOT NULL, "
@@ -60,11 +60,26 @@ public class SampleSQLiteOpenHelper extends SQLiteOpenHelper {
             + TaxdetailColumns.TABLE_NAME + " ( "
             + TaxdetailColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + TaxdetailColumns.TAXNO + " TEXT NOT NULL, "
-            + TaxdetailColumns.TAXAMOUNT + " TEXT NOT NULL, "
+            + TaxdetailColumns.PROPERTYID + " TEXT NOT NULL, "
+            + TaxdetailColumns.FINANCIALYEAR + " TEXT NOT NULL, "
+            + TaxdetailColumns.PROPERTYTAX + " TEXT NOT NULL, "
+            + TaxdetailColumns.WATERTAX + " TEXT NOT NULL, "
+            + TaxdetailColumns.CONSERVANCYTAX + " TEXT NOT NULL, "
+            + TaxdetailColumns.WATERSEWERAGECHARGE + " TEXT NOT NULL, "
+            + TaxdetailColumns.WATERMETERBILLAMOUNT + " TEXT NOT NULL, "
+            + TaxdetailColumns.ARREARAMOUNT + " TEXT NOT NULL, "
+            + TaxdetailColumns.ADVANCEPAIDAMOUNT + " TEXT NOT NULL, "
+            + TaxdetailColumns.REBATEAMOUNT + " TEXT NOT NULL, "
+            + TaxdetailColumns.ADJUSTMENTAMOUNT + " TEXT NOT NULL, "
+            + TaxdetailColumns.TOTALPROPERTYTAX + " TEXT NOT NULL, "
+            + TaxdetailColumns.SERVICETAX + " TEXT NOT NULL, "
+            + TaxdetailColumns.OTHERTAX + " TEXT NOT NULL, "
+            + TaxdetailColumns.GRANDTOTAL + " TEXT NOT NULL, "
+            + TaxdetailColumns.DELAYPAYMENTCHARGES + " TEXT NOT NULL, "
+            + TaxdetailColumns.PAYABLEAMOUNT + " TEXT NOT NULL, "
             + TaxdetailColumns.DUEDATE + " TEXT NOT NULL, "
             + TaxdetailColumns.NOTICEGENERATED + " TEXT NOT NULL, "
-            + TaxdetailColumns.PROPID + " TEXT NOT NULL, "
-            + TaxdetailColumns.FINANCIALYEAR + " TEXT NOT NULL "
+            + TaxdetailColumns.OBJECTIONSTATUS + " TEXT NOT NULL "
             + " );";
     public static final String SQL_CREATE_TABLE_ZONE = "CREATE TABLE IF NOT EXISTS "
             + ZoneColumns.TABLE_NAME + " ( "

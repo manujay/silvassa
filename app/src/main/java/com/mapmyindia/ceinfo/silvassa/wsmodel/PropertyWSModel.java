@@ -1,10 +1,9 @@
-
 package com.mapmyindia.ceinfo.silvassa.wsmodel;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PropertWSModel {
+public class PropertyWSModel {
 
     @SerializedName("propertyUniqueId")
     @Expose
@@ -51,9 +50,9 @@ public class PropertWSModel {
     @SerializedName("propertyBuildingName")
     @Expose
     private String propertyBuildingName;
-    @SerializedName("tAXDetail")
+    @SerializedName("tAXDetailBean")
     @Expose
-    private TAXDetail tAXDetail;
+    private TAXDetailBean tAXDetailBeanBean;
 
     public String getPropertyUniqueId() {
         return propertyUniqueId;
@@ -175,12 +174,12 @@ public class PropertWSModel {
         this.propertyBuildingName = propertyBuildingName;
     }
 
-    public TAXDetail getTAXDetail() {
-        return tAXDetail;
+    public TAXDetailBean getTAXDetailBean() {
+        return tAXDetailBeanBean;
     }
 
-    public void setTAXDetail(TAXDetail tAXDetail) {
-        this.tAXDetail = tAXDetail;
+    public void setTAXDetailBean(TAXDetailBean tAXDetailBeanBean) {
+        this.tAXDetailBeanBean = tAXDetailBeanBean;
     }
 
 }

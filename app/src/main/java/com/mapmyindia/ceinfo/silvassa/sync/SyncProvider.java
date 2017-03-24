@@ -17,8 +17,8 @@ import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.PostExecutionThread;
 import com.mapmyindia.ceinfo.silvassa.utils.UIThread;
-import com.mapmyindia.ceinfo.silvassa.wsmodel.PropertWSModel;
-import com.mapmyindia.ceinfo.silvassa.wsmodel.TAXDetail;
+import com.mapmyindia.ceinfo.silvassa.wsmodel.PropertyWSModel;
+import com.mapmyindia.ceinfo.silvassa.wsmodel.TAXDetailBean;
 
 import org.json.JSONObject;
 
@@ -92,7 +92,7 @@ public class SyncProvider {
                             return;
                         }
 
-                        final ArrayList<PropertWSModel> data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<PropertWSModel>>() {
+                        final ArrayList<PropertyWSModel> data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<PropertyWSModel>>() {
                         }.getType());
 
                         new Thread(new Runnable() {
@@ -140,9 +140,9 @@ public class SyncProvider {
     }
 
 
-    private void saveInDatabase(List<PropertWSModel> modelList) {
+    private void saveInDatabase(List<PropertyWSModel> modelList) {
 
-        for (PropertWSModel wsModel : modelList) {
+        for (PropertyWSModel wsModel : modelList) {
 
             try {
                 PropertyContentValues values = new PropertyContentValues();
@@ -161,18 +161,33 @@ public class SyncProvider {
                 values.putPropertypincode(wsModel.getPropertyPincode());
                 values.putPropertybuildingname(wsModel.getPropertyBuildingName());
 
-                if (null != wsModel.getTAXDetail()) {
-                    TAXDetail taxDetail = wsModel.getTAXDetail();
+                if (null != wsModel.getTAXDetailBean()) {
+                    TAXDetailBean taxDetailBean = wsModel.getTAXDetailBean();
                     TaxdetailContentValues tdContentValues = new TaxdetailContentValues();
-                    tdContentValues.putPropid(taxDetail.getPropId());
-                    tdContentValues.putTaxno(taxDetail.getTaxNo());
-                    tdContentValues.putTaxamount(taxDetail.getTaxAmount());
-                    tdContentValues.putDuedate(Long.toString(taxDetail.getDueDate()));
-                    tdContentValues.putFinancialyear(taxDetail.getFinancialYear());
-                    tdContentValues.putNoticegenerated(taxDetail.getNoticeGenerated());
+                    tdContentValues.putTaxno(taxDetailBean.getTaxNo());
+                    tdContentValues.putPropertyid(taxDetailBean.getPropertyId());
+                    tdContentValues.putFinancialyear(taxDetailBean.getFinancialYear());
+                    tdContentValues.putPropertytax(taxDetailBean.getPropertyTax());
+                    tdContentValues.putWatertax(taxDetailBean.getWaterTax());
+                    tdContentValues.putConservancytax(taxDetailBean.getConservancyTax());
+                    tdContentValues.putWaterseweragecharge(taxDetailBean.getWaterSewerageCharge());
+                    tdContentValues.putWatermeterbillamount(taxDetailBean.getWaterMeterBillAmount());
+                    tdContentValues.putArrearamount(taxDetailBean.getArrearAmount());
+                    tdContentValues.putAdvancepaidamount(taxDetailBean.getAdvancePaidAmount());
+                    tdContentValues.putRebateamount(taxDetailBean.getRebateAmount());
+                    tdContentValues.putAdjustmentamount(taxDetailBean.getAdjustmentAmount());
+                    tdContentValues.putTotalpropertytax(taxDetailBean.getTotalPropertyTax());
+                    tdContentValues.putServicetax(taxDetailBean.getServiceTax());
+                    tdContentValues.putOthertax(taxDetailBean.getOtherTax());
+                    tdContentValues.putGrandtotal(taxDetailBean.getGrandTotal());
+                    tdContentValues.putDelaypaymentcharges(taxDetailBean.getDelayPaymentCharges());
+                    tdContentValues.putPayableamount(taxDetailBean.getPayableAmount());
+                    tdContentValues.putDuedate(Long.toString(taxDetailBean.getDueDate()));
+                    tdContentValues.putNoticegenerated(taxDetailBean.getNoticeGenerated());
+                    tdContentValues.putObjectionstatus(taxDetailBean.getObjectionStatus());
 
                     TaxdetailSelection taxdetailSelection = new TaxdetailSelection();
-                    taxdetailSelection.propid(taxDetail.getPropId());
+                    taxdetailSelection.propertyid(taxDetailBean.getPropertyId());
 
                     TaxdetailCursor cursor = taxdetailSelection.query(mContext.getContentResolver());
 

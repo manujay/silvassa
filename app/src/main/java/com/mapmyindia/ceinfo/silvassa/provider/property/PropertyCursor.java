@@ -4,6 +4,7 @@ package com.mapmyindia.ceinfo.silvassa.provider.property;
 
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapmyindia.ceinfo.silvassa.provider.base.AbstractCursor;
 
@@ -89,6 +90,17 @@ public class PropertyCursor extends AbstractCursor implements PropertyModel {
         String res = getStringOrNull(PropertyColumns.ZONEID);
         if (res == null)
             throw new NullPointerException("The value of 'zoneid' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
+     * ward.
+     * Can be {@code null}.
+     */
+    @Nullable
+    @Override
+    public String getWard() {
+        String res = getStringOrNull(PropertyColumns.WARD);
         return res;
     }
 

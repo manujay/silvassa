@@ -38,7 +38,7 @@
             android:layout_weight=".1"
             android:focusable="false"
             android:focusableInTouchMode="false"
-            android:src="@drawable/ic_add_circle_outline_black_24dp"
+            android:src="@drawable/ic_add_circle_outline"
             tools:ignore="contentDescription" />
     </LinearLayout>
 </layout>

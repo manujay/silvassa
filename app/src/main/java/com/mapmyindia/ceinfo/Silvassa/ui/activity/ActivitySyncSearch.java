@@ -197,7 +197,7 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
     }
 
     private void doSearch() {
-        boolean isValid = true;
+        boolean isValid = false;
 
         ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
         zoneCursor.moveToFirst();
@@ -207,19 +207,19 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         String occupier = binding.contentLayout.spinnerRow2.getText().toString();
         String property_id = binding.contentLayout.spinnerRow3.getText().toString();
 
-        if (StringUtils.isNullOrEmpty(zoneId))
-            isValid = false;
+//        if (!StringUtils.isNullOrEmpty(zoneId))
+//            isValid = true;
 
-        if (StringUtils.isNullOrEmpty(owner))
-            isValid = false;
+        if (!StringUtils.isNullOrEmpty(owner))
+            isValid = true;
 
-        if (StringUtils.isNullOrEmpty(occupier))
-            isValid = false;
+        if (!StringUtils.isNullOrEmpty(occupier))
+            isValid = true;
 
-        if (StringUtils.isNullOrEmpty(property_id))
-            isValid = false;
+        if (!StringUtils.isNullOrEmpty(property_id))
+            isValid = true;
 
-        if (isValid) {
+        if (isValid && !StringUtils.isNullOrEmpty(zoneId)) {
 
             PropertySelection selection = new PropertySelection();
             PropertyCursor cursor = selection.query(getContentResolver());
@@ -236,6 +236,8 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
             } else {
                 new DialogHandler(ActivitySyncSearch.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
             }
+        } else if (StringUtils.isNullOrEmpty(zoneId)) {
+            new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select \n\n\tZone ID");
         } else {
             new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select\n\n\t Owner Name, Occupier Name or PropertyID");
         }

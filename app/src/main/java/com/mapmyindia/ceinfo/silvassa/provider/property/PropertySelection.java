@@ -23,7 +23,7 @@ public class PropertySelection extends AbstractSelection<PropertySelection> {
      * Query the given content resolver using this selection.
      *
      * @param contentResolver The content resolver to query.
-     * @param projection      A list of which columns to return. Passing null will return all columns, which is inefficient.
+     * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code PropertyCursor} object, which is positioned before the first entry, or null.
      */
     public PropertyCursor query(ContentResolver contentResolver, String[] projection) {
@@ -42,7 +42,7 @@ public class PropertySelection extends AbstractSelection<PropertySelection> {
     /**
      * Query the given content resolver using this selection.
      *
-     * @param context    The context to use for the query.
+     * @param context The context to use for the query.
      * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code PropertyCursor} object, which is positioned before the first entry, or null.
      */
@@ -276,6 +276,46 @@ public class PropertySelection extends AbstractSelection<PropertySelection> {
 
     public PropertySelection orderByZoneid() {
         orderBy(PropertyColumns.ZONEID, false);
+        return this;
+    }
+
+    public PropertySelection ward(String... value) {
+        addEquals(PropertyColumns.WARD, value);
+        return this;
+    }
+
+    public PropertySelection wardNot(String... value) {
+        addNotEquals(PropertyColumns.WARD, value);
+        return this;
+    }
+
+    public PropertySelection wardLike(String... value) {
+        addLike(PropertyColumns.WARD, value);
+        return this;
+    }
+
+    public PropertySelection wardContains(String... value) {
+        addContains(PropertyColumns.WARD, value);
+        return this;
+    }
+
+    public PropertySelection wardStartsWith(String... value) {
+        addStartsWith(PropertyColumns.WARD, value);
+        return this;
+    }
+
+    public PropertySelection wardEndsWith(String... value) {
+        addEndsWith(PropertyColumns.WARD, value);
+        return this;
+    }
+
+    public PropertySelection orderByWard(boolean desc) {
+        orderBy(PropertyColumns.WARD, desc);
+        return this;
+    }
+
+    public PropertySelection orderByWard() {
+        orderBy(PropertyColumns.WARD, false);
         return this;
     }
 

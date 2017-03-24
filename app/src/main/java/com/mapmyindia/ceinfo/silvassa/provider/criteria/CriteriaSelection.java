@@ -23,7 +23,7 @@ public class CriteriaSelection extends AbstractSelection<CriteriaSelection> {
      * Query the given content resolver using this selection.
      *
      * @param contentResolver The content resolver to query.
-     * @param projection      A list of which columns to return. Passing null will return all columns, which is inefficient.
+     * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code CriteriaCursor} object, which is positioned before the first entry, or null.
      */
     public CriteriaCursor query(ContentResolver contentResolver, String[] projection) {
@@ -42,7 +42,7 @@ public class CriteriaSelection extends AbstractSelection<CriteriaSelection> {
     /**
      * Query the given content resolver using this selection.
      *
-     * @param context    The context to use for the query.
+     * @param context The context to use for the query.
      * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code CriteriaCursor} object, which is positioned before the first entry, or null.
      */

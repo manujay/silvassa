@@ -2,23 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/base_color">
+    android:background="@null">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray">
 
-        <RelativeLayout
-            android:id="@+id/relative_parent_tax_detail"
+        <LinearLayout
+            android:id="@+id/linear_parent_tax_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/default_padding_medium"
-            android:paddingEnd="@dimen/default_padding_medium"
-            android:paddingLeft="@dimen/default_padding_medium"
-            android:paddingRight="@dimen/default_padding_medium"
-            android:paddingStart="@dimen/default_padding_medium"
-            android:paddingTop="@dimen/default_padding_medium" />
-
+            android:orientation="vertical" />
     </ScrollView>
 
     <include layout="@layout/linear_container_payment_button" />

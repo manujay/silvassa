@@ -11,9 +11,12 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -21,6 +24,8 @@ import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.adapter.ResultsCursorAdapter;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertySelection;
+import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailCursor;
+import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailSelection;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
@@ -207,93 +212,107 @@ public class ActivityResults extends BaseActivity {
 
             cursor.moveToFirst();
 
-            RelativeLayout parent = (RelativeLayout) view.findViewById(R.id.relative_parent_tax_detail);
+            LinearLayout parent = (LinearLayout) view.findViewById(R.id.linear_parent_tax_detail);
+
+            int paddingLeft = (int) getResources().getDimension(R.dimen.activity_horizontal_margin);
+            int paddingRight = (int) getResources().getDimension(R.dimen.activity_horizontal_margin);
+            int paddingTop = (int) getResources().getDimension(R.dimen.activity_vertical_margin);
+            int paddingBottom = (int) getResources().getDimension(R.dimen.activity_vertical_margin);
+
+            parent.setPadding(0, paddingTop, 0, paddingBottom);
 
             if (cursor.getCount() > 0)
-                for (int i = 0; i < cursor.getColumnCount(); i++) {
+                for (int i = 1; i < cursor.getColumnCount(); i++) {
                     TextView tv_taxdetail = new TextView(getActivity());
-                    tv_taxdetail.setId(i + 101545);
-                    tv_taxdetail.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    tv_taxdetail.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     tv_taxdetail.setText(String.format(Locale.getDefault(), "%s : %s", cursor.getColumnName(i), cursor.getString(cursor.getColumnIndexOrThrow(cursor.getColumnName(i)))));
-                    RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) tv_taxdetail.getLayoutParams();
-                    layoutParams.bottomMargin = 10;
-                    layoutParams.topMargin = 10;
-                    layoutParams.leftMargin = 10;
-                    layoutParams.rightMargin = 10;
-                    if (parent.getChildCount() > 0)
-                        layoutParams.addRule(RelativeLayout.BELOW, parent.getChildAt(parent.getChildCount() - 1).getId());
+                    LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tv_taxdetail.getLayoutParams();
+                    layoutParams.leftMargin = paddingLeft;
+                    layoutParams.rightMargin = paddingRight;
+                    layoutParams.bottomMargin = paddingBottom;
                     tv_taxdetail.setLayoutParams(layoutParams);
                     parent.addView(tv_taxdetail);
                 }
 
             cursor.close();
 
-//            LinearLayout linearChild = new LinearLayout(getActivity());
-//            linearChild.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//            linearChild.setOrientation(LinearLayout.VERTICAL);
+            RelativeLayout relativeChild = new RelativeLayout(getActivity());
+            relativeChild.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            relativeChild.setBackgroundColor(getResources().getColor(R.color.color_strip));
+            ((LinearLayout.LayoutParams) relativeChild.getLayoutParams()).gravity = Gravity.CENTER_VERTICAL;
+            ((LinearLayout.LayoutParams) relativeChild.getLayoutParams()).bottomMargin = paddingBottom;
 
-//            LinearLayout.LayoutParams paramsImageView = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//            final ImageView imageView = new ImageView(getActivity());
-//            paramsImageView.gravity = Gravity.END | Gravity.CENTER_VERTICAL;
-//            paramsImageView.topMargin = 16;
-//            paramsImageView.bottomMargin = 16;
-//            paramsImageView.height = 64;
-//            imageView.setLayoutParams(paramsImageView);
-//            imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_circle_outline_black_24dp));
-//
-//            final RelativeLayout relativeChild = new RelativeLayout(getActivity());
-//            relativeChild.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 350));
-//            relativeChild.setBackgroundColor(getResources().getColor(R.color.color_toolbar));
-//            relativeChild.setVisibility(View.GONE);
+            TextView taxDetailHeader = new TextView(getActivity());
+            taxDetailHeader.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            RelativeLayout.LayoutParams taxDetailHeaderLayoutParams = (RelativeLayout.LayoutParams) taxDetailHeader.getLayoutParams();
+            taxDetailHeaderLayoutParams.leftMargin = paddingLeft;
+            taxDetailHeaderLayoutParams.rightMargin = paddingRight;
+            taxDetailHeaderLayoutParams.bottomMargin = paddingBottom;
+            taxDetailHeaderLayoutParams.topMargin = paddingTop;
+            taxDetailHeaderLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
+            taxDetailHeader.setLayoutParams(taxDetailHeaderLayoutParams);
+            taxDetailHeader.setTextColor(getResources().getColor(android.R.color.black));
+            taxDetailHeader.setText("Tax Details(Rs)");
 
-//            imageView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (relativeChild.getVisibility() == View.GONE) {
-//                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_remove_circle_outline_black_24dp));
-//                        relativeChild.setVisibility(View.VISIBLE);
-//                    } else {
-//                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_circle_outline_black_24dp));
-//                        relativeChild.setVisibility(View.GONE);
-//                    }
-//                }
-//            });
+            final ImageView imageView = new ImageView(getActivity());
+            imageView.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            RelativeLayout.LayoutParams paramsImageView = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
+            paramsImageView.leftMargin = paddingLeft;
+            paramsImageView.rightMargin = paddingRight;
+            paramsImageView.bottomMargin = paddingBottom;
+            paramsImageView.topMargin = paddingTop;
+            paramsImageView.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            imageView.setLayoutParams(paramsImageView);
+            imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_circle_outline));
 
-//            TaxdetailSelection taxdetailSelection = new TaxdetailSelection();
-//
-//            taxdetailSelection.propid(getArguments().getString(PLACEHOLDER_KEY));
-//
-//            TaxdetailCursor taxdetailCursor = taxdetailSelection.query(getActivity().getContentResolver());
-//
-//            taxdetailCursor.moveToFirst();
-//
-//            if (taxdetailCursor.getCount() > 0)
-//
-//                for (int i = 0; i < cursor.getColumnCount(); i++) {
-//                    TextView tv_taxdetail = new TextView(getActivity());
-//                    tv_taxdetail.setId(i);
-//                    tv_taxdetail.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-//                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%s : %s", taxdetailCursor.getColumnName(i), taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))));
-//                    RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) tv_taxdetail.getLayoutParams();
-//                    params.bottomMargin = 10;
-//                    params.topMargin = 10;
-//                    params.leftMargin = 10;
-//                    params.rightMargin = 10;
-//                    if (relativeChild.getChildCount() > 0)
-//                        params.addRule(RelativeLayout.BELOW, relativeChild.getChildAt(parent.getChildCount() - 1).getId());
-//                    tv_taxdetail.setLayoutParams(params);
-//                    relativeChild.addView(tv_taxdetail);
-//                }
-//
-//            taxdetailCursor.close();
+            final LinearLayout linearChild = new LinearLayout(getActivity());
+            linearChild.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            LinearLayout.LayoutParams linearChildParams = (LinearLayout.LayoutParams) linearChild.getLayoutParams();
+            linearChild.setOrientation(LinearLayout.VERTICAL);
+            linearChild.setVisibility(View.GONE);
 
-//            linearChild.addView(imageView);
-//            linearChild.addView(relativeChild);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (linearChild.getVisibility() == View.GONE) {
+                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_remove_circle_outline));
+                        linearChild.setVisibility(View.VISIBLE);
+                    } else {
+                        imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_circle_outline));
+                        linearChild.setVisibility(View.GONE);
+                    }
+                }
+            });
 
-//            RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) linearChild.getLayoutParams();
-//            layoutParams.addRule(RelativeLayout.BELOW, parent.getChildAt(parent.getChildCount() - 1).getId());
-//            linearChild.setLayoutParams(layoutParams);
-//            parent.addView(linearChild);
+            TaxdetailSelection taxdetailSelection = new TaxdetailSelection();
+
+            taxdetailSelection.propertyid(getArguments().getString(PLACEHOLDER_KEY));
+
+            TaxdetailCursor taxdetailCursor = taxdetailSelection.query(getActivity().getContentResolver());
+
+            taxdetailCursor.moveToFirst();
+
+            if (taxdetailCursor.getCount() > 0)
+
+                for (int i = 1; i < taxdetailCursor.getColumnCount(); i++) {
+                    TextView tv_taxdetail = new TextView(getActivity());
+                    tv_taxdetail.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%s : %s", taxdetailCursor.getColumnName(i), taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))));
+                    LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tv_taxdetail.getLayoutParams();
+                    params.leftMargin = paddingLeft;
+                    params.rightMargin = paddingRight;
+                    params.bottomMargin = paddingBottom;
+                    tv_taxdetail.setLayoutParams(params);
+                    linearChild.addView(tv_taxdetail);
+                }
+
+            taxdetailCursor.close();
+
+            relativeChild.addView(taxDetailHeader);
+            relativeChild.addView(imageView);
+
+            parent.addView(relativeChild);
+            parent.addView(linearChild);
         }
     }
 }

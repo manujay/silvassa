@@ -46,6 +46,11 @@ public class PropertyColumns implements BaseColumns {
     public static final String ZONEID = "zoneId";
 
     /**
+     * ward.
+     */
+    public static final String WARD = "ward";
+
+    /**
      * propertySublocality.
      */
     public static final String PROPERTYSUBLOCALITY = "propertySublocality";
@@ -100,6 +105,7 @@ public class PropertyColumns implements BaseColumns {
             PROPERTYOCCUPIERNAME,
             PROPERTYRELATIONOWNER,
             ZONEID,
+            WARD,
             PROPERTYSUBLOCALITY,
             EMAIL,
             PHONE,
@@ -121,6 +127,7 @@ public class PropertyColumns implements BaseColumns {
             if (c.equals(PROPERTYRELATIONOWNER) || c.contains("." + PROPERTYRELATIONOWNER))
                 return true;
             if (c.equals(ZONEID) || c.contains("." + ZONEID)) return true;
+            if (c.equals(WARD) || c.contains("." + WARD)) return true;
             if (c.equals(PROPERTYSUBLOCALITY) || c.contains("." + PROPERTYSUBLOCALITY)) return true;
             if (c.equals(EMAIL) || c.contains("." + EMAIL)) return true;
             if (c.equals(PHONE) || c.contains("." + PHONE)) return true;

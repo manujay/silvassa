@@ -100,9 +100,9 @@ public class AdapterExpandableListView extends BaseExpandableListAdapter {
         holder.bindGroup(headerTitle);
 
         if (isExpanded) {
-            holder.group.addbutton.setImageDrawable(AdapterExpandableListView.this._context.getResources().getDrawable(R.drawable.ic_remove_circle_outline_black_24dp));
+            holder.group.addbutton.setImageDrawable(AdapterExpandableListView.this._context.getResources().getDrawable(R.drawable.ic_remove_circle_outline));
         } else {
-            holder.group.addbutton.setImageDrawable(AdapterExpandableListView.this._context.getResources().getDrawable(R.drawable.ic_add_circle_outline_black_24dp));
+            holder.group.addbutton.setImageDrawable(AdapterExpandableListView.this._context.getResources().getDrawable(R.drawable.ic_add_circle_outline));
         }
 
         return convertView;
