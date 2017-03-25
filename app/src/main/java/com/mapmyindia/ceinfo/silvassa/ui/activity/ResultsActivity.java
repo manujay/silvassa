@@ -2,7 +2,9 @@ package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,10 +21,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.adapter.ResultsCursorAdapter;
+import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertySelection;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailCursor;
@@ -38,9 +42,9 @@ import java.util.Locale;
  * Created by ceinfo on 01-03-2017.
  */
 
-public class ActivityResults extends BaseActivity {
+public class ResultsActivity extends BaseActivity {
 
-    private static final String TAG = ActivityResults.class.getSimpleName();
+    private static final String TAG = ResultsActivity.class.getSimpleName();
     private static final int INIT_RESULTS_LOADER = 110254;
     private String zoneId, occupier, owner, propertyId;
     private RecyclerView recyclerView;
@@ -96,14 +100,40 @@ public class ActivityResults extends BaseActivity {
                     selection.and().propertyoccupiernameContains(occupier);
                 }
 
-                return selection.getCursorLoader(ActivityResults.this);
+                return selection.getCursorLoader(ResultsActivity.this);
             }
 
             @Override
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
                 PropertyCursor cursor = new PropertyCursor(data);
+
+                if (cursor.getCount() > 1) {
+
+                    if (recyclerView.getVisibility() == View.GONE) {
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+
+                } else if (cursor.getCount() > 0) {
+
+                    if (recyclerView.getVisibility() == View.VISIBLE) {
+                        recyclerView.setVisibility(View.GONE);
+                    }
+
+                    cursor.moveToFirst();
+
+                    final String propertyId = cursor.getString(cursor.getColumnIndexOrThrow(PropertyColumns.PROPERTYUNIQUEID));
+
+                    new Handler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            showTaxDetails(propertyId);
+                        }
+                    });
+                }
+
                 if (null == resultsCursorAdapter) {
                     resultsCursorAdapter = new ResultsCursorAdapter(cursor);
+                    recyclerView.setVisibility(View.VISIBLE);
                     recyclerView.setAdapter(resultsCursorAdapter);
                 }
                 resultsCursorAdapter.changeCursor(cursor);
@@ -125,7 +155,7 @@ public class ActivityResults extends BaseActivity {
 
         setToolbar((Toolbar) findViewById(R.id.toolbar));
 
-        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ActivityResults.this));
+        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ResultsActivity.this));
 
         recyclerView = (RecyclerView) findViewById(R.id.expandable_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -142,43 +172,46 @@ public class ActivityResults extends BaseActivity {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
-                String propertyId = view.getTag().toString();
-
-                PlaceHolderFragment fragment = (PlaceHolderFragment) getSupportFragmentManager().findFragmentById(R.id.frame_results);
-
-                if (null == fragment) {
-                    getSupportFragmentManager()
-                            .beginTransaction()
-                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
-                            .add(R.id.frame_results, PlaceHolderFragment.getInstance(propertyId),
-                                    PlaceHolderFragment.TAG)
-                            .addToBackStack(PlaceHolderFragment.TAG)
-                            .commit();
-                } else {
-                    replaceFragmentWithAnimation(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG);
-                }
-
-                findViewById(R.id.container_back_pay).setVisibility(View.VISIBLE);
+                showTaxDetails(view.getTag().toString());
             }
         }));
 
-        findViewById(R.id.container_back_pay).setVisibility(View.GONE);
+//        findViewById(R.id.container_back_pay).setVisibility(View.GONE);
 
-        findViewById(R.id.et_back_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                findViewById(R.id.container_back_pay).setVisibility(View.GONE);
-                onBackPressed();
-            }
-        });
+//        findViewById(R.id.et_back_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                onBackPressed();
+//            }
+//        });
+//
+//        findViewById(R.id.et_pay_buttom).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(ResultsActivity.this, PaymentActivity.class));
+//            }
+//        });
 
-        findViewById(R.id.et_pay_buttom).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ActivityResults.this, ActivityPayment.class));
-            }
-        });
+
+    }
+
+    private void showTaxDetails(String propertyId) {
+
+        PlaceHolderFragment fragment = (PlaceHolderFragment) getSupportFragmentManager().findFragmentById(R.id.frame_results);
+
+        if (null == fragment) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
+                    .add(R.id.frame_results, PlaceHolderFragment.getInstance(propertyId),
+                            PlaceHolderFragment.TAG)
+                    .addToBackStack(PlaceHolderFragment.TAG)
+                    .commit();
+        } else {
+            replaceFragmentWithAnimation(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG);
+        }
+
+//        findViewById(R.id.container_back_pay).setVisibility(View.VISIBLE);
     }
 
     public void replaceFragmentWithAnimation(android.support.v4.app.Fragment fragment, String tag) {
@@ -191,12 +224,20 @@ public class ActivityResults extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
 
-        if (findViewById(R.id.container_back_pay).getVisibility() == View.VISIBLE) {
-            findViewById(R.id.container_back_pay).setVisibility(View.GONE);
+//        if (findViewById(R.id.container_back_pay).getVisibility() == View.VISIBLE) {
+//            findViewById(R.id.container_back_pay).setVisibility(View.GONE);
+//        }
+
+        if (null != resultsCursorAdapter && resultsCursorAdapter.getItemCount() > 1) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            finish();
         }
+
+        super.onBackPressed();
     }
+
 
     public static class PlaceHolderFragment extends Fragment {
 
@@ -226,13 +267,32 @@ public class ActivityResults extends BaseActivity {
             super.onViewCreated(view, savedInstanceState);
 
             initViews(view);
+
+            view.findViewById(R.id.et_back_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
+                }
+            });
+
+            view.findViewById(R.id.et_pay_buttom).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getActivity(), PaymentActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, getArguments().getString(PLACEHOLDER_KEY));
+                    intent.putExtras(bundle);
+                    getActivity().startActivity(intent);
+                }
+            });
+
         }
 
         private void initViews(View view) {
             addChildViews(view);
         }
 
-        private void addChildViews(View view) {
+        private void addChildViews(final View view) {
 
             PropertySelection selection = new PropertySelection();
 
@@ -254,8 +314,10 @@ public class ActivityResults extends BaseActivity {
             if (cursor.getCount() > 0)
                 for (int i = 1; i < cursor.getColumnCount(); i++) {
                     TextView tv_taxdetail = new TextView(getActivity());
+                    tv_taxdetail.setAllCaps(true);
+                    tv_taxdetail.setTypeface(Typeface.MONOSPACE);
                     tv_taxdetail.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%22s : %s", cursor.getColumnName(i), cursor.getString(cursor.getColumnIndexOrThrow(cursor.getColumnName(i)))));
+                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%-22s : %s", cursor.getColumnName(i), cursor.getString(cursor.getColumnIndexOrThrow(cursor.getColumnName(i)))));
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tv_taxdetail.getLayoutParams();
                     layoutParams.leftMargin = paddingLeft;
                     layoutParams.rightMargin = paddingRight;
@@ -297,7 +359,6 @@ public class ActivityResults extends BaseActivity {
 
             final LinearLayout linearChild = new LinearLayout(getActivity());
             linearChild.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            LinearLayout.LayoutParams linearChildParams = (LinearLayout.LayoutParams) linearChild.getLayoutParams();
             linearChild.setOrientation(LinearLayout.VERTICAL);
             linearChild.setVisibility(View.GONE);
 
@@ -307,6 +368,17 @@ public class ActivityResults extends BaseActivity {
                     if (linearChild.getVisibility() == View.GONE) {
                         imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_remove_circle_outline));
                         linearChild.setVisibility(View.VISIBLE);
+
+                        final ScrollView scrollView = (ScrollView) view.findViewById(R.id.parent_scrollview);
+                        final int diff = scrollView.getHeight() - scrollView.getScrollY();
+
+                        scrollView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                scrollView.scrollTo(0, diff);
+                            }
+                        });
+
                     } else {
                         imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_circle_outline));
                         linearChild.setVisibility(View.GONE);
@@ -326,8 +398,10 @@ public class ActivityResults extends BaseActivity {
 
                 for (int i = 1; i < taxdetailCursor.getColumnCount(); i++) {
                     TextView tv_taxdetail = new TextView(getActivity());
+                    tv_taxdetail.setTypeface(Typeface.MONOSPACE);
+                    tv_taxdetail.setAllCaps(true);
                     tv_taxdetail.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%22s : %s", taxdetailCursor.getColumnName(i), taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))));
+                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%-22s : %s", taxdetailCursor.getColumnName(i), taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))));
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tv_taxdetail.getLayoutParams();
                     params.leftMargin = paddingLeft;
                     params.rightMargin = paddingRight;

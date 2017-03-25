@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.AppCompatTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/single_item_spinner"
+    style="@style/TextAppearance.AppCompat"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:drawableEnd="@drawable/ic_expand_more"
+    android:drawableRight="@drawable/ic_expand_more"
+    android:paddingBottom="@dimen/padding_small"
+    android:paddingEnd="@dimen/padding_small"
+    android:paddingLeft="@dimen/padding_small"
+    android:paddingRight="@dimen/padding_small"
+    android:paddingStart="@dimen/padding_small"
+    android:paddingTop="@dimen/padding_small">
+
+</android.support.v7.widget.AppCompatTextView>

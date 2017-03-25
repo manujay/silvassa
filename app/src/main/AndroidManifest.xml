@@ -19,19 +19,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.ActivityLogin"
+            android:name=".ui.activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.ActivitySyncSearch"
+            android:name=".ui.activity.SyncSearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.ActivityResults"
+            android:name=".ui.activity.ResultsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.ActivityPayment"
+            android:name=".ui.activity.PaymentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.ActivityPrefill"
+            android:name=".ui.activity.PrefillActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PrintActivity"
             android:screenOrientation="portrait" />
 
         <provider

@@ -19,9 +19,9 @@ import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
  * Created by ceinfo on 27-02-2017.
  */
 
-public class ActivityLogin extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-    private static final String TAG = ActivityLogin.class.getSimpleName();
+    private static final String TAG = LoginActivity.class.getSimpleName();
 
     private AppCompatEditText mEditTextUname, mEditTextPaswd;
     private AppCompatButton mButtonLogin;
@@ -83,7 +83,7 @@ public class ActivityLogin extends AppCompatActivity {
             attemptLogin(username, paswd);
         } else {
 //            focusView.requestFocus();
-            new DialogHandler(ActivityLogin.this).showAlertDialog("Please provide a valid username/password");
+            new DialogHandler(LoginActivity.this).showAlertDialog("Please provide a valid username/password");
         }
 
 //        mEditTextUname.setText("");
@@ -95,7 +95,7 @@ public class ActivityLogin extends AppCompatActivity {
         payload.setUserName(username);
         payload.setPassword(pwd);
 
-        startActivity(new Intent(this, ActivitySyncSearch.class));
+        startActivity(new Intent(this, SyncSearchActivity.class));
 
 //        if (!Connectivity.isConnected(ActivityLogin.this)) {
 //            Snackbar.make(getWindow().getDecorView(), "No Internet Connectivity", Snackbar.LENGTH_SHORT).show();

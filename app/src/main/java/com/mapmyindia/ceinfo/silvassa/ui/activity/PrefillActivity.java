@@ -29,9 +29,9 @@ import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
  * Created by ceinfo on 07-03-2017.
  */
 
-public class ActivityPrefill extends BaseActivity {
+public class PrefillActivity extends BaseActivity {
 
-    private static final String TAG = ActivityPrefill.class.getSimpleName();
+    private static final String TAG = PrefillActivity.class.getSimpleName();
     private static final int INIT_PREFILL_ADAPTER = 10010;
     private String preString;
     private FilterRecyclerAdapter filterableCursorAdapter;
@@ -83,20 +83,20 @@ public class ActivityPrefill extends BaseActivity {
                 PropertySelection selection = new PropertySelection();
 
                 if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OWNER)) {
-                    return selection.getCursorLoader(ActivityPrefill.this, new String[]{PropertyColumns._ID, PropertyColumns.PROPERTYOWNER});
+                    return selection.getCursorLoader(PrefillActivity.this, new String[]{PropertyColumns._ID, PropertyColumns.PROPERTYOWNER});
                 } else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OCCUPIER)) {
-                    return selection.getCursorLoader(ActivityPrefill.this, new String[]{PropertyColumns._ID, PropertyColumns.PROPERTYOCCUPIERNAME});
+                    return selection.getCursorLoader(PrefillActivity.this, new String[]{PropertyColumns._ID, PropertyColumns.PROPERTYOCCUPIERNAME});
                 } else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_PROPERTYID)) {
-                    return selection.getCursorLoader(ActivityPrefill.this, new String[]{PropertyColumns._ID, PropertyColumns.PROPERTYUNIQUEID});
+                    return selection.getCursorLoader(PrefillActivity.this, new String[]{PropertyColumns._ID, PropertyColumns.PROPERTYUNIQUEID});
                 }
 
-                return selection.getCursorLoader(ActivityPrefill.this);
+                return selection.getCursorLoader(PrefillActivity.this);
             }
 
             @Override
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
                 if (null == filterableCursorAdapter) {
-                    filterableCursorAdapter = new FilterRecyclerAdapter(ActivityPrefill.this, data).setBundleExtras(getIntent().getExtras());
+                    filterableCursorAdapter = new FilterRecyclerAdapter(PrefillActivity.this, data).setBundleExtras(getIntent().getExtras());
                     recyclerView.setAdapter(filterableCursorAdapter);
                     setfilterQueryProvider();
                 }
@@ -150,7 +150,7 @@ public class ActivityPrefill extends BaseActivity {
                 DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecoration);
 
-        filterableCursorAdapter = new FilterRecyclerAdapter(ActivityPrefill.this, null).setBundleExtras(getIntent().getExtras());
+        filterableCursorAdapter = new FilterRecyclerAdapter(PrefillActivity.this, null).setBundleExtras(getIntent().getExtras());
 
         setfilterQueryProvider();
 

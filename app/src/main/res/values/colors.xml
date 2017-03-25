@@ -5,7 +5,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="color_toolbar">@color/color_strip</color>
+    <color name="color_toolbar">@color/gray</color>
     <color name="login_color">#FFBA0F0F</color>
     <color name="base_color">#FFD9EAFE</color>
     <color name="dark_gray">#FF5E5E5C</color>

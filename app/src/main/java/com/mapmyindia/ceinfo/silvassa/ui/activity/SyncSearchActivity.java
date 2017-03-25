@@ -58,9 +58,9 @@ import retrofit2.Response;
  * Created by ceinfo on 27-02-2017.
  */
 
-public class ActivitySyncSearch extends BaseActivity implements View.OnClickListener {
+public class SyncSearchActivity extends BaseActivity implements View.OnClickListener {
 
-    private static final String TAG = ActivitySyncSearch.class.getSimpleName();
+    private static final String TAG = SyncSearchActivity.class.getSimpleName();
     private static final int INIT_ZONE_LOADER = 12212;
     ProgressBar progressBar;
     private LayoutActivitySyncsearchBinding binding;
@@ -92,7 +92,7 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
 
         setToolbar((Toolbar) binding.toolbar.getRoot());
 
-        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ActivitySyncSearch.this));
+        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
 
         binding.contentLayout.etSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,7 +104,7 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
         binding.contentLayout.etSyncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!Connectivity.isConnected(ActivitySyncSearch.this)) {
+                if (!Connectivity.isConnected(SyncSearchActivity.this)) {
                     showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
                 } else {
                     doSync();
@@ -123,7 +123,7 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
                 ZoneCursor cursor = ((ZoneCursor) ((SyncSpinnerAdapter) parent.getAdapter()).getCursor());
 
                 if (cursor.moveToFirst())
-                    SharedPrefeHelper.setZoneId(ActivitySyncSearch.this, cursor.getZoneid());
+                    SharedPrefeHelper.setZoneId(SyncSearchActivity.this, cursor.getZoneid());
             }
 
             @Override
@@ -139,7 +139,7 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
             @Override
             public Loader<Cursor> onCreateLoader(int id, Bundle args) {
                 ZoneSelection selection = new ZoneSelection();
-                return selection.getCursorLoader(ActivitySyncSearch.this);
+                return selection.getCursorLoader(SyncSearchActivity.this);
             }
 
             @Override
@@ -178,12 +178,12 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
 
         if (cursor.getCount() > 1) {
 
-            Intent intent = new Intent(ActivitySyncSearch.this, ActivityPrefill.class);
+            Intent intent = new Intent(SyncSearchActivity.this, PrefillActivity.class);
             intent.putExtras(bundle);
             startActivityForResult(intent, INTENT_PARAMETERS._PREFILL_REQUEST);
 
         } else {
-            new DialogHandler(ActivitySyncSearch.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
+            new DialogHandler(SyncSearchActivity.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
         }
     }
 
@@ -227,7 +227,7 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
             PropertyCursor cursor = selection.query(getContentResolver());
 
             if (cursor.getCount() > 1) {
-                Intent intent = new Intent(ActivitySyncSearch.this, ActivityResults.class);
+                Intent intent = new Intent(SyncSearchActivity.this, ResultsActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(INTENT_PARAMETERS._PREFILL_ZONE, zoneId);
                 bundle.putString(INTENT_PARAMETERS._PREFILL_OCCUPIER, occupier);
@@ -236,12 +236,12 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
                 intent.putExtras(bundle);
                 startActivity(intent);
             } else {
-                new DialogHandler(ActivitySyncSearch.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
+                new DialogHandler(SyncSearchActivity.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
             }
         } else if (StringUtils.isNullOrEmpty(zoneId)) {
-            new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select \n\n\tZone ID");
+            new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select \n\n\tZone ID");
         } else {
-            new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select\n\n\t Owner Name, Occupier Name or PropertyID");
+            new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select\n\n\t Owner Name, Occupier Name or PropertyID");
         }
     }
 
@@ -263,28 +263,28 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
 
             String payload = payload("", "", "", zoneId);
 
-            SyncProvider.getInstance(ActivitySyncSearch.this).performSync(new SyncProvider.SyncProviderListener() {
+            SyncProvider.getInstance(SyncSearchActivity.this).performSync(new SyncProvider.SyncProviderListener() {
                 @Override
                 public void onSyncResponse(String msg) {
                     showProgress(false);
-                    new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Data Synced Successfully");
+                    new DialogHandler(SyncSearchActivity.this).showAlertDialog("Data Synced Successfully");
 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                    SharedPrefeHelper.setLastSync(ActivitySyncSearch.this, sdf.format(new Date()));
+                    SharedPrefeHelper.setLastSync(SyncSearchActivity.this, sdf.format(new Date()));
                 }
 
                 @Override
                 public void onSyncError(String msg) {
                     showProgress(false);
-                    new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Data Synced Failed :Error\n\n\t" + msg);
+                    new DialogHandler(SyncSearchActivity.this).showAlertDialog("Data Synced Failed :Error\n\n\t" + msg);
                 }
             }, payload);
 
         } else {
-            new DialogHandler(ActivitySyncSearch.this).showAlertDialog("Please select \n\n\tZone ID");
+            new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select \n\n\tZone ID");
         }
 
-        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ActivitySyncSearch.this));
+        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
     }
 
     @Override
@@ -409,13 +409,18 @@ public class ActivitySyncSearch extends BaseActivity implements View.OnClickList
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            return LayoutInflater.from(context).inflate(R.layout.layout_recycler_single_item, parent, false);
+            return LayoutInflater.from(context).inflate(R.layout.layout_zone_spinner_single_item, parent, false);
         }
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            AppCompatTextView textView = (AppCompatTextView) view.findViewById(R.id.item_tv);
+            AppCompatTextView textView = (AppCompatTextView) view.findViewById(R.id.single_item_spinner);
             textView.setText(String.format(Locale.getDefault(), "%s", cursor.getString(cursor.getColumnIndexOrThrow(ZoneColumns.ZONENAME))));
+        }
+
+        @Override
+        public View newDropDownView(Context context, Cursor cursor, ViewGroup parent) {
+            return LayoutInflater.from(context).inflate(R.layout.layout_zone_spinner_single_item, parent, false);
         }
     }
 

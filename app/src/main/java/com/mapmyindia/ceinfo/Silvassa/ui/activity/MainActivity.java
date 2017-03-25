@@ -54,7 +54,7 @@ public class MainActivity extends BaseActivity {
                 getZone();
             }
         } else {
-            startActivity(new Intent(MainActivity.this, ActivityLogin.class));
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         }
     }
@@ -99,7 +99,7 @@ public class MainActivity extends BaseActivity {
                             insertZone(zoneWSModel.getZoneName(), zoneWSModel.getZoneId());
                         }
 
-                        startActivity(new Intent(MainActivity.this, ActivityLogin.class));
+                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
                         finish();
 
                     } catch (Exception e) {

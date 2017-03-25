@@ -5,9 +5,10 @@
     android:background="@null">
 
     <ScrollView
+        android:id="@+id/parent_scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray">
+        android:background="@color/cardview_light_background">
 
         <LinearLayout
             android:id="@+id/linear_parent_tax_detail"
@@ -15,4 +16,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" />
     </ScrollView>
+
+    <include layout="@layout/linear_container_payment_button" />
 </RelativeLayout>

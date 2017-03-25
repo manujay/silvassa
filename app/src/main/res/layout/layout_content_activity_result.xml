@@ -4,21 +4,19 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/base_color">
+        android:background="@color/cardview_light_background">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/expandable_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@android:color/white"
-            android:dividerHeight="2dp" />
+            android:dividerHeight="2dp"
+            android:visibility="gone" />
 
         <FrameLayout
             android:id="@+id/frame_results"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-        <include layout="@layout/linear_container_payment_button" />
-
     </RelativeLayout>
 </layout>
