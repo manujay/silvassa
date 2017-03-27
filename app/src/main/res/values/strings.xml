@@ -21,6 +21,7 @@
     <string name="error_network">No Internet Connectivity</string>
     <string name="error_server">Sorry, we r currently under maintenance!!</string>
     <string name="print_response">Email has been sent Successfully</string>
+    <string name="error_payment">Failed to process payment</string>
 
 
     <string-array name="spinner_array">

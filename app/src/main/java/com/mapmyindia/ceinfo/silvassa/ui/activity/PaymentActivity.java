@@ -85,8 +85,6 @@ public class PaymentActivity extends BaseActivity {
 
         mProceedButton = (AppCompatButton) findViewById(R.id.et_payment_button);
 
-//        ViewUtils.setColorToView("#bc0807", mProceedButton);
-
         mProceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
