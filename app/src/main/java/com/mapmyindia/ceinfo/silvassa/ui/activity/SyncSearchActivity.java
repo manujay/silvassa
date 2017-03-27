@@ -199,7 +199,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
     }
 
     private void doSearch() {
-        boolean isValid = false;
+//        boolean isValid = false;
 
         ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
         zoneCursor.moveToFirst();
@@ -211,17 +211,17 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
 //        if (!StringUtils.isNullOrEmpty(zoneId))
 //            isValid = true;
+//
+//        if (!StringUtils.isNullOrEmpty(owner))
+//            isValid = true;
 
-        if (!StringUtils.isNullOrEmpty(owner))
-            isValid = true;
+//        if (!StringUtils.isNullOrEmpty(occupier))
+//            isValid = true;
 
-        if (!StringUtils.isNullOrEmpty(occupier))
-            isValid = true;
+//        if (!StringUtils.isNullOrEmpty(property_id))
+//            isValid = true;
 
-        if (!StringUtils.isNullOrEmpty(property_id))
-            isValid = true;
-
-        if (isValid && !StringUtils.isNullOrEmpty(zoneId)) {
+        if (!StringUtils.isNullOrEmpty(zoneId)) {
 
             PropertySelection selection = new PropertySelection();
             PropertyCursor cursor = selection.query(getContentResolver());
@@ -238,9 +238,9 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
             } else {
                 new DialogHandler(SyncSearchActivity.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
             }
-        } else if (StringUtils.isNullOrEmpty(zoneId)) {
+        } /*else if (StringUtils.isNullOrEmpty(zoneId)) {
             new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select \n\n\tZone ID");
-        } else {
+        } */ else {
             new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select\n\n\t Owner Name, Occupier Name or PropertyID");
         }
     }

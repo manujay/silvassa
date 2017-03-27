@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -161,9 +160,6 @@ public class ResultsActivity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
-        RecyclerView.ItemDecoration itemDecoration = new
-                DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(itemDecoration);
 
         resultsCursorAdapter = new ResultsCursorAdapter(null);
 
@@ -175,24 +171,6 @@ public class ResultsActivity extends BaseActivity {
                 showTaxDetails(view.getTag().toString());
             }
         }));
-
-//        findViewById(R.id.container_back_pay).setVisibility(View.GONE);
-
-//        findViewById(R.id.et_back_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onBackPressed();
-//            }
-//        });
-//
-//        findViewById(R.id.et_pay_buttom).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(ResultsActivity.this, PaymentActivity.class));
-//            }
-//        });
-
-
     }
 
     private void showTaxDetails(String propertyId) {
@@ -210,8 +188,6 @@ public class ResultsActivity extends BaseActivity {
         } else {
             replaceFragmentWithAnimation(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG);
         }
-
-//        findViewById(R.id.container_back_pay).setVisibility(View.VISIBLE);
     }
 
     public void replaceFragmentWithAnimation(android.support.v4.app.Fragment fragment, String tag) {
@@ -225,13 +201,10 @@ public class ResultsActivity extends BaseActivity {
     @Override
     public void onBackPressed() {
 
-//        if (findViewById(R.id.container_back_pay).getVisibility() == View.VISIBLE) {
-//            findViewById(R.id.container_back_pay).setVisibility(View.GONE);
-//        }
-
-        if (null != resultsCursorAdapter && resultsCursorAdapter.getItemCount() > 1) {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 1)
             getSupportFragmentManager().popBackStack();
-        } else {
+
+        if (null != resultsCursorAdapter && resultsCursorAdapter.getItemCount() == 1) {
             finish();
         }
 
@@ -298,9 +271,9 @@ public class ResultsActivity extends BaseActivity {
 
             selection.propertyuniqueid(getArguments().getString(PLACEHOLDER_KEY));
 
-            PropertyCursor cursor = selection.query(getActivity().getContentResolver());
+            PropertyCursor propertyCursor = selection.query(getActivity().getContentResolver());
 
-            cursor.moveToFirst();
+            propertyCursor.moveToFirst();
 
             LinearLayout parent = (LinearLayout) view.findViewById(R.id.linear_parent_tax_detail);
 
@@ -311,13 +284,13 @@ public class ResultsActivity extends BaseActivity {
 
             parent.setPadding(0, paddingTop, 0, paddingBottom);
 
-            if (cursor.getCount() > 0)
-                for (int i = 1; i < cursor.getColumnCount(); i++) {
+            if (propertyCursor.getCount() > 0)
+                for (int i = 1; i < propertyCursor.getColumnCount(); i++) {
                     TextView tv_taxdetail = new TextView(getActivity());
                     tv_taxdetail.setAllCaps(true);
                     tv_taxdetail.setTypeface(Typeface.MONOSPACE);
                     tv_taxdetail.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%-22s : %s", cursor.getColumnName(i), cursor.getString(cursor.getColumnIndexOrThrow(cursor.getColumnName(i)))));
+                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%-22s : %s", propertyCursor.getColumnName(i), propertyCursor.getString(propertyCursor.getColumnIndexOrThrow(propertyCursor.getColumnName(i)))));
                     LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tv_taxdetail.getLayoutParams();
                     layoutParams.leftMargin = paddingLeft;
                     layoutParams.rightMargin = paddingRight;
@@ -326,11 +299,11 @@ public class ResultsActivity extends BaseActivity {
                     parent.addView(tv_taxdetail);
                 }
 
-            cursor.close();
+            propertyCursor.close();
 
             RelativeLayout relativeChild = new RelativeLayout(getActivity());
             relativeChild.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            relativeChild.setBackgroundColor(getResources().getColor(R.color.color_strip));
+            relativeChild.setBackgroundColor(getResources().getColor(R.color.gray));
             ((LinearLayout.LayoutParams) relativeChild.getLayoutParams()).gravity = Gravity.CENTER_VERTICAL;
             ((LinearLayout.LayoutParams) relativeChild.getLayoutParams()).bottomMargin = paddingBottom;
 
@@ -343,7 +316,7 @@ public class ResultsActivity extends BaseActivity {
             taxDetailHeaderLayoutParams.topMargin = paddingTop;
             taxDetailHeaderLayoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
             taxDetailHeader.setLayoutParams(taxDetailHeaderLayoutParams);
-            taxDetailHeader.setTextColor(getResources().getColor(android.R.color.black));
+            taxDetailHeader.setTextColor(getResources().getColor(R.color.dark_gray));
             taxDetailHeader.setText("Tax Details(Rs)");
 
             final ImageView imageView = new ImageView(getActivity());
