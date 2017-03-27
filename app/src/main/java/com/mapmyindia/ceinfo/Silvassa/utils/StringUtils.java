@@ -16,6 +16,7 @@ public class StringUtils {
     public static final String CHARSET_UTF_8 = "UTF-8";
     public static final String MIME_TEXT_HTML = "text/html";
     public static final String EMAIL_REGEX = "\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*";
+    public static final String ddMMyyyy = "dd/MM/yyyy";
     private static final String LOG_TAG = "StringUtils";
 
     /**

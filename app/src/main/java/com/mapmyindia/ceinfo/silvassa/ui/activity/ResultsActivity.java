@@ -28,8 +28,10 @@ import com.mapmyindia.ceinfo.silvassa.adapter.ResultsCursorAdapter;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertySelection;
+import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailSelection;
+import com.mapmyindia.ceinfo.silvassa.utils.DateTimeUtils;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
@@ -374,7 +376,11 @@ public class ResultsActivity extends BaseActivity {
                     tv_taxdetail.setTypeface(Typeface.MONOSPACE);
                     tv_taxdetail.setAllCaps(true);
                     tv_taxdetail.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-                    tv_taxdetail.setText(String.format(Locale.getDefault(), "%-22s : %s", taxdetailCursor.getColumnName(i), taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))));
+
+                    if (taxdetailCursor.getColumnName(i).equalsIgnoreCase(TaxdetailColumns.DUEDATE))
+                        tv_taxdetail.setText(String.format(Locale.getDefault(), "%-22s : %s", taxdetailCursor.getColumnName(i), DateTimeUtils.getFormattedDatefromLong(Long.parseLong(taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))))));
+                    else
+                        tv_taxdetail.setText(String.format(Locale.getDefault(), "%-22s : %s", taxdetailCursor.getColumnName(i), taxdetailCursor.getString(taxdetailCursor.getColumnIndexOrThrow(taxdetailCursor.getColumnName(i)))));
                     LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) tv_taxdetail.getLayoutParams();
                     params.leftMargin = paddingLeft;
                     params.rightMargin = paddingRight;

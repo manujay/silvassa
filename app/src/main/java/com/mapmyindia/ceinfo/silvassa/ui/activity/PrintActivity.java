@@ -18,6 +18,7 @@ import com.mapmyindia.ceinfo.silvassa.provider.property.PropertySelection;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailSelection;
+import com.mapmyindia.ceinfo.silvassa.utils.DateTimeUtils;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 
@@ -82,31 +83,31 @@ public class PrintActivity extends BaseActivity {
             textView0.setAllCaps(true);
             textView0.setTypeface(Typeface.MONOSPACE);
             textView0.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView0.setText(String.format(Locale.getDefault(), "%-22s:%s", propertyCursor.getColumnName(propertyCursor.getColumnIndexOrThrow(PropertyColumns.PROPERTYUNIQUEID)), propertyCursor.getId()));
+            textView0.setText(String.format(Locale.getDefault(), "%-22s : %s", propertyCursor.getColumnName(propertyCursor.getColumnIndexOrThrow(PropertyColumns.PROPERTYUNIQUEID)), propertyCursor.getId()));
 
             TextView textView1 = new TextView(this);
             textView1.setAllCaps(true);
             textView1.setTypeface(Typeface.MONOSPACE);
             textView1.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView1.setText(String.format(Locale.getDefault(), "%-22s:%s", propertyCursor.getColumnName(propertyCursor.getColumnIndexOrThrow(PropertyColumns.PROPERTYOWNER)), propertyCursor.getPropertyowner()));
+            textView1.setText(String.format(Locale.getDefault(), "%-22s : %s", propertyCursor.getColumnName(propertyCursor.getColumnIndexOrThrow(PropertyColumns.PROPERTYOWNER)), propertyCursor.getPropertyowner()));
 
             TextView textView2 = new TextView(this);
             textView2.setAllCaps(true);
             textView2.setTypeface(Typeface.MONOSPACE);
             textView2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView2.setText(String.format(Locale.getDefault(), "%-22s:%s", taxdetailCursor.getColumnName(taxdetailCursor.getColumnIndexOrThrow(TaxdetailColumns.DUEDATE)), taxdetailCursor.getDuedate()));
+            textView2.setText(String.format(Locale.getDefault(), "%-22s : %s", taxdetailCursor.getColumnName(taxdetailCursor.getColumnIndexOrThrow(TaxdetailColumns.DUEDATE)), DateTimeUtils.getFormattedDatefromLong(Long.parseLong(taxdetailCursor.getDuedate()))));
 
             TextView textView3 = new TextView(this);
             textView3.setAllCaps(true);
             textView3.setTypeface(Typeface.MONOSPACE);
             textView3.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView3.setText(String.format(Locale.getDefault(), "%-22s:%s", taxdetailCursor.getColumnName(taxdetailCursor.getColumnIndexOrThrow(TaxdetailColumns.PAYABLEAMOUNT)), taxdetailCursor.getPayableamount()));
+            textView3.setText(String.format(Locale.getDefault(), "%-22s : %s", taxdetailCursor.getColumnName(taxdetailCursor.getColumnIndexOrThrow(TaxdetailColumns.PAYABLEAMOUNT)), taxdetailCursor.getPayableamount()));
 
             TextView textView4 = new TextView(this);
             textView4.setAllCaps(true);
             textView4.setTypeface(Typeface.MONOSPACE);
             textView4.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            textView4.setText(String.format(Locale.getDefault(), "%-22s:%s", propertyCursor.getColumnName(propertyCursor.getColumnIndexOrThrow(PropertyColumns.PHONE)), propertyCursor.getPhone()));
+            textView4.setText(String.format(Locale.getDefault(), "%-22s : %s", propertyCursor.getColumnName(propertyCursor.getColumnIndexOrThrow(PropertyColumns.PHONE)), propertyCursor.getPhone()));
 
             linear_parent.addView(textView0);
             linear_parent.addView(textView1);
