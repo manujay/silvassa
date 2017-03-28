@@ -176,7 +176,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
         PropertySelection selection = new PropertySelection();
         PropertyCursor cursor = selection.query(getContentResolver());
 
-        if (cursor.getCount() > 1) {
+        if (cursor.moveToFirst() && cursor.getCount() > 1) {
 
             Intent intent = new Intent(SyncSearchActivity.this, PrefillActivity.class);
             intent.putExtras(bundle);
