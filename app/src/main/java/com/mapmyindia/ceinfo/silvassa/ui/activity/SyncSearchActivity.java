@@ -15,7 +15,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +40,7 @@ import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;
 
@@ -327,7 +327,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         String toJson = new Gson().toJson(payload, Payload.class);
 
-        Log.d(TAG, " @payload:toJson : " + toJson);
+        Logger.d(TAG, " @payload:toJson : " + toJson);
 
         return toJson;
     }
@@ -376,17 +376,17 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                         e.printStackTrace();
                     }
 
-                    Log.d(TAG, " @getZone : SUCCESS : " + response.body());
+                    Logger.d(TAG, " @getZone : SUCCESS : " + response.body());
 
                 } else {
-                    Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                    Logger.e(TAG, " @getZone : FAILURE : " + call.request());
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 showProgress(false);
-                Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                Logger.e(TAG, " @getZone : FAILURE : " + call.request());
             }
         });
 

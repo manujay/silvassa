@@ -22,6 +22,7 @@ public class RestAppController {
     public static Retrofit getRetrofitinstance() {
         if (null == retrofit) {
             loggingInterceptor = new HttpLoggingInterceptor()
+                    .setLevel(HttpLoggingInterceptor.Level.HEADERS)
                     .setLevel(HttpLoggingInterceptor.Level.BODY);
             okHttpClient = new OkHttpClient.Builder()
                     .addInterceptor(loggingInterceptor).build();

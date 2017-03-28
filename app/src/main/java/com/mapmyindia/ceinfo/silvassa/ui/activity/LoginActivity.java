@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
@@ -12,6 +13,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 
@@ -97,16 +99,16 @@ public class LoginActivity extends AppCompatActivity {
 
         startActivity(new Intent(this, SyncSearchActivity.class));
 
-//        if (!Connectivity.isConnected(ActivityLogin.this)) {
-//            Snackbar.make(getWindow().getDecorView(), "No Internet Connectivity", Snackbar.LENGTH_SHORT).show();
-//        } else {
-//            startActivity(new Intent(this, ActivitySyncSearch.class));
-//        }
-//        finish();
+        if (!Connectivity.isConnected(LoginActivity.this)) {
+            Snackbar.make(getWindow().getDecorView(), "No Internet Connectivity", Snackbar.LENGTH_SHORT).show();
+        } else {
+            startActivity(new Intent(this, SyncSearchActivity.class));
+        }
+        finish();
     }
 
 
-    class UserModel {
+    public class UserModel {
         private String userName;
         private String password;
 
