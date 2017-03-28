@@ -4,6 +4,7 @@ import android.content.ContentUris;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -13,7 +14,10 @@ import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneContentValues;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
+import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
+import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
+import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
 import com.orhanobut.logger.Logger;
 
@@ -43,16 +47,16 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
-//            if (!Connectivity.isConnected(this)) {
-//                Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
-//            } else {
-//                getZone();
-//            }
-//        } else {
+        if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
+            if (!Connectivity.isConnected(this)) {
+                Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+            } else {
+                getZone();
+            }
+        } else {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
-//        }
+        }
     }
 
     private void getZone() {
