@@ -345,7 +345,7 @@ public class ResultsActivity extends BaseActivity {
                         linearChild.setVisibility(View.VISIBLE);
 
                         final ScrollView scrollView = (ScrollView) view.findViewById(R.id.parent_scrollview);
-                        final int diff = scrollView.getHeight() - scrollView.getScrollY();
+                        final int diff = (scrollView.getTop() + scrollView.getBottom()) / 2;
 
                         scrollView.post(new Runnable() {
                             @Override

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -20,6 +19,7 @@ import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;
 
@@ -107,10 +107,10 @@ public class MainActivity extends BaseActivity {
                         e.printStackTrace();
                     }
 
-                    Log.d(TAG, " @getZone : SUCCESS : " + response.body());
+                    Logger.d(TAG, " @getZone : SUCCESS : " + response.body());
 
                 } else {
-                    Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                    Logger.e(TAG, " @getZone : FAILURE : " + call.request());
                     new DialogHandler(MainActivity.this).showAlertDialog(call.request().toString());
                 }
             }
@@ -118,7 +118,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 showProgress(false);
-                Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                Logger.e(TAG, " @getZone : FAILURE : " + call.request());
 
                 try {
                     if (t instanceof IOException) {

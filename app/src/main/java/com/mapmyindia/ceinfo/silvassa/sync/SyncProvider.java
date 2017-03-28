@@ -1,7 +1,6 @@
 package com.mapmyindia.ceinfo.silvassa.sync;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -19,6 +18,7 @@ import com.mapmyindia.ceinfo.silvassa.utils.PostExecutionThread;
 import com.mapmyindia.ceinfo.silvassa.utils.UIThread;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.PropertyWSModel;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.TAXDetailBean;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;
 
@@ -104,7 +104,7 @@ public class SyncProvider {
 
                         sendSuccessResponse(listener, jsonObject.getString("message"));
 
-                        Log.d(TAG, " @SyncProvider:doSync : " + data);
+                        Logger.d(TAG, " @SyncProvider:doSync : " + data);
 
                     } catch (Exception e) {
 
@@ -112,17 +112,17 @@ public class SyncProvider {
                         e.printStackTrace();
                     }
 
-                    Log.d(TAG, " @SyncProvider:doSync : SUCCESS : " + response.body());
+                    Logger.d(TAG, " @SyncProvider:doSync : SUCCESS : " + response.body());
 
                 } else {
                     sendErrorResponse(listener, response.message());
-                    Log.e(TAG, " @SyncProvider:doSync : FAILURE : " + call.request());
+                    Logger.e(TAG, " @SyncProvider:doSync : FAILURE : " + call.request());
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e(TAG, " @getSearchCriteria : FAILURE : " + call.request());
+                Logger.e(TAG, " @getSearchCriteria : FAILURE : " + call.request());
 
                 try {
                     if (t instanceof IOException) {
@@ -224,7 +224,7 @@ public class SyncProvider {
             @Override
             public void run() {
                 if (null != listener) {
-                    Log.wtf(TAG, " @SyncProvider:sendErrorResponse : " + msg);
+                    Logger.wtf(TAG, " @SyncProvider:sendErrorResponse : " + msg);
                     listener.onSyncError(msg);
                 }
             }
@@ -236,7 +236,7 @@ public class SyncProvider {
             @Override
             public void run() {
                 if (null != listener) {
-                    Log.wtf(TAG, " @SyncProvider:sendSuccessResponse : " + msg);
+                    Logger.wtf(TAG, " @SyncProvider:sendSuccessResponse : " + msg);
                     listener.onSyncResponse(msg);
                 }
             }

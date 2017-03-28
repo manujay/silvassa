@@ -15,7 +15,6 @@ import android.support.v4.content.Loader;
 import android.support.v4.widget.CursorAdapter;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +40,7 @@ import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
+import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;
 
@@ -176,7 +176,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
         PropertySelection selection = new PropertySelection();
         PropertyCursor cursor = selection.query(getContentResolver());
 
-        if (cursor.getCount() > 1) {
+        if (cursor.moveToFirst() && cursor.getCount() > 1) {
 
             Intent intent = new Intent(SyncSearchActivity.this, PrefillActivity.class);
             intent.putExtras(bundle);
@@ -199,37 +199,38 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
     }
 
     private void doSearch() {
-//        boolean isValid = false;
+
+        boolean isValid = false;
 
         ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
-        zoneCursor.moveToFirst();
 
-        String zoneId = !StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this)) ? SharedPrefeHelper.getZoneId(this) : zoneCursor.getZoneid();
+        String zoneId = zoneCursor.moveToFirst() ? zoneCursor.getZoneid() : SharedPrefeHelper.getZoneId(this);
+
         String owner = binding.contentLayout.spinnerRow1.getText().toString();
         String occupier = binding.contentLayout.spinnerRow2.getText().toString();
         String property_id = binding.contentLayout.spinnerRow3.getText().toString();
 
-//        if (!StringUtils.isNullOrEmpty(zoneId))
-//            isValid = true;
-//
-//        if (!StringUtils.isNullOrEmpty(owner))
-//            isValid = true;
+        if (!StringUtils.isNullOrEmpty(zoneId))
+            isValid = true;
 
-//        if (!StringUtils.isNullOrEmpty(occupier))
-//            isValid = true;
+        if (!StringUtils.isNullOrEmpty(owner))
+            isValid = true;
 
-//        if (!StringUtils.isNullOrEmpty(property_id))
-//            isValid = true;
+        if (!StringUtils.isNullOrEmpty(occupier))
+            isValid = true;
 
-        if (!StringUtils.isNullOrEmpty(zoneId)) {
+        if (!StringUtils.isNullOrEmpty(property_id))
+            isValid = true;
+
+        if (isValid) {
 
             PropertySelection selection = new PropertySelection();
             PropertyCursor cursor = selection.query(getContentResolver());
 
-            if (cursor.getCount() > 1) {
+            if (cursor.moveToFirst() && cursor.getCount() > 1) {
                 Intent intent = new Intent(SyncSearchActivity.this, ResultsActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString(INTENT_PARAMETERS._PREFILL_ZONE, zoneId);
+                bundle.putString(INTENT_PARAMETERS._PREFILL_ZONE, SharedPrefeHelper.getZoneId(this));
                 bundle.putString(INTENT_PARAMETERS._PREFILL_OCCUPIER, occupier);
                 bundle.putString(INTENT_PARAMETERS._PREFILL_OWNER, owner);
                 bundle.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, property_id);
@@ -238,28 +239,27 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
             } else {
                 new DialogHandler(SyncSearchActivity.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
             }
-        } /*else if (StringUtils.isNullOrEmpty(zoneId)) {
+        } else if (StringUtils.isNullOrEmpty(zoneId)) {
             new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select \n\n\tZone ID");
-        } */ else {
+        } else {
             new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select\n\n\t Owner Name, Occupier Name or PropertyID");
         }
     }
 
     private void doSync() {
 
-        showProgress(true);
-
         boolean isValid = false;
 
         ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
-        zoneCursor.moveToFirst();
 
-        String zoneId = !StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this)) ? SharedPrefeHelper.getZoneId(this) : zoneCursor.getZoneid();
+        String zoneId = zoneCursor.moveToFirst() ? zoneCursor.getZoneid() : SharedPrefeHelper.getZoneId(this);
 
         if (!StringUtils.isNullOrEmpty(zoneId))
             isValid = true;
 
         if (isValid) {
+
+            showProgress(true);
 
             String payload = payload("", "", "", zoneId);
 
@@ -327,7 +327,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         String toJson = new Gson().toJson(payload, Payload.class);
 
-        Log.d(TAG, " @payload:toJson : " + toJson);
+        Logger.d(TAG, " @payload:toJson : " + toJson);
 
         return toJson;
     }
@@ -376,17 +376,17 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                         e.printStackTrace();
                     }
 
-                    Log.d(TAG, " @getZone : SUCCESS : " + response.body());
+                    Logger.d(TAG, " @getZone : SUCCESS : " + response.body());
 
                 } else {
-                    Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                    Logger.e(TAG, " @getZone : FAILURE : " + call.request());
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 showProgress(false);
-                Log.e(TAG, " @getZone : FAILURE : " + call.request());
+                Logger.e(TAG, " @getZone : FAILURE : " + call.request());
             }
         });
 
