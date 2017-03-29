@@ -93,35 +93,45 @@ public class ResultsActivity extends BaseActivity {
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
                 PropertyCursor cursor = new PropertyCursor(data);
 
+                if (null == resultsCursorAdapter) {
+                    resultsCursorAdapter = new ResultsCursorAdapter(cursor);
+                    recyclerView.setAdapter(resultsCursorAdapter);
+                }
+
+                /* handle empty results */
+
                 if (cursor.getCount() > 1) {
 
                     if (recyclerView.getVisibility() == View.GONE) {
                         recyclerView.setVisibility(View.VISIBLE);
                     }
 
+                    findViewById(R.id.empty_tv).setVisibility(View.GONE);
+
                 } else if (cursor.getCount() > 0) {
+
+                    /* set back to default*/
 
                     if (recyclerView.getVisibility() == View.VISIBLE) {
                         recyclerView.setVisibility(View.GONE);
                     }
 
-                    cursor.moveToFirst();
+                    findViewById(R.id.empty_tv).setVisibility(View.GONE);
 
-                    final String propertyId = cursor.getString(cursor.getColumnIndexOrThrow(PropertyColumns.PROPERTYUNIQUEID));
+                    if (cursor.moveToFirst()) {
+                        final String propertyId = cursor.getString(cursor.getColumnIndexOrThrow(PropertyColumns.PROPERTYUNIQUEID));
 
-                    new Handler().post(new Runnable() {
-                        @Override
-                        public void run() {
-                            showTaxDetails(propertyId);
-                        }
-                    });
+                        new Handler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                showTaxDetails(propertyId);
+                            }
+                        });
+                    }
+                } else {
+                    findViewById(R.id.empty_tv).setVisibility(View.VISIBLE);
                 }
 
-                if (null == resultsCursorAdapter) {
-                    resultsCursorAdapter = new ResultsCursorAdapter(cursor);
-                    recyclerView.setVisibility(View.VISIBLE);
-                    recyclerView.setAdapter(resultsCursorAdapter);
-                }
                 resultsCursorAdapter.changeCursor(cursor);
             }
 
@@ -193,9 +203,8 @@ public class ResultsActivity extends BaseActivity {
 
         if (null != resultsCursorAdapter && resultsCursorAdapter.getItemCount() == 1) {
             finish();
-        }
-
-        super.onBackPressed();
+        } else
+            super.onBackPressed();
     }
 
 
