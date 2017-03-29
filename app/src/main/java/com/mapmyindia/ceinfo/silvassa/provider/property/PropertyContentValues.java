@@ -53,44 +53,54 @@ public class PropertyContentValues extends AbstractContentValues {
     /**
      * propertyOwner.
      */
-    public PropertyContentValues putPropertyowner(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("propertyowner must not be null");
+    public PropertyContentValues putPropertyowner(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYOWNER, value);
         return this;
     }
 
+    public PropertyContentValues putPropertyownerNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYOWNER);
+        return this;
+    }
 
     /**
      * propertyOccupierName.
      */
-    public PropertyContentValues putPropertyoccupiername(@NonNull String value) {
-        if (value == null)
-            throw new IllegalArgumentException("propertyoccupiername must not be null");
+    public PropertyContentValues putPropertyoccupiername(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYOCCUPIERNAME, value);
         return this;
     }
 
+    public PropertyContentValues putPropertyoccupiernameNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYOCCUPIERNAME);
+        return this;
+    }
 
     /**
      * propertyRelationOwner.
      */
-    public PropertyContentValues putPropertyrelationowner(@NonNull String value) {
-        if (value == null)
-            throw new IllegalArgumentException("propertyrelationowner must not be null");
+    public PropertyContentValues putPropertyrelationowner(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYRELATIONOWNER, value);
         return this;
     }
 
+    public PropertyContentValues putPropertyrelationownerNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYRELATIONOWNER);
+        return this;
+    }
 
     /**
      * zoneId.
      */
-    public PropertyContentValues putZoneid(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("zoneid must not be null");
+    public PropertyContentValues putZoneid(@Nullable String value) {
         mContentValues.put(PropertyColumns.ZONEID, value);
         return this;
     }
 
+    public PropertyContentValues putZoneidNull() {
+        mContentValues.putNull(PropertyColumns.ZONEID);
+        return this;
+    }
 
     /**
      * ward.
@@ -108,92 +118,117 @@ public class PropertyContentValues extends AbstractContentValues {
     /**
      * propertySublocality.
      */
-    public PropertyContentValues putPropertysublocality(@NonNull String value) {
-        if (value == null)
-            throw new IllegalArgumentException("propertysublocality must not be null");
+    public PropertyContentValues putPropertysublocality(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYSUBLOCALITY, value);
         return this;
     }
 
+    public PropertyContentValues putPropertysublocalityNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYSUBLOCALITY);
+        return this;
+    }
 
     /**
      * email.
      */
-    public PropertyContentValues putEmail(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("email must not be null");
+    public PropertyContentValues putEmail(@Nullable String value) {
         mContentValues.put(PropertyColumns.EMAIL, value);
         return this;
     }
 
+    public PropertyContentValues putEmailNull() {
+        mContentValues.putNull(PropertyColumns.EMAIL);
+        return this;
+    }
 
     /**
      * phone.
      */
-    public PropertyContentValues putPhone(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("phone must not be null");
+    public PropertyContentValues putPhone(@Nullable String value) {
         mContentValues.put(PropertyColumns.PHONE, value);
         return this;
     }
 
+    public PropertyContentValues putPhoneNull() {
+        mContentValues.putNull(PropertyColumns.PHONE);
+        return this;
+    }
 
     /**
      * propertyLandmark.
      */
-    public PropertyContentValues putPropertylandmark(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("propertylandmark must not be null");
+    public PropertyContentValues putPropertylandmark(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYLANDMARK, value);
         return this;
     }
 
+    public PropertyContentValues putPropertylandmarkNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYLANDMARK);
+        return this;
+    }
 
     /**
      * propertyPlotNo.
      */
-    public PropertyContentValues putPropertyplotno(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("propertyplotno must not be null");
+    public PropertyContentValues putPropertyplotno(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYPLOTNO, value);
         return this;
     }
 
+    public PropertyContentValues putPropertyplotnoNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYPLOTNO);
+        return this;
+    }
 
     /**
      * propertyHouseNo.
      */
-    public PropertyContentValues putPropertyhouseno(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("propertyhouseno must not be null");
+    public PropertyContentValues putPropertyhouseno(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYHOUSENO, value);
         return this;
     }
 
+    public PropertyContentValues putPropertyhousenoNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYHOUSENO);
+        return this;
+    }
 
     /**
      * propertyRoad.
      */
-    public PropertyContentValues putPropertyroad(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("propertyroad must not be null");
+    public PropertyContentValues putPropertyroad(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYROAD, value);
         return this;
     }
 
+    public PropertyContentValues putPropertyroadNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYROAD);
+        return this;
+    }
 
     /**
      * propertyPincode.
      */
-    public PropertyContentValues putPropertypincode(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("propertypincode must not be null");
+    public PropertyContentValues putPropertypincode(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYPINCODE, value);
         return this;
     }
 
+    public PropertyContentValues putPropertypincodeNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYPINCODE);
+        return this;
+    }
 
     /**
      * propertyBuildingName.
      */
-    public PropertyContentValues putPropertybuildingname(@NonNull String value) {
-        if (value == null)
-            throw new IllegalArgumentException("propertybuildingname must not be null");
+    public PropertyContentValues putPropertybuildingname(@Nullable String value) {
         mContentValues.put(PropertyColumns.PROPERTYBUILDINGNAME, value);
         return this;
     }
 
+    public PropertyContentValues putPropertybuildingnameNull() {
+        mContentValues.putNull(PropertyColumns.PROPERTYBUILDINGNAME);
+        return this;
+    }
 }

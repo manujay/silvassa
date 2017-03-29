@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.sync;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyContentValues;
@@ -92,7 +93,9 @@ public class SyncProvider {
                             return;
                         }
 
-                        final ArrayList<PropertyWSModel> data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<PropertyWSModel>>() {
+                        Gson gson = new GsonBuilder().serializeNulls().create();
+
+                        final ArrayList<PropertyWSModel> data = gson.fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<PropertyWSModel>>() {
                         }.getType());
 
                         new Thread(new Runnable() {

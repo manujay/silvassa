@@ -43,53 +43,45 @@ public class PropertyCursor extends AbstractCursor implements PropertyModel {
 
     /**
      * propertyOwner.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyowner() {
         String res = getStringOrNull(PropertyColumns.PROPERTYOWNER);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertyowner' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * propertyOccupierName.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyoccupiername() {
         String res = getStringOrNull(PropertyColumns.PROPERTYOCCUPIERNAME);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertyoccupiername' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * propertyRelationOwner.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyrelationowner() {
         String res = getStringOrNull(PropertyColumns.PROPERTYRELATIONOWNER);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertyrelationowner' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * zoneId.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getZoneid() {
         String res = getStringOrNull(PropertyColumns.ZONEID);
-        if (res == null)
-            throw new NullPointerException("The value of 'zoneid' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
@@ -106,118 +98,100 @@ public class PropertyCursor extends AbstractCursor implements PropertyModel {
 
     /**
      * propertySublocality.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertysublocality() {
         String res = getStringOrNull(PropertyColumns.PROPERTYSUBLOCALITY);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertysublocality' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * email.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getEmail() {
         String res = getStringOrNull(PropertyColumns.EMAIL);
-        if (res == null)
-            throw new NullPointerException("The value of 'email' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * phone.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPhone() {
         String res = getStringOrNull(PropertyColumns.PHONE);
-        if (res == null)
-            throw new NullPointerException("The value of 'phone' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * propertyLandmark.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertylandmark() {
         String res = getStringOrNull(PropertyColumns.PROPERTYLANDMARK);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertylandmark' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * propertyPlotNo.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyplotno() {
         String res = getStringOrNull(PropertyColumns.PROPERTYPLOTNO);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertyplotno' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * propertyHouseNo.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyhouseno() {
         String res = getStringOrNull(PropertyColumns.PROPERTYHOUSENO);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertyhouseno' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * propertyRoad.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyroad() {
         String res = getStringOrNull(PropertyColumns.PROPERTYROAD);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertyroad' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * propertyPincode.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertypincode() {
         String res = getStringOrNull(PropertyColumns.PROPERTYPINCODE);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertypincode' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
     /**
      * propertyBuildingName.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertybuildingname() {
         String res = getStringOrNull(PropertyColumns.PROPERTYBUILDINGNAME);
-        if (res == null)
-            throw new NullPointerException("The value of 'propertybuildingname' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 }
