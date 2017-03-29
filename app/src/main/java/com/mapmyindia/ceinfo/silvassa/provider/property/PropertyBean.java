@@ -31,32 +31,9 @@ public class PropertyBean implements PropertyModel {
      * Instantiate a new PropertyBean with specified values.
      */
     @NonNull
-    public static PropertyBean newInstance(long id, @NonNull String propertyuniqueid, @NonNull String propertyowner, @NonNull String propertyoccupiername, @NonNull String propertyrelationowner, @NonNull String zoneid, @Nullable String ward, @NonNull String propertysublocality, @NonNull String email, @NonNull String phone, @NonNull String propertylandmark, @NonNull String propertyplotno, @NonNull String propertyhouseno, @NonNull String propertyroad, @NonNull String propertypincode, @NonNull String propertybuildingname) {
+    public static PropertyBean newInstance(long id, @NonNull String propertyuniqueid, @Nullable String propertyowner, @Nullable String propertyoccupiername, @Nullable String propertyrelationowner, @Nullable String zoneid, @Nullable String ward, @Nullable String propertysublocality, @Nullable String email, @Nullable String phone, @Nullable String propertylandmark, @Nullable String propertyplotno, @Nullable String propertyhouseno, @Nullable String propertyroad, @Nullable String propertypincode, @Nullable String propertybuildingname) {
         if (propertyuniqueid == null)
             throw new IllegalArgumentException("propertyuniqueid must not be null");
-        if (propertyowner == null)
-            throw new IllegalArgumentException("propertyowner must not be null");
-        if (propertyoccupiername == null)
-            throw new IllegalArgumentException("propertyoccupiername must not be null");
-        if (propertyrelationowner == null)
-            throw new IllegalArgumentException("propertyrelationowner must not be null");
-        if (zoneid == null) throw new IllegalArgumentException("zoneid must not be null");
-        if (propertysublocality == null)
-            throw new IllegalArgumentException("propertysublocality must not be null");
-        if (email == null) throw new IllegalArgumentException("email must not be null");
-        if (phone == null) throw new IllegalArgumentException("phone must not be null");
-        if (propertylandmark == null)
-            throw new IllegalArgumentException("propertylandmark must not be null");
-        if (propertyplotno == null)
-            throw new IllegalArgumentException("propertyplotno must not be null");
-        if (propertyhouseno == null)
-            throw new IllegalArgumentException("propertyhouseno must not be null");
-        if (propertyroad == null)
-            throw new IllegalArgumentException("propertyroad must not be null");
-        if (propertypincode == null)
-            throw new IllegalArgumentException("propertypincode must not be null");
-        if (propertybuildingname == null)
-            throw new IllegalArgumentException("propertybuildingname must not be null");
         PropertyBean res = new PropertyBean();
         res.mId = id;
         res.mPropertyuniqueid = propertyuniqueid;
@@ -143,9 +120,9 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyOwner.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyowner() {
         return mPropertyowner;
@@ -153,19 +130,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyOwner.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertyowner(@NonNull String propertyowner) {
-        if (propertyowner == null)
-            throw new IllegalArgumentException("propertyowner must not be null");
+    public void setPropertyowner(@Nullable String propertyowner) {
         mPropertyowner = propertyowner;
     }
 
     /**
      * propertyOccupierName.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyoccupiername() {
         return mPropertyoccupiername;
@@ -173,19 +148,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyOccupierName.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertyoccupiername(@NonNull String propertyoccupiername) {
-        if (propertyoccupiername == null)
-            throw new IllegalArgumentException("propertyoccupiername must not be null");
+    public void setPropertyoccupiername(@Nullable String propertyoccupiername) {
         mPropertyoccupiername = propertyoccupiername;
     }
 
     /**
      * propertyRelationOwner.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyrelationowner() {
         return mPropertyrelationowner;
@@ -193,19 +166,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyRelationOwner.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertyrelationowner(@NonNull String propertyrelationowner) {
-        if (propertyrelationowner == null)
-            throw new IllegalArgumentException("propertyrelationowner must not be null");
+    public void setPropertyrelationowner(@Nullable String propertyrelationowner) {
         mPropertyrelationowner = propertyrelationowner;
     }
 
     /**
      * zoneId.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getZoneid() {
         return mZoneid;
@@ -213,10 +184,9 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * zoneId.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setZoneid(@NonNull String zoneid) {
-        if (zoneid == null) throw new IllegalArgumentException("zoneid must not be null");
+    public void setZoneid(@Nullable String zoneid) {
         mZoneid = zoneid;
     }
 
@@ -240,9 +210,9 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertySublocality.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertysublocality() {
         return mPropertysublocality;
@@ -250,19 +220,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertySublocality.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertysublocality(@NonNull String propertysublocality) {
-        if (propertysublocality == null)
-            throw new IllegalArgumentException("propertysublocality must not be null");
+    public void setPropertysublocality(@Nullable String propertysublocality) {
         mPropertysublocality = propertysublocality;
     }
 
     /**
      * email.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getEmail() {
         return mEmail;
@@ -270,18 +238,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * email.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setEmail(@NonNull String email) {
-        if (email == null) throw new IllegalArgumentException("email must not be null");
+    public void setEmail(@Nullable String email) {
         mEmail = email;
     }
 
     /**
      * phone.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPhone() {
         return mPhone;
@@ -289,18 +256,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * phone.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPhone(@NonNull String phone) {
-        if (phone == null) throw new IllegalArgumentException("phone must not be null");
+    public void setPhone(@Nullable String phone) {
         mPhone = phone;
     }
 
     /**
      * propertyLandmark.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertylandmark() {
         return mPropertylandmark;
@@ -308,19 +274,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyLandmark.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertylandmark(@NonNull String propertylandmark) {
-        if (propertylandmark == null)
-            throw new IllegalArgumentException("propertylandmark must not be null");
+    public void setPropertylandmark(@Nullable String propertylandmark) {
         mPropertylandmark = propertylandmark;
     }
 
     /**
      * propertyPlotNo.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyplotno() {
         return mPropertyplotno;
@@ -328,19 +292,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyPlotNo.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertyplotno(@NonNull String propertyplotno) {
-        if (propertyplotno == null)
-            throw new IllegalArgumentException("propertyplotno must not be null");
+    public void setPropertyplotno(@Nullable String propertyplotno) {
         mPropertyplotno = propertyplotno;
     }
 
     /**
      * propertyHouseNo.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyhouseno() {
         return mPropertyhouseno;
@@ -348,19 +310,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyHouseNo.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertyhouseno(@NonNull String propertyhouseno) {
-        if (propertyhouseno == null)
-            throw new IllegalArgumentException("propertyhouseno must not be null");
+    public void setPropertyhouseno(@Nullable String propertyhouseno) {
         mPropertyhouseno = propertyhouseno;
     }
 
     /**
      * propertyRoad.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertyroad() {
         return mPropertyroad;
@@ -368,19 +328,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyRoad.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertyroad(@NonNull String propertyroad) {
-        if (propertyroad == null)
-            throw new IllegalArgumentException("propertyroad must not be null");
+    public void setPropertyroad(@Nullable String propertyroad) {
         mPropertyroad = propertyroad;
     }
 
     /**
      * propertyPincode.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertypincode() {
         return mPropertypincode;
@@ -388,19 +346,17 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyPincode.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertypincode(@NonNull String propertypincode) {
-        if (propertypincode == null)
-            throw new IllegalArgumentException("propertypincode must not be null");
+    public void setPropertypincode(@Nullable String propertypincode) {
         mPropertypincode = propertypincode;
     }
 
     /**
      * propertyBuildingName.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertybuildingname() {
         return mPropertybuildingname;
@@ -408,11 +364,9 @@ public class PropertyBean implements PropertyModel {
 
     /**
      * propertyBuildingName.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertybuildingname(@NonNull String propertybuildingname) {
-        if (propertybuildingname == null)
-            throw new IllegalArgumentException("propertybuildingname must not be null");
+    public void setPropertybuildingname(@Nullable String propertybuildingname) {
         mPropertybuildingname = propertybuildingname;
     }
 
@@ -453,43 +407,36 @@ public class PropertyBean implements PropertyModel {
 
         /**
          * propertyOwner.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertyowner(@NonNull String propertyowner) {
-            if (propertyowner == null)
-                throw new IllegalArgumentException("propertyowner must not be null");
+        public Builder propertyowner(@Nullable String propertyowner) {
             mRes.mPropertyowner = propertyowner;
             return this;
         }
 
         /**
          * propertyOccupierName.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertyoccupiername(@NonNull String propertyoccupiername) {
-            if (propertyoccupiername == null)
-                throw new IllegalArgumentException("propertyoccupiername must not be null");
+        public Builder propertyoccupiername(@Nullable String propertyoccupiername) {
             mRes.mPropertyoccupiername = propertyoccupiername;
             return this;
         }
 
         /**
          * propertyRelationOwner.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertyrelationowner(@NonNull String propertyrelationowner) {
-            if (propertyrelationowner == null)
-                throw new IllegalArgumentException("propertyrelationowner must not be null");
+        public Builder propertyrelationowner(@Nullable String propertyrelationowner) {
             mRes.mPropertyrelationowner = propertyrelationowner;
             return this;
         }
 
         /**
          * zoneId.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder zoneid(@NonNull String zoneid) {
-            if (zoneid == null) throw new IllegalArgumentException("zoneid must not be null");
+        public Builder zoneid(@Nullable String zoneid) {
             mRes.mZoneid = zoneid;
             return this;
         }
@@ -505,97 +452,81 @@ public class PropertyBean implements PropertyModel {
 
         /**
          * propertySublocality.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertysublocality(@NonNull String propertysublocality) {
-            if (propertysublocality == null)
-                throw new IllegalArgumentException("propertysublocality must not be null");
+        public Builder propertysublocality(@Nullable String propertysublocality) {
             mRes.mPropertysublocality = propertysublocality;
             return this;
         }
 
         /**
          * email.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder email(@NonNull String email) {
-            if (email == null) throw new IllegalArgumentException("email must not be null");
+        public Builder email(@Nullable String email) {
             mRes.mEmail = email;
             return this;
         }
 
         /**
          * phone.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder phone(@NonNull String phone) {
-            if (phone == null) throw new IllegalArgumentException("phone must not be null");
+        public Builder phone(@Nullable String phone) {
             mRes.mPhone = phone;
             return this;
         }
 
         /**
          * propertyLandmark.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertylandmark(@NonNull String propertylandmark) {
-            if (propertylandmark == null)
-                throw new IllegalArgumentException("propertylandmark must not be null");
+        public Builder propertylandmark(@Nullable String propertylandmark) {
             mRes.mPropertylandmark = propertylandmark;
             return this;
         }
 
         /**
          * propertyPlotNo.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertyplotno(@NonNull String propertyplotno) {
-            if (propertyplotno == null)
-                throw new IllegalArgumentException("propertyplotno must not be null");
+        public Builder propertyplotno(@Nullable String propertyplotno) {
             mRes.mPropertyplotno = propertyplotno;
             return this;
         }
 
         /**
          * propertyHouseNo.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertyhouseno(@NonNull String propertyhouseno) {
-            if (propertyhouseno == null)
-                throw new IllegalArgumentException("propertyhouseno must not be null");
+        public Builder propertyhouseno(@Nullable String propertyhouseno) {
             mRes.mPropertyhouseno = propertyhouseno;
             return this;
         }
 
         /**
          * propertyRoad.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertyroad(@NonNull String propertyroad) {
-            if (propertyroad == null)
-                throw new IllegalArgumentException("propertyroad must not be null");
+        public Builder propertyroad(@Nullable String propertyroad) {
             mRes.mPropertyroad = propertyroad;
             return this;
         }
 
         /**
          * propertyPincode.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertypincode(@NonNull String propertypincode) {
-            if (propertypincode == null)
-                throw new IllegalArgumentException("propertypincode must not be null");
+        public Builder propertypincode(@Nullable String propertypincode) {
             mRes.mPropertypincode = propertypincode;
             return this;
         }
 
         /**
          * propertyBuildingName.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertybuildingname(@NonNull String propertybuildingname) {
-            if (propertybuildingname == null)
-                throw new IllegalArgumentException("propertybuildingname must not be null");
+        public Builder propertybuildingname(@Nullable String propertybuildingname) {
             mRes.mPropertybuildingname = propertybuildingname;
             return this;
         }
@@ -606,29 +537,6 @@ public class PropertyBean implements PropertyModel {
         public PropertyBean build() {
             if (mRes.mPropertyuniqueid == null)
                 throw new IllegalArgumentException("propertyuniqueid must not be null");
-            if (mRes.mPropertyowner == null)
-                throw new IllegalArgumentException("propertyowner must not be null");
-            if (mRes.mPropertyoccupiername == null)
-                throw new IllegalArgumentException("propertyoccupiername must not be null");
-            if (mRes.mPropertyrelationowner == null)
-                throw new IllegalArgumentException("propertyrelationowner must not be null");
-            if (mRes.mZoneid == null) throw new IllegalArgumentException("zoneid must not be null");
-            if (mRes.mPropertysublocality == null)
-                throw new IllegalArgumentException("propertysublocality must not be null");
-            if (mRes.mEmail == null) throw new IllegalArgumentException("email must not be null");
-            if (mRes.mPhone == null) throw new IllegalArgumentException("phone must not be null");
-            if (mRes.mPropertylandmark == null)
-                throw new IllegalArgumentException("propertylandmark must not be null");
-            if (mRes.mPropertyplotno == null)
-                throw new IllegalArgumentException("propertyplotno must not be null");
-            if (mRes.mPropertyhouseno == null)
-                throw new IllegalArgumentException("propertyhouseno must not be null");
-            if (mRes.mPropertyroad == null)
-                throw new IllegalArgumentException("propertyroad must not be null");
-            if (mRes.mPropertypincode == null)
-                throw new IllegalArgumentException("propertypincode must not be null");
-            if (mRes.mPropertybuildingname == null)
-                throw new IllegalArgumentException("propertybuildingname must not be null");
             return mRes;
         }
     }

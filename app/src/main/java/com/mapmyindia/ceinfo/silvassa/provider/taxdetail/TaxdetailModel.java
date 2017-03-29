@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.provider.taxdetail;
 // @formatter:off
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapmyindia.ceinfo.silvassa.provider.base.BaseModel;
 
@@ -19,9 +20,9 @@ public interface TaxdetailModel extends BaseModel {
 
     /**
      * taxNo.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getTaxno();
 
     /**
@@ -33,134 +34,134 @@ public interface TaxdetailModel extends BaseModel {
 
     /**
      * financialYear.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getFinancialyear();
 
     /**
      * propertyTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertytax();
 
     /**
      * waterTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getWatertax();
 
     /**
      * conservancyTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getConservancytax();
 
     /**
      * waterSewerageCharge.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getWaterseweragecharge();
 
     /**
      * waterMeterBillAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getWatermeterbillamount();
 
     /**
      * arrearAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getArrearamount();
 
     /**
      * advancePaidAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getAdvancepaidamount();
 
     /**
      * rebateAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getRebateamount();
 
     /**
      * adjustmentAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getAdjustmentamount();
 
     /**
      * totalPropertyTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getTotalpropertytax();
 
     /**
      * serviceTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getServicetax();
 
     /**
      * otherTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getOthertax();
 
     /**
      * grandTotal.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getGrandtotal();
 
     /**
      * delayPaymentCharges.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getDelaypaymentcharges();
 
     /**
      * payableAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPayableamount();
 
     /**
      * dueDate.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getDuedate();
 
     /**
      * noticeGenerated.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getNoticegenerated();
 
     /**
      * objectionStatus.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getObjectionstatus();
 }

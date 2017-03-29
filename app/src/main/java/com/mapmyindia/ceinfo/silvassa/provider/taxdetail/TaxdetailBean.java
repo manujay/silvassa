@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.provider.taxdetail;
 // @formatter:off
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * TaxDetail Table Schema
@@ -36,41 +37,8 @@ public class TaxdetailBean implements TaxdetailModel {
      * Instantiate a new TaxdetailBean with specified values.
      */
     @NonNull
-    public static TaxdetailBean newInstance(long id, @NonNull String taxno, @NonNull String propertyid, @NonNull String financialyear, @NonNull String propertytax, @NonNull String watertax, @NonNull String conservancytax, @NonNull String waterseweragecharge, @NonNull String watermeterbillamount, @NonNull String arrearamount, @NonNull String advancepaidamount, @NonNull String rebateamount, @NonNull String adjustmentamount, @NonNull String totalpropertytax, @NonNull String servicetax, @NonNull String othertax, @NonNull String grandtotal, @NonNull String delaypaymentcharges, @NonNull String payableamount, @NonNull String duedate, @NonNull String noticegenerated, @NonNull String objectionstatus) {
-        if (taxno == null) throw new IllegalArgumentException("taxno must not be null");
+    public static TaxdetailBean newInstance(long id, @Nullable String taxno, @NonNull String propertyid, @Nullable String financialyear, @Nullable String propertytax, @Nullable String watertax, @Nullable String conservancytax, @Nullable String waterseweragecharge, @Nullable String watermeterbillamount, @Nullable String arrearamount, @Nullable String advancepaidamount, @Nullable String rebateamount, @Nullable String adjustmentamount, @Nullable String totalpropertytax, @Nullable String servicetax, @Nullable String othertax, @Nullable String grandtotal, @Nullable String delaypaymentcharges, @Nullable String payableamount, @Nullable String duedate, @Nullable String noticegenerated, @Nullable String objectionstatus) {
         if (propertyid == null) throw new IllegalArgumentException("propertyid must not be null");
-        if (financialyear == null)
-            throw new IllegalArgumentException("financialyear must not be null");
-        if (propertytax == null) throw new IllegalArgumentException("propertytax must not be null");
-        if (watertax == null) throw new IllegalArgumentException("watertax must not be null");
-        if (conservancytax == null)
-            throw new IllegalArgumentException("conservancytax must not be null");
-        if (waterseweragecharge == null)
-            throw new IllegalArgumentException("waterseweragecharge must not be null");
-        if (watermeterbillamount == null)
-            throw new IllegalArgumentException("watermeterbillamount must not be null");
-        if (arrearamount == null)
-            throw new IllegalArgumentException("arrearamount must not be null");
-        if (advancepaidamount == null)
-            throw new IllegalArgumentException("advancepaidamount must not be null");
-        if (rebateamount == null)
-            throw new IllegalArgumentException("rebateamount must not be null");
-        if (adjustmentamount == null)
-            throw new IllegalArgumentException("adjustmentamount must not be null");
-        if (totalpropertytax == null)
-            throw new IllegalArgumentException("totalpropertytax must not be null");
-        if (servicetax == null) throw new IllegalArgumentException("servicetax must not be null");
-        if (othertax == null) throw new IllegalArgumentException("othertax must not be null");
-        if (grandtotal == null) throw new IllegalArgumentException("grandtotal must not be null");
-        if (delaypaymentcharges == null)
-            throw new IllegalArgumentException("delaypaymentcharges must not be null");
-        if (payableamount == null)
-            throw new IllegalArgumentException("payableamount must not be null");
-        if (duedate == null) throw new IllegalArgumentException("duedate must not be null");
-        if (noticegenerated == null)
-            throw new IllegalArgumentException("noticegenerated must not be null");
-        if (objectionstatus == null)
-            throw new IllegalArgumentException("objectionstatus must not be null");
         TaxdetailBean res = new TaxdetailBean();
         res.mId = id;
         res.mTaxno = taxno;
@@ -149,9 +117,9 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * taxNo.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getTaxno() {
         return mTaxno;
@@ -159,10 +127,9 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * taxNo.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setTaxno(@NonNull String taxno) {
-        if (taxno == null) throw new IllegalArgumentException("taxno must not be null");
+    public void setTaxno(@Nullable String taxno) {
         mTaxno = taxno;
     }
 
@@ -187,9 +154,9 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * financialYear.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getFinancialyear() {
         return mFinancialyear;
@@ -197,19 +164,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * financialYear.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setFinancialyear(@NonNull String financialyear) {
-        if (financialyear == null)
-            throw new IllegalArgumentException("financialyear must not be null");
+    public void setFinancialyear(@Nullable String financialyear) {
         mFinancialyear = financialyear;
     }
 
     /**
      * propertyTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPropertytax() {
         return mPropertytax;
@@ -217,18 +182,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * propertyTax.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPropertytax(@NonNull String propertytax) {
-        if (propertytax == null) throw new IllegalArgumentException("propertytax must not be null");
+    public void setPropertytax(@Nullable String propertytax) {
         mPropertytax = propertytax;
     }
 
     /**
      * waterTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getWatertax() {
         return mWatertax;
@@ -236,18 +200,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * waterTax.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setWatertax(@NonNull String watertax) {
-        if (watertax == null) throw new IllegalArgumentException("watertax must not be null");
+    public void setWatertax(@Nullable String watertax) {
         mWatertax = watertax;
     }
 
     /**
      * conservancyTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getConservancytax() {
         return mConservancytax;
@@ -255,19 +218,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * conservancyTax.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setConservancytax(@NonNull String conservancytax) {
-        if (conservancytax == null)
-            throw new IllegalArgumentException("conservancytax must not be null");
+    public void setConservancytax(@Nullable String conservancytax) {
         mConservancytax = conservancytax;
     }
 
     /**
      * waterSewerageCharge.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getWaterseweragecharge() {
         return mWaterseweragecharge;
@@ -275,19 +236,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * waterSewerageCharge.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setWaterseweragecharge(@NonNull String waterseweragecharge) {
-        if (waterseweragecharge == null)
-            throw new IllegalArgumentException("waterseweragecharge must not be null");
+    public void setWaterseweragecharge(@Nullable String waterseweragecharge) {
         mWaterseweragecharge = waterseweragecharge;
     }
 
     /**
      * waterMeterBillAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getWatermeterbillamount() {
         return mWatermeterbillamount;
@@ -295,19 +254,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * waterMeterBillAmount.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setWatermeterbillamount(@NonNull String watermeterbillamount) {
-        if (watermeterbillamount == null)
-            throw new IllegalArgumentException("watermeterbillamount must not be null");
+    public void setWatermeterbillamount(@Nullable String watermeterbillamount) {
         mWatermeterbillamount = watermeterbillamount;
     }
 
     /**
      * arrearAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getArrearamount() {
         return mArrearamount;
@@ -315,19 +272,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * arrearAmount.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setArrearamount(@NonNull String arrearamount) {
-        if (arrearamount == null)
-            throw new IllegalArgumentException("arrearamount must not be null");
+    public void setArrearamount(@Nullable String arrearamount) {
         mArrearamount = arrearamount;
     }
 
     /**
      * advancePaidAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getAdvancepaidamount() {
         return mAdvancepaidamount;
@@ -335,19 +290,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * advancePaidAmount.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setAdvancepaidamount(@NonNull String advancepaidamount) {
-        if (advancepaidamount == null)
-            throw new IllegalArgumentException("advancepaidamount must not be null");
+    public void setAdvancepaidamount(@Nullable String advancepaidamount) {
         mAdvancepaidamount = advancepaidamount;
     }
 
     /**
      * rebateAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getRebateamount() {
         return mRebateamount;
@@ -355,19 +308,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * rebateAmount.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setRebateamount(@NonNull String rebateamount) {
-        if (rebateamount == null)
-            throw new IllegalArgumentException("rebateamount must not be null");
+    public void setRebateamount(@Nullable String rebateamount) {
         mRebateamount = rebateamount;
     }
 
     /**
      * adjustmentAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getAdjustmentamount() {
         return mAdjustmentamount;
@@ -375,19 +326,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * adjustmentAmount.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setAdjustmentamount(@NonNull String adjustmentamount) {
-        if (adjustmentamount == null)
-            throw new IllegalArgumentException("adjustmentamount must not be null");
+    public void setAdjustmentamount(@Nullable String adjustmentamount) {
         mAdjustmentamount = adjustmentamount;
     }
 
     /**
      * totalPropertyTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getTotalpropertytax() {
         return mTotalpropertytax;
@@ -395,19 +344,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * totalPropertyTax.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setTotalpropertytax(@NonNull String totalpropertytax) {
-        if (totalpropertytax == null)
-            throw new IllegalArgumentException("totalpropertytax must not be null");
+    public void setTotalpropertytax(@Nullable String totalpropertytax) {
         mTotalpropertytax = totalpropertytax;
     }
 
     /**
      * serviceTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getServicetax() {
         return mServicetax;
@@ -415,18 +362,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * serviceTax.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setServicetax(@NonNull String servicetax) {
-        if (servicetax == null) throw new IllegalArgumentException("servicetax must not be null");
+    public void setServicetax(@Nullable String servicetax) {
         mServicetax = servicetax;
     }
 
     /**
      * otherTax.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getOthertax() {
         return mOthertax;
@@ -434,18 +380,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * otherTax.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setOthertax(@NonNull String othertax) {
-        if (othertax == null) throw new IllegalArgumentException("othertax must not be null");
+    public void setOthertax(@Nullable String othertax) {
         mOthertax = othertax;
     }
 
     /**
      * grandTotal.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getGrandtotal() {
         return mGrandtotal;
@@ -453,18 +398,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * grandTotal.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setGrandtotal(@NonNull String grandtotal) {
-        if (grandtotal == null) throw new IllegalArgumentException("grandtotal must not be null");
+    public void setGrandtotal(@Nullable String grandtotal) {
         mGrandtotal = grandtotal;
     }
 
     /**
      * delayPaymentCharges.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getDelaypaymentcharges() {
         return mDelaypaymentcharges;
@@ -472,19 +416,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * delayPaymentCharges.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setDelaypaymentcharges(@NonNull String delaypaymentcharges) {
-        if (delaypaymentcharges == null)
-            throw new IllegalArgumentException("delaypaymentcharges must not be null");
+    public void setDelaypaymentcharges(@Nullable String delaypaymentcharges) {
         mDelaypaymentcharges = delaypaymentcharges;
     }
 
     /**
      * payableAmount.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getPayableamount() {
         return mPayableamount;
@@ -492,19 +434,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * payableAmount.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setPayableamount(@NonNull String payableamount) {
-        if (payableamount == null)
-            throw new IllegalArgumentException("payableamount must not be null");
+    public void setPayableamount(@Nullable String payableamount) {
         mPayableamount = payableamount;
     }
 
     /**
      * dueDate.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getDuedate() {
         return mDuedate;
@@ -512,18 +452,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * dueDate.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setDuedate(@NonNull String duedate) {
-        if (duedate == null) throw new IllegalArgumentException("duedate must not be null");
+    public void setDuedate(@Nullable String duedate) {
         mDuedate = duedate;
     }
 
     /**
      * noticeGenerated.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getNoticegenerated() {
         return mNoticegenerated;
@@ -531,19 +470,17 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * noticeGenerated.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setNoticegenerated(@NonNull String noticegenerated) {
-        if (noticegenerated == null)
-            throw new IllegalArgumentException("noticegenerated must not be null");
+    public void setNoticegenerated(@Nullable String noticegenerated) {
         mNoticegenerated = noticegenerated;
     }
 
     /**
      * objectionStatus.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     @Override
     public String getObjectionstatus() {
         return mObjectionstatus;
@@ -551,11 +488,9 @@ public class TaxdetailBean implements TaxdetailModel {
 
     /**
      * objectionStatus.
-     * Must not be {@code null}.
+     * Can be {@code null}.
      */
-    public void setObjectionstatus(@NonNull String objectionstatus) {
-        if (objectionstatus == null)
-            throw new IllegalArgumentException("objectionstatus must not be null");
+    public void setObjectionstatus(@Nullable String objectionstatus) {
         mObjectionstatus = objectionstatus;
     }
 
@@ -585,10 +520,9 @@ public class TaxdetailBean implements TaxdetailModel {
 
         /**
          * taxNo.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder taxno(@NonNull String taxno) {
-            if (taxno == null) throw new IllegalArgumentException("taxno must not be null");
+        public Builder taxno(@Nullable String taxno) {
             mRes.mTaxno = taxno;
             return this;
         }
@@ -606,206 +540,171 @@ public class TaxdetailBean implements TaxdetailModel {
 
         /**
          * financialYear.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder financialyear(@NonNull String financialyear) {
-            if (financialyear == null)
-                throw new IllegalArgumentException("financialyear must not be null");
+        public Builder financialyear(@Nullable String financialyear) {
             mRes.mFinancialyear = financialyear;
             return this;
         }
 
         /**
          * propertyTax.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder propertytax(@NonNull String propertytax) {
-            if (propertytax == null)
-                throw new IllegalArgumentException("propertytax must not be null");
+        public Builder propertytax(@Nullable String propertytax) {
             mRes.mPropertytax = propertytax;
             return this;
         }
 
         /**
          * waterTax.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder watertax(@NonNull String watertax) {
-            if (watertax == null) throw new IllegalArgumentException("watertax must not be null");
+        public Builder watertax(@Nullable String watertax) {
             mRes.mWatertax = watertax;
             return this;
         }
 
         /**
          * conservancyTax.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder conservancytax(@NonNull String conservancytax) {
-            if (conservancytax == null)
-                throw new IllegalArgumentException("conservancytax must not be null");
+        public Builder conservancytax(@Nullable String conservancytax) {
             mRes.mConservancytax = conservancytax;
             return this;
         }
 
         /**
          * waterSewerageCharge.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder waterseweragecharge(@NonNull String waterseweragecharge) {
-            if (waterseweragecharge == null)
-                throw new IllegalArgumentException("waterseweragecharge must not be null");
+        public Builder waterseweragecharge(@Nullable String waterseweragecharge) {
             mRes.mWaterseweragecharge = waterseweragecharge;
             return this;
         }
 
         /**
          * waterMeterBillAmount.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder watermeterbillamount(@NonNull String watermeterbillamount) {
-            if (watermeterbillamount == null)
-                throw new IllegalArgumentException("watermeterbillamount must not be null");
+        public Builder watermeterbillamount(@Nullable String watermeterbillamount) {
             mRes.mWatermeterbillamount = watermeterbillamount;
             return this;
         }
 
         /**
          * arrearAmount.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder arrearamount(@NonNull String arrearamount) {
-            if (arrearamount == null)
-                throw new IllegalArgumentException("arrearamount must not be null");
+        public Builder arrearamount(@Nullable String arrearamount) {
             mRes.mArrearamount = arrearamount;
             return this;
         }
 
         /**
          * advancePaidAmount.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder advancepaidamount(@NonNull String advancepaidamount) {
-            if (advancepaidamount == null)
-                throw new IllegalArgumentException("advancepaidamount must not be null");
+        public Builder advancepaidamount(@Nullable String advancepaidamount) {
             mRes.mAdvancepaidamount = advancepaidamount;
             return this;
         }
 
         /**
          * rebateAmount.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder rebateamount(@NonNull String rebateamount) {
-            if (rebateamount == null)
-                throw new IllegalArgumentException("rebateamount must not be null");
+        public Builder rebateamount(@Nullable String rebateamount) {
             mRes.mRebateamount = rebateamount;
             return this;
         }
 
         /**
          * adjustmentAmount.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder adjustmentamount(@NonNull String adjustmentamount) {
-            if (adjustmentamount == null)
-                throw new IllegalArgumentException("adjustmentamount must not be null");
+        public Builder adjustmentamount(@Nullable String adjustmentamount) {
             mRes.mAdjustmentamount = adjustmentamount;
             return this;
         }
 
         /**
          * totalPropertyTax.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder totalpropertytax(@NonNull String totalpropertytax) {
-            if (totalpropertytax == null)
-                throw new IllegalArgumentException("totalpropertytax must not be null");
+        public Builder totalpropertytax(@Nullable String totalpropertytax) {
             mRes.mTotalpropertytax = totalpropertytax;
             return this;
         }
 
         /**
          * serviceTax.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder servicetax(@NonNull String servicetax) {
-            if (servicetax == null)
-                throw new IllegalArgumentException("servicetax must not be null");
+        public Builder servicetax(@Nullable String servicetax) {
             mRes.mServicetax = servicetax;
             return this;
         }
 
         /**
          * otherTax.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder othertax(@NonNull String othertax) {
-            if (othertax == null) throw new IllegalArgumentException("othertax must not be null");
+        public Builder othertax(@Nullable String othertax) {
             mRes.mOthertax = othertax;
             return this;
         }
 
         /**
          * grandTotal.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder grandtotal(@NonNull String grandtotal) {
-            if (grandtotal == null)
-                throw new IllegalArgumentException("grandtotal must not be null");
+        public Builder grandtotal(@Nullable String grandtotal) {
             mRes.mGrandtotal = grandtotal;
             return this;
         }
 
         /**
          * delayPaymentCharges.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder delaypaymentcharges(@NonNull String delaypaymentcharges) {
-            if (delaypaymentcharges == null)
-                throw new IllegalArgumentException("delaypaymentcharges must not be null");
+        public Builder delaypaymentcharges(@Nullable String delaypaymentcharges) {
             mRes.mDelaypaymentcharges = delaypaymentcharges;
             return this;
         }
 
         /**
          * payableAmount.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder payableamount(@NonNull String payableamount) {
-            if (payableamount == null)
-                throw new IllegalArgumentException("payableamount must not be null");
+        public Builder payableamount(@Nullable String payableamount) {
             mRes.mPayableamount = payableamount;
             return this;
         }
 
         /**
          * dueDate.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder duedate(@NonNull String duedate) {
-            if (duedate == null) throw new IllegalArgumentException("duedate must not be null");
+        public Builder duedate(@Nullable String duedate) {
             mRes.mDuedate = duedate;
             return this;
         }
 
         /**
          * noticeGenerated.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder noticegenerated(@NonNull String noticegenerated) {
-            if (noticegenerated == null)
-                throw new IllegalArgumentException("noticegenerated must not be null");
+        public Builder noticegenerated(@Nullable String noticegenerated) {
             mRes.mNoticegenerated = noticegenerated;
             return this;
         }
 
         /**
          * objectionStatus.
-         * Must not be {@code null}.
+         * Can be {@code null}.
          */
-        public Builder objectionstatus(@NonNull String objectionstatus) {
-            if (objectionstatus == null)
-                throw new IllegalArgumentException("objectionstatus must not be null");
+        public Builder objectionstatus(@Nullable String objectionstatus) {
             mRes.mObjectionstatus = objectionstatus;
             return this;
         }
@@ -814,47 +713,8 @@ public class TaxdetailBean implements TaxdetailModel {
          * Get a new TaxdetailBean built with the given values.
          */
         public TaxdetailBean build() {
-            if (mRes.mTaxno == null) throw new IllegalArgumentException("taxno must not be null");
             if (mRes.mPropertyid == null)
                 throw new IllegalArgumentException("propertyid must not be null");
-            if (mRes.mFinancialyear == null)
-                throw new IllegalArgumentException("financialyear must not be null");
-            if (mRes.mPropertytax == null)
-                throw new IllegalArgumentException("propertytax must not be null");
-            if (mRes.mWatertax == null)
-                throw new IllegalArgumentException("watertax must not be null");
-            if (mRes.mConservancytax == null)
-                throw new IllegalArgumentException("conservancytax must not be null");
-            if (mRes.mWaterseweragecharge == null)
-                throw new IllegalArgumentException("waterseweragecharge must not be null");
-            if (mRes.mWatermeterbillamount == null)
-                throw new IllegalArgumentException("watermeterbillamount must not be null");
-            if (mRes.mArrearamount == null)
-                throw new IllegalArgumentException("arrearamount must not be null");
-            if (mRes.mAdvancepaidamount == null)
-                throw new IllegalArgumentException("advancepaidamount must not be null");
-            if (mRes.mRebateamount == null)
-                throw new IllegalArgumentException("rebateamount must not be null");
-            if (mRes.mAdjustmentamount == null)
-                throw new IllegalArgumentException("adjustmentamount must not be null");
-            if (mRes.mTotalpropertytax == null)
-                throw new IllegalArgumentException("totalpropertytax must not be null");
-            if (mRes.mServicetax == null)
-                throw new IllegalArgumentException("servicetax must not be null");
-            if (mRes.mOthertax == null)
-                throw new IllegalArgumentException("othertax must not be null");
-            if (mRes.mGrandtotal == null)
-                throw new IllegalArgumentException("grandtotal must not be null");
-            if (mRes.mDelaypaymentcharges == null)
-                throw new IllegalArgumentException("delaypaymentcharges must not be null");
-            if (mRes.mPayableamount == null)
-                throw new IllegalArgumentException("payableamount must not be null");
-            if (mRes.mDuedate == null)
-                throw new IllegalArgumentException("duedate must not be null");
-            if (mRes.mNoticegenerated == null)
-                throw new IllegalArgumentException("noticegenerated must not be null");
-            if (mRes.mObjectionstatus == null)
-                throw new IllegalArgumentException("objectionstatus must not be null");
             return mRes;
         }
     }

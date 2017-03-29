@@ -20,6 +20,7 @@
     <string name="back">Back</string>
     <string name="error_network">No Internet Connectivity</string>
     <string name="error_server">Sorry, we r currently under maintenance!!</string>
-    <string name="print_response">Email has been sent Successfully</string>
-    <string name="error_payment">Failed to process payment An Email has been sent</string>
+    <string name="print_response">Email will be sent for payment</string>
+    <string name="error_payment">Failed to process payment!</string>
+    <string name="sorry_no_results">Sorry no results match your search criteria!</string>
 </resources>

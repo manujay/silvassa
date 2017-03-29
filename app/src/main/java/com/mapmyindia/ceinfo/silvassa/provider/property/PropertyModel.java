@@ -27,30 +27,30 @@ public interface PropertyModel extends BaseModel {
 
     /**
      * propertyOwner.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertyowner();
 
     /**
      * propertyOccupierName.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertyoccupiername();
 
     /**
      * propertyRelationOwner.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertyrelationowner();
 
     /**
      * zoneId.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getZoneid();
 
     /**
@@ -62,64 +62,64 @@ public interface PropertyModel extends BaseModel {
 
     /**
      * propertySublocality.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertysublocality();
 
     /**
      * email.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getEmail();
 
     /**
      * phone.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPhone();
 
     /**
      * propertyLandmark.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertylandmark();
 
     /**
      * propertyPlotNo.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertyplotno();
 
     /**
      * propertyHouseNo.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertyhouseno();
 
     /**
      * propertyRoad.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertyroad();
 
     /**
      * propertyPincode.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertypincode();
 
     /**
      * propertyBuildingName.
-     * Cannot be {@code null}.
+     * Can be {@code null}.
      */
-    @NonNull
+    @Nullable
     String getPropertybuildingname();
 }

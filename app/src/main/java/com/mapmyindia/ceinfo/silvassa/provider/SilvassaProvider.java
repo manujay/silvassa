@@ -15,6 +15,7 @@ import com.mapmyindia.ceinfo.silvassa.provider.base.BaseContentProvider;
 import com.mapmyindia.ceinfo.silvassa.provider.criteria.CriteriaColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.occupier.OccupierColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.owner.OwnerColumns;
+import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneColumns;
@@ -37,14 +38,17 @@ public class SilvassaProvider extends BaseContentProvider {
     private static final int URI_TYPE_OWNER = 4;
     private static final int URI_TYPE_OWNER_ID = 5;
 
-    private static final int URI_TYPE_PROPERTY = 6;
-    private static final int URI_TYPE_PROPERTY_ID = 7;
+    private static final int URI_TYPE_PAYMENT = 6;
+    private static final int URI_TYPE_PAYMENT_ID = 7;
 
-    private static final int URI_TYPE_TAXDETAIL = 8;
-    private static final int URI_TYPE_TAXDETAIL_ID = 9;
+    private static final int URI_TYPE_PROPERTY = 8;
+    private static final int URI_TYPE_PROPERTY_ID = 9;
 
-    private static final int URI_TYPE_ZONE = 10;
-    private static final int URI_TYPE_ZONE_ID = 11;
+    private static final int URI_TYPE_TAXDETAIL = 10;
+    private static final int URI_TYPE_TAXDETAIL_ID = 11;
+
+    private static final int URI_TYPE_ZONE = 12;
+    private static final int URI_TYPE_ZONE_ID = 13;
 
 
 
@@ -57,6 +61,8 @@ public class SilvassaProvider extends BaseContentProvider {
         URI_MATCHER.addURI(AUTHORITY, OccupierColumns.TABLE_NAME + "/#", URI_TYPE_OCCUPIER_ID);
         URI_MATCHER.addURI(AUTHORITY, OwnerColumns.TABLE_NAME, URI_TYPE_OWNER);
         URI_MATCHER.addURI(AUTHORITY, OwnerColumns.TABLE_NAME + "/#", URI_TYPE_OWNER_ID);
+        URI_MATCHER.addURI(AUTHORITY, PaymentColumns.TABLE_NAME, URI_TYPE_PAYMENT);
+        URI_MATCHER.addURI(AUTHORITY, PaymentColumns.TABLE_NAME + "/#", URI_TYPE_PAYMENT_ID);
         URI_MATCHER.addURI(AUTHORITY, PropertyColumns.TABLE_NAME, URI_TYPE_PROPERTY);
         URI_MATCHER.addURI(AUTHORITY, PropertyColumns.TABLE_NAME + "/#", URI_TYPE_PROPERTY_ID);
         URI_MATCHER.addURI(AUTHORITY, TaxdetailColumns.TABLE_NAME, URI_TYPE_TAXDETAIL);
@@ -93,6 +99,11 @@ public class SilvassaProvider extends BaseContentProvider {
                 return TYPE_CURSOR_DIR + OwnerColumns.TABLE_NAME;
             case URI_TYPE_OWNER_ID:
                 return TYPE_CURSOR_ITEM + OwnerColumns.TABLE_NAME;
+
+            case URI_TYPE_PAYMENT:
+                return TYPE_CURSOR_DIR + PaymentColumns.TABLE_NAME;
+            case URI_TYPE_PAYMENT_ID:
+                return TYPE_CURSOR_ITEM + PaymentColumns.TABLE_NAME;
 
             case URI_TYPE_PROPERTY:
                 return TYPE_CURSOR_DIR + PropertyColumns.TABLE_NAME;
@@ -177,6 +188,14 @@ public class SilvassaProvider extends BaseContentProvider {
                 res.orderBy = OwnerColumns.DEFAULT_ORDER;
                 break;
 
+            case URI_TYPE_PAYMENT:
+            case URI_TYPE_PAYMENT_ID:
+                res.table = PaymentColumns.TABLE_NAME;
+                res.idColumn = PaymentColumns._ID;
+                res.tablesWithJoins = PaymentColumns.TABLE_NAME;
+                res.orderBy = PaymentColumns.DEFAULT_ORDER;
+                break;
+
             case URI_TYPE_PROPERTY:
             case URI_TYPE_PROPERTY_ID:
                 res.table = PropertyColumns.TABLE_NAME;
@@ -209,6 +228,7 @@ public class SilvassaProvider extends BaseContentProvider {
             case URI_TYPE_CRITERIA_ID:
             case URI_TYPE_OCCUPIER_ID:
             case URI_TYPE_OWNER_ID:
+            case URI_TYPE_PAYMENT_ID:
             case URI_TYPE_PROPERTY_ID:
             case URI_TYPE_TAXDETAIL_ID:
             case URI_TYPE_ZONE_ID:
