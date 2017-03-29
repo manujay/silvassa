@@ -162,7 +162,7 @@ public class SampleSQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_CRITERIA);
         db.execSQL(SQL_CREATE_TABLE_OCCUPIER);
         db.execSQL(SQL_CREATE_TABLE_OWNER);
-        db.execSQL(SQL_CREATE_TABLE_PAYMENT);
+//        db.execSQL(SQL_CREATE_TABLE_PAYMENT);
         db.execSQL(SQL_CREATE_TABLE_PROPERTY);
         db.execSQL(SQL_CREATE_TABLE_TAXDETAIL);
         db.execSQL(SQL_CREATE_TABLE_ZONE);
