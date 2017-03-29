@@ -14,6 +14,7 @@ import com.mapmyindia.ceinfo.silvassa.BuildConfig;
 import com.mapmyindia.ceinfo.silvassa.provider.criteria.CriteriaColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.occupier.OccupierColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.owner.OwnerColumns;
+import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneColumns;
@@ -36,6 +37,21 @@ public class SampleSQLiteOpenHelper extends SQLiteOpenHelper {
             + OwnerColumns.TABLE_NAME + " ( "
             + OwnerColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + OwnerColumns.OWNERNAME + " TEXT NOT NULL "
+            + " );";
+    public static final String SQL_CREATE_TABLE_PAYMENT = "CREATE TABLE IF NOT EXISTS "
+            + PaymentColumns.TABLE_NAME + " ( "
+            + PaymentColumns._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + PaymentColumns.PROPERTYUNIQUEID + " TEXT NOT NULL, "
+            + PaymentColumns.TAXNO + " TEXT NOT NULL, "
+            + PaymentColumns.MODE + " TEXT NOT NULL, "
+            + PaymentColumns.PAYABLEAMOUNT + " TEXT NOT NULL, "
+            + PaymentColumns.AMOUNT + " TEXT NOT NULL, "
+            + PaymentColumns.CHECK + " TEXT NOT NULL, "
+            + PaymentColumns.DD + " TEXT NOT NULL, "
+            + PaymentColumns.POS + " TEXT NOT NULL, "
+            + PaymentColumns.EMAIL + " TEXT NOT NULL, "
+            + PaymentColumns.PHONE + " TEXT NOT NULL, "
+            + PaymentColumns.DATE + " TEXT NOT NULL "
             + " );";
     public static final String SQL_CREATE_TABLE_PROPERTY = "CREATE TABLE IF NOT EXISTS "
             + PropertyColumns.TABLE_NAME + " ( "
@@ -146,6 +162,7 @@ public class SampleSQLiteOpenHelper extends SQLiteOpenHelper {
         db.execSQL(SQL_CREATE_TABLE_CRITERIA);
         db.execSQL(SQL_CREATE_TABLE_OCCUPIER);
         db.execSQL(SQL_CREATE_TABLE_OWNER);
+        db.execSQL(SQL_CREATE_TABLE_PAYMENT);
         db.execSQL(SQL_CREATE_TABLE_PROPERTY);
         db.execSQL(SQL_CREATE_TABLE_TAXDETAIL);
         db.execSQL(SQL_CREATE_TABLE_ZONE);
