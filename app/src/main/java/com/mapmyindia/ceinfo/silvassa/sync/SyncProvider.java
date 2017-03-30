@@ -74,9 +74,11 @@ public class SyncProvider {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
+                    Logger.d(TAG, " @SyncProvider:doSync : SUCCESS : " + response.body());
+
                     try {
 
-                        JSONObject jsonObject = new JSONObject(response.body().string());
+                        final JSONObject jsonObject = new JSONObject(response.body().string());
 
                         if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
                             sendErrorResponse(listener, mContext.getString(R.string.error_server));
@@ -98,20 +100,25 @@ public class SyncProvider {
                         final ArrayList<PropertyWSModel> data = gson.fromJson(jsonObject.getString("data"), new TypeToken<ArrayList<PropertyWSModel>>() {
                         }.getType());
 
+                        Logger.d(TAG, " @SyncProvider:doSync : " + data);
+
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                saveInDatabase(data);
+                                try {
+                                    saveInDatabase(data);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    sendErrorResponse(listener, e.getLocalizedMessage());
+                                }
+
+                                sendSuccessResponse(listener, "Data Sync Successfull");
                             }
                         }).start();
 
-                        sendSuccessResponse(listener, jsonObject.getString("message"));
-
-                        Logger.d(TAG, " @SyncProvider:doSync : " + data);
-
                     } catch (Exception e) {
 
-                        sendErrorResponse(listener, e.getMessage());
+                        sendErrorResponse(listener, e.getLocalizedMessage());
                         e.printStackTrace();
                     }
 
@@ -143,86 +150,82 @@ public class SyncProvider {
     }
 
 
-    private void saveInDatabase(List<PropertyWSModel> modelList) {
+    private void saveInDatabase(List<PropertyWSModel> modelList) throws Exception {
 
         for (PropertyWSModel wsModel : modelList) {
 
-            try {
-                PropertyContentValues values = new PropertyContentValues();
-                values.putPropertyuniqueid(wsModel.getPropertyUniqueId());
-                values.putPropertyowner(wsModel.getPropertyOwner());
-                values.putPropertyoccupiername(wsModel.getPropertyOccupierName());
-                values.putPropertyrelationowner(wsModel.getPropertyRelationOwner());
-                values.putZoneid(wsModel.getZoneId());
-                values.putPropertysublocality(wsModel.getPropertySublocality());
-                values.putEmail(wsModel.getEmail());
-                values.putPhone(wsModel.getPhone());
-                values.putPropertylandmark(wsModel.getPropertyLandmark());
-                values.putPropertyplotno(wsModel.getPropertyPlotNo());
-                values.putPropertyhouseno(wsModel.getPropertyHouseNo());
-                values.putPropertyroad(wsModel.getPropertyRoad());
-                values.putPropertypincode(wsModel.getPropertyPincode());
-                values.putPropertybuildingname(wsModel.getPropertyBuildingName());
+            PropertyContentValues values = new PropertyContentValues();
+            values.putPropertyuniqueid(wsModel.getPropertyUniqueId());
+            values.putPropertyowner(wsModel.getPropertyOwner());
+            values.putPropertyoccupiername(wsModel.getPropertyOccupierName());
+            values.putPropertyrelationowner(wsModel.getPropertyRelationOwner());
+            values.putZoneid(wsModel.getZoneId());
+            values.putPropertysublocality(wsModel.getPropertySublocality());
+            values.putEmail(wsModel.getEmail());
+            values.putPhone(wsModel.getPhone());
+            values.putPropertylandmark(wsModel.getPropertyLandmark());
+            values.putPropertyplotno(wsModel.getPropertyPlotNo());
+            values.putPropertyhouseno(wsModel.getPropertyHouseNo());
+            values.putPropertyroad(wsModel.getPropertyRoad());
+            values.putPropertypincode(wsModel.getPropertyPincode());
+            values.putPropertybuildingname(wsModel.getPropertyBuildingName());
 
-                if (null != wsModel.getTAXDetailBean()) {
-                    TAXDetailBean taxDetailBean = wsModel.getTAXDetailBean();
-                    TaxdetailContentValues tdContentValues = new TaxdetailContentValues();
-                    tdContentValues.putTaxno(taxDetailBean.getTaxNo());
-                    tdContentValues.putPropertyid(taxDetailBean.getPropertyId());
-                    tdContentValues.putFinancialyear(taxDetailBean.getFinancialYear());
-                    tdContentValues.putPropertytax(taxDetailBean.getPropertyTax());
-                    tdContentValues.putWatertax(taxDetailBean.getWaterTax());
-                    tdContentValues.putConservancytax(taxDetailBean.getConservancyTax());
-                    tdContentValues.putWaterseweragecharge(taxDetailBean.getWaterSewerageCharge());
-                    tdContentValues.putWatermeterbillamount(taxDetailBean.getWaterMeterBillAmount());
-                    tdContentValues.putArrearamount(taxDetailBean.getArrearAmount());
-                    tdContentValues.putAdvancepaidamount(taxDetailBean.getAdvancePaidAmount());
-                    tdContentValues.putRebateamount(taxDetailBean.getRebateAmount());
-                    tdContentValues.putAdjustmentamount(taxDetailBean.getAdjustmentAmount());
-                    tdContentValues.putTotalpropertytax(taxDetailBean.getTotalPropertyTax());
-                    tdContentValues.putServicetax(taxDetailBean.getServiceTax());
-                    tdContentValues.putOthertax(taxDetailBean.getOtherTax());
-                    tdContentValues.putGrandtotal(taxDetailBean.getGrandTotal());
-                    tdContentValues.putDelaypaymentcharges(taxDetailBean.getDelayPaymentCharges());
-                    tdContentValues.putPayableamount(taxDetailBean.getPayableAmount());
-                    tdContentValues.putDuedate(Long.toString(taxDetailBean.getDueDate()));
-                    tdContentValues.putNoticegenerated(taxDetailBean.getNoticeGenerated());
-                    tdContentValues.putObjectionstatus(taxDetailBean.getObjectionStatus());
+            if (null != wsModel.getTAXDetailBean()) {
+                TAXDetailBean taxDetailBean = wsModel.getTAXDetailBean();
+                TaxdetailContentValues tdContentValues = new TaxdetailContentValues();
+                tdContentValues.putTaxno(taxDetailBean.getTaxNo());
+                tdContentValues.putPropertyid(taxDetailBean.getPropertyId());
+                tdContentValues.putFinancialyear(taxDetailBean.getFinancialYear());
+                tdContentValues.putPropertytax(taxDetailBean.getPropertyTax());
+                tdContentValues.putWatertax(taxDetailBean.getWaterTax());
+                tdContentValues.putConservancytax(taxDetailBean.getConservancyTax());
+                tdContentValues.putWaterseweragecharge(taxDetailBean.getWaterSewerageCharge());
+                tdContentValues.putWatermeterbillamount(taxDetailBean.getWaterMeterBillAmount());
+                tdContentValues.putArrearamount(taxDetailBean.getArrearAmount());
+                tdContentValues.putAdvancepaidamount(taxDetailBean.getAdvancePaidAmount());
+                tdContentValues.putRebateamount(taxDetailBean.getRebateAmount());
+                tdContentValues.putAdjustmentamount(taxDetailBean.getAdjustmentAmount());
+                tdContentValues.putTotalpropertytax(taxDetailBean.getTotalPropertyTax());
+                tdContentValues.putServicetax(taxDetailBean.getServiceTax());
+                tdContentValues.putOthertax(taxDetailBean.getOtherTax());
+                tdContentValues.putGrandtotal(taxDetailBean.getGrandTotal());
+                tdContentValues.putDelaypaymentcharges(taxDetailBean.getDelayPaymentCharges());
+                tdContentValues.putPayableamount(taxDetailBean.getPayableAmount());
+                tdContentValues.putDuedate(Long.toString(taxDetailBean.getDueDate()));
+                tdContentValues.putNoticegenerated(taxDetailBean.getNoticeGenerated());
+                tdContentValues.putObjectionstatus(taxDetailBean.getObjectionStatus());
 
-                    TaxdetailSelection taxdetailSelection = new TaxdetailSelection();
-                    taxdetailSelection.propertyid(taxDetailBean.getPropertyId());
+                TaxdetailSelection taxdetailSelection = new TaxdetailSelection();
+                taxdetailSelection.propertyid(taxDetailBean.getPropertyId());
 
-                    TaxdetailCursor cursor = taxdetailSelection.query(mContext.getContentResolver());
-
-                    if (cursor.moveToFirst()) {
-                        tdContentValues.update(mContext.getContentResolver(), taxdetailSelection);
-                    } else {
-                        tdContentValues.insert(mContext.getContentResolver());
-                    }
-
-                    cursor.close();
-                }
-
-                PropertySelection propertySelection = new PropertySelection();
-                propertySelection.propertyuniqueid(wsModel.getPropertyUniqueId());
-
-                PropertyCursor cursor = propertySelection.query(mContext.getContentResolver());
+                TaxdetailCursor cursor = taxdetailSelection.query(mContext.getContentResolver());
 
                 if (cursor.moveToFirst()) {
-                    values.update(mContext.getContentResolver(), propertySelection);
+                    tdContentValues.update(mContext.getContentResolver(), taxdetailSelection);
                 } else {
-                    values.insert(mContext.getContentResolver());
+                    tdContentValues.insert(mContext.getContentResolver());
                 }
 
                 cursor.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+
+            PropertySelection propertySelection = new PropertySelection();
+            propertySelection.propertyuniqueid(wsModel.getPropertyUniqueId());
+
+            PropertyCursor cursor = propertySelection.query(mContext.getContentResolver());
+
+            if (cursor.moveToFirst()) {
+                values.update(mContext.getContentResolver(), propertySelection);
+            } else {
+                values.insert(mContext.getContentResolver());
+            }
+
+            cursor.close();
         }
     }
 
     private void sendErrorResponse(final SyncProviderListener listener, final String msg) {
+
         mPostExecutionThread.post(new Runnable() {
             @Override
             public void run() {

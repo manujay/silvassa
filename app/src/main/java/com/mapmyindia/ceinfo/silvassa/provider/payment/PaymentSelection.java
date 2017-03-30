@@ -23,7 +23,7 @@ public class PaymentSelection extends AbstractSelection<PaymentSelection> {
      * Query the given content resolver using this selection.
      *
      * @param contentResolver The content resolver to query.
-     * @param projection      A list of which columns to return. Passing null will return all columns, which is inefficient.
+     * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code PaymentCursor} object, which is positioned before the first entry, or null.
      */
     public PaymentCursor query(ContentResolver contentResolver, String[] projection) {
@@ -42,7 +42,7 @@ public class PaymentSelection extends AbstractSelection<PaymentSelection> {
     /**
      * Query the given content resolver using this selection.
      *
-     * @param context    The context to use for the query.
+     * @param context The context to use for the query.
      * @param projection A list of which columns to return. Passing null will return all columns, which is inefficient.
      * @return A {@code PaymentCursor} object, which is positioned before the first entry, or null.
      */
@@ -279,43 +279,43 @@ public class PaymentSelection extends AbstractSelection<PaymentSelection> {
         return this;
     }
 
-    public PaymentSelection check(String... value) {
-        addEquals(PaymentColumns.CHECK, value);
+    public PaymentSelection cheuque(String... value) {
+        addEquals(PaymentColumns.CHEUQUE, value);
         return this;
     }
 
-    public PaymentSelection checkNot(String... value) {
-        addNotEquals(PaymentColumns.CHECK, value);
+    public PaymentSelection cheuqueNot(String... value) {
+        addNotEquals(PaymentColumns.CHEUQUE, value);
         return this;
     }
 
-    public PaymentSelection checkLike(String... value) {
-        addLike(PaymentColumns.CHECK, value);
+    public PaymentSelection cheuqueLike(String... value) {
+        addLike(PaymentColumns.CHEUQUE, value);
         return this;
     }
 
-    public PaymentSelection checkContains(String... value) {
-        addContains(PaymentColumns.CHECK, value);
+    public PaymentSelection cheuqueContains(String... value) {
+        addContains(PaymentColumns.CHEUQUE, value);
         return this;
     }
 
-    public PaymentSelection checkStartsWith(String... value) {
-        addStartsWith(PaymentColumns.CHECK, value);
+    public PaymentSelection cheuqueStartsWith(String... value) {
+        addStartsWith(PaymentColumns.CHEUQUE, value);
         return this;
     }
 
-    public PaymentSelection checkEndsWith(String... value) {
-        addEndsWith(PaymentColumns.CHECK, value);
+    public PaymentSelection cheuqueEndsWith(String... value) {
+        addEndsWith(PaymentColumns.CHEUQUE, value);
         return this;
     }
 
-    public PaymentSelection orderByCheck(boolean desc) {
-        orderBy(PaymentColumns.CHECK, desc);
+    public PaymentSelection orderByCheuque(boolean desc) {
+        orderBy(PaymentColumns.CHEUQUE, desc);
         return this;
     }
 
-    public PaymentSelection orderByCheck() {
-        orderBy(PaymentColumns.CHECK, false);
+    public PaymentSelection orderByCheuque() {
+        orderBy(PaymentColumns.CHEUQUE, false);
         return this;
     }
 
@@ -479,43 +479,43 @@ public class PaymentSelection extends AbstractSelection<PaymentSelection> {
         return this;
     }
 
-    public PaymentSelection date(String... value) {
-        addEquals(PaymentColumns.DATE, value);
+    public PaymentSelection pdate(String... value) {
+        addEquals(PaymentColumns.PDATE, value);
         return this;
     }
 
-    public PaymentSelection dateNot(String... value) {
-        addNotEquals(PaymentColumns.DATE, value);
+    public PaymentSelection pdateNot(String... value) {
+        addNotEquals(PaymentColumns.PDATE, value);
         return this;
     }
 
-    public PaymentSelection dateLike(String... value) {
-        addLike(PaymentColumns.DATE, value);
+    public PaymentSelection pdateLike(String... value) {
+        addLike(PaymentColumns.PDATE, value);
         return this;
     }
 
-    public PaymentSelection dateContains(String... value) {
-        addContains(PaymentColumns.DATE, value);
+    public PaymentSelection pdateContains(String... value) {
+        addContains(PaymentColumns.PDATE, value);
         return this;
     }
 
-    public PaymentSelection dateStartsWith(String... value) {
-        addStartsWith(PaymentColumns.DATE, value);
+    public PaymentSelection pdateStartsWith(String... value) {
+        addStartsWith(PaymentColumns.PDATE, value);
         return this;
     }
 
-    public PaymentSelection dateEndsWith(String... value) {
-        addEndsWith(PaymentColumns.DATE, value);
+    public PaymentSelection pdateEndsWith(String... value) {
+        addEndsWith(PaymentColumns.PDATE, value);
         return this;
     }
 
-    public PaymentSelection orderByDate(boolean desc) {
-        orderBy(PaymentColumns.DATE, desc);
+    public PaymentSelection orderByPdate(boolean desc) {
+        orderBy(PaymentColumns.PDATE, desc);
         return this;
     }
 
-    public PaymentSelection orderByDate() {
-        orderBy(PaymentColumns.DATE, false);
+    public PaymentSelection orderByPdate() {
+        orderBy(PaymentColumns.PDATE, false);
         return this;
     }
 }

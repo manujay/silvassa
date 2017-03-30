@@ -24,7 +24,7 @@ public class PaymentContentValues extends AbstractContentValues {
      * Update row(s) using the values stored by this object and the given selection.
      *
      * @param contentResolver The content resolver to use.
-     * @param where           The selection to use (can be {@code null}).
+     * @param where The selection to use (can be {@code null}).
      */
     public int update(ContentResolver contentResolver, @Nullable PaymentSelection where) {
         return contentResolver.update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
@@ -34,7 +34,7 @@ public class PaymentContentValues extends AbstractContentValues {
      * Update row(s) using the values stored by this object and the given selection.
      *
      * @param context The context to use.
-     * @param where   The selection to use (can be {@code null}).
+     * @param where The selection to use (can be {@code null}).
      */
     public int update(Context context, @Nullable PaymentSelection where) {
         return context.getContentResolver().update(uri(), values(), where == null ? null : where.sel(), where == null ? null : where.args());
@@ -91,11 +91,11 @@ public class PaymentContentValues extends AbstractContentValues {
 
 
     /**
-     * Check
+     * Cheuque
      */
-    public PaymentContentValues putCheck(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("check must not be null");
-        mContentValues.put(PaymentColumns.CHECK, value);
+    public PaymentContentValues putCheuque(@NonNull String value) {
+        if (value == null) throw new IllegalArgumentException("cheuque must not be null");
+        mContentValues.put(PaymentColumns.CHEUQUE, value);
         return this;
     }
 
@@ -141,11 +141,11 @@ public class PaymentContentValues extends AbstractContentValues {
 
 
     /**
-     * date
+     * PaymentDate
      */
-    public PaymentContentValues putDate(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("date must not be null");
-        mContentValues.put(PaymentColumns.DATE, value);
+    public PaymentContentValues putPdate(@NonNull String value) {
+        if (value == null) throw new IllegalArgumentException("pdate must not be null");
+        mContentValues.put(PaymentColumns.PDATE, value);
         return this;
     }
 

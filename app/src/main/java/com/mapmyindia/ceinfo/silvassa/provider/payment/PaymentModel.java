@@ -53,11 +53,11 @@ public interface PaymentModel extends BaseModel {
     String getAmount();
 
     /**
-     * Check
+     * Cheuque
      * Cannot be {@code null}.
      */
     @NonNull
-    String getCheck();
+    String getCheuque();
 
     /**
      * DD
@@ -88,9 +88,9 @@ public interface PaymentModel extends BaseModel {
     String getPhone();
 
     /**
-     * date
+     * PaymentDate
      * Cannot be {@code null}.
      */
     @NonNull
-    String getDate();
+    String getPdate();
 }

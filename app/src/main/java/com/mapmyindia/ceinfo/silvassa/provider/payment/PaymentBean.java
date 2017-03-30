@@ -15,18 +15,18 @@ public class PaymentBean implements PaymentModel {
     private String mMode;
     private String mPayableamount;
     private String mAmount;
-    private String mCheck;
+    private String mCheuque;
     private String mDd;
     private String mPos;
     private String mEmail;
     private String mPhone;
-    private String mDate;
+    private String mPdate;
 
     /**
      * Instantiate a new PaymentBean with specified values.
      */
     @NonNull
-    public static PaymentBean newInstance(long id, @NonNull String propertyuniqueid, @NonNull String taxno, @NonNull String mode, @NonNull String payableamount, @NonNull String amount, @NonNull String check, @NonNull String dd, @NonNull String pos, @NonNull String email, @NonNull String phone, @NonNull String date) {
+    public static PaymentBean newInstance(long id, @NonNull String propertyuniqueid, @NonNull String taxno, @NonNull String mode, @NonNull String payableamount, @NonNull String amount, @NonNull String cheuque, @NonNull String dd, @NonNull String pos, @NonNull String email, @NonNull String phone, @NonNull String pdate) {
         if (propertyuniqueid == null)
             throw new IllegalArgumentException("propertyuniqueid must not be null");
         if (taxno == null) throw new IllegalArgumentException("taxno must not be null");
@@ -34,12 +34,12 @@ public class PaymentBean implements PaymentModel {
         if (payableamount == null)
             throw new IllegalArgumentException("payableamount must not be null");
         if (amount == null) throw new IllegalArgumentException("amount must not be null");
-        if (check == null) throw new IllegalArgumentException("check must not be null");
+        if (cheuque == null) throw new IllegalArgumentException("cheuque must not be null");
         if (dd == null) throw new IllegalArgumentException("dd must not be null");
         if (pos == null) throw new IllegalArgumentException("pos must not be null");
         if (email == null) throw new IllegalArgumentException("email must not be null");
         if (phone == null) throw new IllegalArgumentException("phone must not be null");
-        if (date == null) throw new IllegalArgumentException("date must not be null");
+        if (pdate == null) throw new IllegalArgumentException("pdate must not be null");
         PaymentBean res = new PaymentBean();
         res.mId = id;
         res.mPropertyuniqueid = propertyuniqueid;
@@ -47,12 +47,12 @@ public class PaymentBean implements PaymentModel {
         res.mMode = mode;
         res.mPayableamount = payableamount;
         res.mAmount = amount;
-        res.mCheck = check;
+        res.mCheuque = cheuque;
         res.mDd = dd;
         res.mPos = pos;
         res.mEmail = email;
         res.mPhone = phone;
-        res.mDate = date;
+        res.mPdate = pdate;
         return res;
     }
 
@@ -68,12 +68,12 @@ public class PaymentBean implements PaymentModel {
         res.mMode = from.getMode();
         res.mPayableamount = from.getPayableamount();
         res.mAmount = from.getAmount();
-        res.mCheck = from.getCheck();
+        res.mCheuque = from.getCheuque();
         res.mDd = from.getDd();
         res.mPos = from.getPos();
         res.mEmail = from.getEmail();
         res.mPhone = from.getPhone();
-        res.mDate = from.getDate();
+        res.mPdate = from.getPdate();
         return res;
     }
 
@@ -194,22 +194,22 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
-     * Check
+     * Cheuque
      * Cannot be {@code null}.
      */
     @NonNull
     @Override
-    public String getCheck() {
-        return mCheck;
+    public String getCheuque() {
+        return mCheuque;
     }
 
     /**
-     * Check
+     * Cheuque
      * Must not be {@code null}.
      */
-    public void setCheck(@NonNull String check) {
-        if (check == null) throw new IllegalArgumentException("check must not be null");
-        mCheck = check;
+    public void setCheuque(@NonNull String cheuque) {
+        if (cheuque == null) throw new IllegalArgumentException("cheuque must not be null");
+        mCheuque = cheuque;
     }
 
     /**
@@ -289,22 +289,22 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
-     * date
+     * PaymentDate
      * Cannot be {@code null}.
      */
     @NonNull
     @Override
-    public String getDate() {
-        return mDate;
+    public String getPdate() {
+        return mPdate;
     }
 
     /**
-     * date
+     * PaymentDate
      * Must not be {@code null}.
      */
-    public void setDate(@NonNull String date) {
-        if (date == null) throw new IllegalArgumentException("date must not be null");
-        mDate = date;
+    public void setPdate(@NonNull String pdate) {
+        if (pdate == null) throw new IllegalArgumentException("pdate must not be null");
+        mPdate = pdate;
     }
 
     @Override
@@ -384,12 +384,12 @@ public class PaymentBean implements PaymentModel {
         }
 
         /**
-         * Check
+         * Cheuque
          * Must not be {@code null}.
          */
-        public Builder check(@NonNull String check) {
-            if (check == null) throw new IllegalArgumentException("check must not be null");
-            mRes.mCheck = check;
+        public Builder cheuque(@NonNull String cheuque) {
+            if (cheuque == null) throw new IllegalArgumentException("cheuque must not be null");
+            mRes.mCheuque = cheuque;
             return this;
         }
 
@@ -434,12 +434,12 @@ public class PaymentBean implements PaymentModel {
         }
 
         /**
-         * date
+         * PaymentDate
          * Must not be {@code null}.
          */
-        public Builder date(@NonNull String date) {
-            if (date == null) throw new IllegalArgumentException("date must not be null");
-            mRes.mDate = date;
+        public Builder pdate(@NonNull String pdate) {
+            if (pdate == null) throw new IllegalArgumentException("pdate must not be null");
+            mRes.mPdate = pdate;
             return this;
         }
 
@@ -454,12 +454,13 @@ public class PaymentBean implements PaymentModel {
             if (mRes.mPayableamount == null)
                 throw new IllegalArgumentException("payableamount must not be null");
             if (mRes.mAmount == null) throw new IllegalArgumentException("amount must not be null");
-            if (mRes.mCheck == null) throw new IllegalArgumentException("check must not be null");
+            if (mRes.mCheuque == null)
+                throw new IllegalArgumentException("cheuque must not be null");
             if (mRes.mDd == null) throw new IllegalArgumentException("dd must not be null");
             if (mRes.mPos == null) throw new IllegalArgumentException("pos must not be null");
             if (mRes.mEmail == null) throw new IllegalArgumentException("email must not be null");
             if (mRes.mPhone == null) throw new IllegalArgumentException("phone must not be null");
-            if (mRes.mDate == null) throw new IllegalArgumentException("date must not be null");
+            if (mRes.mPdate == null) throw new IllegalArgumentException("pdate must not be null");
             return mRes;
         }
     }

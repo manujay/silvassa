@@ -46,9 +46,9 @@ public class PaymentColumns implements BaseColumns {
     public static final String AMOUNT = "Amount";
 
     /**
-     * Check
+     * Cheuque
      */
-    public static final String CHECK = "Check";
+    public static final String CHEUQUE = "Cheuque";
 
     /**
      * DD
@@ -71,9 +71,9 @@ public class PaymentColumns implements BaseColumns {
     public static final String PHONE = "phone";
 
     /**
-     * date
+     * PaymentDate
      */
-    public static final String DATE = "date";
+    public static final String PDATE = "Pdate";
 
 
     public static final String DEFAULT_ORDER = null;
@@ -85,12 +85,12 @@ public class PaymentColumns implements BaseColumns {
             MODE,
             PAYABLEAMOUNT,
             AMOUNT,
-            CHECK,
+            CHEUQUE,
             DD,
             POS,
             EMAIL,
             PHONE,
-            DATE
+            PDATE
     };
 
     public static boolean hasColumns(String[] projection) {
@@ -101,12 +101,12 @@ public class PaymentColumns implements BaseColumns {
             if (c.equals(MODE) || c.contains("." + MODE)) return true;
             if (c.equals(PAYABLEAMOUNT) || c.contains("." + PAYABLEAMOUNT)) return true;
             if (c.equals(AMOUNT) || c.contains("." + AMOUNT)) return true;
-            if (c.equals(CHECK) || c.contains("." + CHECK)) return true;
+            if (c.equals(CHEUQUE) || c.contains("." + CHEUQUE)) return true;
             if (c.equals(DD) || c.contains("." + DD)) return true;
             if (c.equals(POS) || c.contains("." + POS)) return true;
             if (c.equals(EMAIL) || c.contains("." + EMAIL)) return true;
             if (c.equals(PHONE) || c.contains("." + PHONE)) return true;
-            if (c.equals(DATE) || c.contains("." + DATE)) return true;
+            if (c.equals(PDATE) || c.contains("." + PDATE)) return true;
         }
         return false;
     }

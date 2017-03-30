@@ -93,15 +93,15 @@ public class PaymentCursor extends AbstractCursor implements PaymentModel {
     }
 
     /**
-     * Check
+     * Cheuque
      * Cannot be {@code null}.
      */
     @NonNull
     @Override
-    public String getCheck() {
-        String res = getStringOrNull(PaymentColumns.CHECK);
+    public String getCheuque() {
+        String res = getStringOrNull(PaymentColumns.CHEUQUE);
         if (res == null)
-            throw new NullPointerException("The value of 'check' in the database was null, which is not allowed according to the model definition");
+            throw new NullPointerException("The value of 'cheuque' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 
@@ -158,15 +158,15 @@ public class PaymentCursor extends AbstractCursor implements PaymentModel {
     }
 
     /**
-     * date
+     * PaymentDate
      * Cannot be {@code null}.
      */
     @NonNull
     @Override
-    public String getDate() {
-        String res = getStringOrNull(PaymentColumns.DATE);
+    public String getPdate() {
+        String res = getStringOrNull(PaymentColumns.PDATE);
         if (res == null)
-            throw new NullPointerException("The value of 'date' in the database was null, which is not allowed according to the model definition");
+            throw new NullPointerException("The value of 'pdate' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 }
