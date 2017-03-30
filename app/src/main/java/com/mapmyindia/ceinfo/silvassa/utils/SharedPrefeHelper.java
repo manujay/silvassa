@@ -15,8 +15,8 @@ public class SharedPrefeHelper {
     private static final String DEFAULT_PREF = "com.mapmyindia.ceinfo.silvassa";
     private static final String PREFERENCE_KEY_ZONE = "default-zone";
     private static final String PREFERENCE_LAST_SYNC = "last-sync";
-    private static final String PREFERENCE_UUID = "user-deviceId";
     private static final String PREFERENCE_USERID = "user-userId";
+    private static final String PREFERENCE_USERNAME = "user-name";
     private static final String PREFERENCE_PASSWORD = "user-password";
     private static SharedPreferences mDefaultPref;
 
@@ -48,7 +48,7 @@ public class SharedPrefeHelper {
         editor.commit();
     }
 
-    public static String getUUID(Context context) {
+    public static String getDeviceId(Context context) {
         String uuid = "";
         try {
             uuid = Long.toString(Settings.Secure.getLong(context.getContentResolver(), Settings.Secure.ANDROID_ID));
@@ -61,9 +61,22 @@ public class SharedPrefeHelper {
     public static void setUserInfo(Context context, LoginActivity.UserModel userModel) {
         SharedPreferences pref = getDefaultPref(context);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString(PREFERENCE_UUID, SharedPrefeHelper.getUUID(context));
-        editor.putString(PREFERENCE_USERID, userModel.getUserName());
+        editor.putString(PREFERENCE_USERID, userModel.getUserId());
+        editor.putString(PREFERENCE_USERNAME, userModel.getUserName());
         editor.putString(PREFERENCE_PASSWORD, userModel.getPassword());
         editor.commit();
+    }
+
+
+    public static String getUserId(Context context) {
+        return getDefaultPref(context).getString(PREFERENCE_USERID, "");
+    }
+
+    public static String getPassword(Context context) {
+        return getDefaultPref(context).getString(PREFERENCE_PASSWORD, "");
+    }
+
+    public static String getUserName(Context context) {
+        return getDefaultPref(context).getString(PREFERENCE_USERNAME, "");
     }
 }
