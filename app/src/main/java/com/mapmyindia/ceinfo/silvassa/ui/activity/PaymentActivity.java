@@ -1,9 +1,9 @@
 package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
-import android.content.Intent;
+import android.content.ContentUris;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -13,10 +13,9 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
-import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailColumns;
+import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentContentValues;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailSelection;
-import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 
@@ -29,6 +28,10 @@ public class PaymentActivity extends BaseActivity {
 
     private AppCompatButton mProceedButton;
     private String payableAmount;
+    private String taxNo;
+    private String pdate;
+    private String propId;
+    private EditText et_payment;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,13 +43,17 @@ public class PaymentActivity extends BaseActivity {
 
         if (null != extras && extras.containsKey(INTENT_PARAMETERS._PREFILL_PROPERTYID)) {
 
+            propId = extras.getString(INTENT_PARAMETERS._PREFILL_PROPERTYID);
+
             TaxdetailSelection selection = new TaxdetailSelection();
-            selection.propertyid(extras.getString(INTENT_PARAMETERS._PREFILL_PROPERTYID));
+            selection.propertyid(propId);
 
             TaxdetailCursor cursor = selection.query(getContentResolver());
 
             if (cursor.moveToFirst()) {
-                payableAmount = cursor.getString(cursor.getColumnIndexOrThrow(TaxdetailColumns.PAYABLEAMOUNT));
+                payableAmount = cursor.getPayableamount();
+                taxNo = cursor.getTaxno();
+                pdate = cursor.getDuedate();
             }
 
         }
@@ -64,7 +71,7 @@ public class PaymentActivity extends BaseActivity {
 
         setToolbar((Toolbar) findViewById(R.id.toolbar));
 
-        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(PaymentActivity.this));
+        setTitle("PropertyID : " + propId + " TaxNo : " + taxNo + " Last Synced : " + SharedPrefeHelper.getLastSync(this));
 
         RadioGroup rgPtop = (RadioGroup) findViewById(R.id.rg_ptp);
 
@@ -88,20 +95,33 @@ public class PaymentActivity extends BaseActivity {
         mProceedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!Connectivity.isConnected(PaymentActivity.this)) {
-                    Snackbar.make(getWindow().getDecorView(), "No Internet Connectivity", Snackbar.LENGTH_SHORT).show();
-                } else {
-                    doPost();
-                }
+                paymentOffline();
             }
         });
 
-        ((EditText) findViewById(R.id.et_amount)).setText(payableAmount);
+        et_payment = (EditText) findViewById(R.id.et_amount);
+
+        et_payment.setText(payableAmount);
+
     }
 
-    private void doPost() {
-        Intent intent = new Intent(PaymentActivity.this, PrintActivity.class);
-        intent.putExtras(getIntent().getExtras());
-        startActivity(intent);
+    private void paymentOffline() {
+        Bundle extras = getIntent().getExtras();
+
+        if (null != extras && extras.containsKey(INTENT_PARAMETERS._PREFILL_PROPERTYID)) {
+
+            insertPayment(propId, payableAmount, taxNo, pdate);
+        }
+    }
+
+    private long insertPayment(String propId, String payableAmount, String taxNo, String pdate) {
+        PaymentContentValues contentValues = new PaymentContentValues();
+        contentValues.putPayableamount(payableAmount);
+        contentValues.putPropertyuniqueid(propId);
+        contentValues.putAmount(et_payment.getText().toString());
+        contentValues.putTaxno(taxNo);
+        contentValues.putPdate(pdate);
+        Uri uri = contentValues.insert(getContentResolver());
+        return ContentUris.parseId(uri);
     }
 }

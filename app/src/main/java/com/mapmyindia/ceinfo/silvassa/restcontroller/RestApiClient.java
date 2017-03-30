@@ -13,7 +13,6 @@ public interface RestApiClient {
     String BASE_URL = "http://182.71.127.238:8080/SilvassaMob/";
     String DEBUG_URL = "http://10.10.21.14:8080/SilvassaMob/";
 
-    //http://localhost:8080/SilvassaMob/mobLogin?loginBean={deviceId:"1234567899874561",userId:"sandeep",userName:"",pass:"123"}
     @GET("mobLogin")
     Call<ResponseBody> mobLogin(@Query("loginBean") String loginBean);
 
@@ -25,4 +24,7 @@ public interface RestApiClient {
 
     @GET("searchProperty")
     Call<ResponseBody> searchProperty(@Query("searchBean") String searchBean);
+
+    @GET("mobPayment")
+    Call<ResponseBody> mobPayment(@Query("paymentBean") String paymentBean);
 }

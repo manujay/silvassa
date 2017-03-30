@@ -126,7 +126,6 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
-
                     startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
                     finish();
 
