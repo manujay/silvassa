@@ -12,6 +12,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentColumns;
+import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentCursor;
+import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentSelection;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertySelection;
@@ -70,14 +73,19 @@ public class PrintActivity extends BaseActivity {
         TaxdetailSelection selection = new TaxdetailSelection();
         selection.propertyid(propertyId);
 
-        TaxdetailCursor taxdetailCursor = selection.query(getContentResolver());
-
         PropertySelection propertySelection = new PropertySelection();
         propertySelection.propertyuniqueid(propertyId);
 
+        PaymentSelection paymentSelection = new PaymentSelection();
+        paymentSelection.propertyuniqueid(propertyId);
+
+        TaxdetailCursor taxdetailCursor = selection.query(getContentResolver());
+
+        PaymentCursor paymentCursor = paymentSelection.query(getContentResolver());
+
         PropertyCursor propertyCursor = propertySelection.query(getContentResolver());
 
-        if (propertyCursor.moveToFirst() && taxdetailCursor.moveToFirst()) {
+        if (propertyCursor.moveToFirst() && taxdetailCursor.moveToFirst() && paymentCursor.moveToFirst()) {
 
             TextView textView0 = new TextView(this);
             textView0.setAllCaps(true);
@@ -116,16 +124,24 @@ public class PrintActivity extends BaseActivity {
             textView4.setTypeface(Typeface.MONOSPACE);
             textView4.setTextSize(12.0f);
             textView4.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            String phone = propertyCursor.getStringOrNull(PropertyColumns.PHONE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PHONE);
-            textView4.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PHONE, phone));
+            String Amount = paymentCursor.getStringOrNull(PaymentColumns.AMOUNT) == null ? "" : paymentCursor.getStringOrNull(PaymentColumns.AMOUNT);
+            textView4.setText(String.format(Locale.getDefault(), "%-22s : %s", PaymentColumns.AMOUNT, Amount));
 
             TextView textView5 = new TextView(this);
             textView5.setAllCaps(true);
             textView5.setTypeface(Typeface.MONOSPACE);
             textView5.setTextSize(12.0f);
             textView5.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            String phone = propertyCursor.getStringOrNull(PropertyColumns.PHONE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PHONE);
+            textView5.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PHONE, phone));
+
+            TextView textView6 = new TextView(this);
+            textView6.setAllCaps(true);
+            textView6.setTypeface(Typeface.MONOSPACE);
+            textView6.setTextSize(12.0f);
+            textView6.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             String email = propertyCursor.getStringOrNull(PropertyColumns.EMAIL) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.EMAIL);
-            textView5.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.EMAIL, email));
+            textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.EMAIL, email));
 
             linear_parent.addView(textView0);
             linear_parent.addView(textView1);
@@ -133,6 +149,7 @@ public class PrintActivity extends BaseActivity {
             linear_parent.addView(textView3);
             linear_parent.addView(textView4);
             linear_parent.addView(textView5);
+            linear_parent.addView(textView6);
         }
     }
 

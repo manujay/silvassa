@@ -62,7 +62,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
     private static final String TAG = SyncSearchActivity.class.getSimpleName();
     private static final int INIT_ZONE_LOADER = 12212;
-    ProgressBar progressBar;
+    private ProgressBar progressBar;
     private LayoutActivitySyncsearchBinding binding;
     private SyncSpinnerAdapter spinnerAdapter;
 

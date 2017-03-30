@@ -36,4 +36,6 @@ dependencies {
     compile 'com.jakewharton.retrofit:retrofit1-okhttp3-client:1.1.0'
     compile 'com.squareup.okhttp3:logging-interceptor:3.5.0'
     compile 'com.orhanobut:logger:1.15'
+    compile project(':gcm_defs')
+    compile project(':jobdispatcher')
 }

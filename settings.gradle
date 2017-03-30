@@ -1,1 +1,1 @@
-include ':app'
+include ':app', ':jobdispatcher', ':gcm_defs', ':testapp'
