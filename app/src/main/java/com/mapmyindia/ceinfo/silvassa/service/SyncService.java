@@ -3,9 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 import android.support.annotation.Nullable;
 
 import com.mapmyindia.ceinfo.silvassa.publish.PublishProvider;
@@ -50,7 +48,6 @@ public class SyncService extends Service {
 
     @Override
     public void onDestroy() {
-        thread.signalStop();
         try {
             thread.join();
         } catch (Exception e) {
@@ -59,38 +56,27 @@ public class SyncService extends Service {
         super.onDestroy();
     }
 
-
     private static class SyncThread extends Thread {
 
+        boolean stop = false;
         private Context context;
-        private Handler handler;
 
         private void setContext(Context context) {
             this.context = context;
-        }
-
-        private void signalStop() {
-            if (handler != null) {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Looper.myLooper().quit();
-                    }
-                });
-            }
         }
 
         @Override
         public void run() {
             super.run();
 
-            Looper.prepare();
-
-            handler = new Handler();
-
-            PublishProvider.getPublishProvider(context).publishOnServer();
-
-            Looper.loop();
+            while (!stop) {
+                PublishProvider.getPublishProvider(context, new PublishProvider.OnPublishCallBack() {
+                    @Override
+                    public void onPublishCompleted(boolean flag) {
+                        stop = flag;
+                    }
+                }).publishOnServer();
+            }
         }
     }
 }

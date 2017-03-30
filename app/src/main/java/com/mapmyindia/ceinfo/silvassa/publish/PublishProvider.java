@@ -23,65 +23,74 @@ import retrofit2.Response;
 public class PublishProvider {
 
     private static PublishProvider instance = null;
-
+    private static RestApiClient apiClient = RestAppController.getRetrofitinstance().create(RestApiClient.class);
     private Context mContext;
+    private OnPublishCallBack onPublishCallBack;
 
-    private PublishProvider(Context context) {
+    private PublishProvider(Context context, OnPublishCallBack callBack) {
         this.mContext = context;
+        this.onPublishCallBack = callBack;
     }
 
-    public static PublishProvider getPublishProvider(Context context) {
+    public static PublishProvider getPublishProvider(Context context, OnPublishCallBack callBack) {
         if (null == instance) {
-            instance = new PublishProvider(context);
+            instance = new PublishProvider(context, callBack);
         }
         return instance;
     }
 
     public void publishOnServer() {
 
-        String[] projection = {
-                PaymentColumns.PROPERTYUNIQUEID,
-                PaymentColumns.TAXNO,
-                PaymentColumns.AMOUNT,
-                PaymentColumns.MODE,
-                PaymentColumns.EMAIL,
-                PaymentColumns.PHONE,
-                PaymentColumns.PDATE
-        };
+        try {
+            String[] projection = {
+                    PaymentColumns.PROPERTYUNIQUEID,
+                    PaymentColumns.TAXNO,
+                    PaymentColumns.AMOUNT,
+                    PaymentColumns.MODE,
+                    PaymentColumns.EMAIL,
+                    PaymentColumns.PHONE,
+                    PaymentColumns.PDATE
+            };
 
-        PaymentSelection selection = new PaymentSelection();
+            PaymentSelection selection = new PaymentSelection();
 
-        PaymentCursor cursor = selection.query(mContext.getContentResolver(), projection);
+            PaymentCursor cursor = selection.query(mContext.getContentResolver(), projection);
 
-        if (cursor.moveToFirst()) {
+            if (cursor.moveToFirst()) {
 
-            while (!cursor.isAfterLast()) {
+                while (!cursor.isAfterLast()) {
 
-                PaymentBean paymentBean = new PaymentBean();
-                paymentBean.setDeviceId(SharedPrefeHelper.getDeviceId(mContext));
-                paymentBean.setUserId(SharedPrefeHelper.getUserId(mContext));
-                paymentBean.setPropertyId(cursor.getPropertyuniqueid());
-                paymentBean.setPaymentAmount(cursor.getAmount());
-                paymentBean.setPayDate(cursor.getPdate());
-                paymentBean.setPaymentMode(cursor.getMode());
-                paymentBean.setTaxNo(cursor.getTaxno());
+                    PaymentBean paymentBean = new PaymentBean();
+                    paymentBean.setDeviceId(SharedPrefeHelper.getDeviceId(mContext));
+                    paymentBean.setUserId(SharedPrefeHelper.getUserId(mContext));
+                    paymentBean.setPropertyId(cursor.getPropertyuniqueid());
+                    paymentBean.setPaymentAmount(cursor.getAmount());
+                    paymentBean.setPayDate(cursor.getPdate());
+                    paymentBean.setPaymentMode(cursor.getMode());
+                    paymentBean.setTaxNo(cursor.getTaxno());
 
-                String payment = new Gson().toJson(paymentBean, PaymentBean.class);
+                    String payment = new Gson().toJson(paymentBean, PaymentBean.class);
 
-                doPost(payment);
+                    doPost(payment);
 
-                cursor.moveToNext();
+                    cursor.moveToNext();
+                }
             }
+
+            cursor.close();
+
+        } catch (Exception e) {
+
+            onPublishCallBack.onPublishCompleted(false);
+            e.printStackTrace();
         }
 
-        cursor.close();
+        onPublishCallBack.onPublishCompleted(true);
     }
 
-
     private void doPost(String payment) {
-        RestApiClient client = RestAppController.getRetrofitinstance().create(RestApiClient.class);
 
-        Call<ResponseBody> call = client.mobPayment(payment);
+        Call<ResponseBody> call = apiClient.mobPayment(payment);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -100,6 +109,10 @@ public class PublishProvider {
 
             }
         });
+    }
+
+    public interface OnPublishCallBack {
+        void onPublishCompleted(boolean flag);
     }
 
     private class PaymentBean {

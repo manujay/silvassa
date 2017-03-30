@@ -44,6 +44,7 @@
             android:name="com.mapmyindia.ceinfo.silvassa.provider.SilvassaProvider"
             android:authorities="com.mapmyindia.ceinfo.silvassa.provider"
             android:exported="false" />
+
         <service
             android:name=".scheduler.SyncJobProvider"
             android:exported="false">
@@ -51,6 +52,9 @@
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE" />
             </intent-filter>
         </service>
+        <service
+            android:name=".service.SyncService"
+            android:exported="false" />
     </application>
 
 </manifest>
