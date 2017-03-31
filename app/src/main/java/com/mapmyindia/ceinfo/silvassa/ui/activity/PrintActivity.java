@@ -132,16 +132,32 @@ public class PrintActivity extends BaseActivity {
             textView5.setTypeface(Typeface.MONOSPACE);
             textView5.setTextSize(12.0f);
             textView5.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            String phone = propertyCursor.getStringOrNull(PropertyColumns.PHONE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PHONE);
-            textView5.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PHONE, phone));
+            String Pdate = paymentCursor.getStringOrNull(PaymentColumns.PDATE) == null ? "" : paymentCursor.getStringOrNull(PaymentColumns.PDATE);
+            textView5.setText(String.format(Locale.getDefault(), "%-22s : %s", PaymentColumns.PDATE, DateTimeUtils.getFormattedDatefromLong(Long.parseLong(Pdate))));
 
             TextView textView6 = new TextView(this);
             textView6.setAllCaps(true);
             textView6.setTypeface(Typeface.MONOSPACE);
             textView6.setTextSize(12.0f);
             textView6.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            String taxNo = paymentCursor.getStringOrNull(PaymentColumns.TAXNO) == null ? "" : paymentCursor.getStringOrNull(PaymentColumns.TAXNO);
+            textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", PaymentColumns.TAXNO, taxNo));
+
+            TextView textView7 = new TextView(this);
+            textView7.setAllCaps(true);
+            textView7.setTypeface(Typeface.MONOSPACE);
+            textView7.setTextSize(12.0f);
+            textView7.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            String phone = propertyCursor.getStringOrNull(PropertyColumns.PHONE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PHONE);
+            textView7.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PHONE, phone));
+
+            TextView textView8 = new TextView(this);
+            textView8.setAllCaps(true);
+            textView8.setTypeface(Typeface.MONOSPACE);
+            textView8.setTextSize(12.0f);
+            textView8.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             String email = propertyCursor.getStringOrNull(PropertyColumns.EMAIL) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.EMAIL);
-            textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.EMAIL, email));
+            textView8.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.EMAIL, email));
 
             linear_parent.addView(textView0);
             linear_parent.addView(textView1);
@@ -150,6 +166,8 @@ public class PrintActivity extends BaseActivity {
             linear_parent.addView(textView4);
             linear_parent.addView(textView5);
             linear_parent.addView(textView6);
+            linear_parent.addView(textView7);
+            linear_parent.addView(textView8);
         }
     }
 

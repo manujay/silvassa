@@ -1,6 +1,7 @@
 package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.content.ContentUris;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -140,7 +141,22 @@ public class PaymentActivity extends BaseActivity {
         }
 
         if (isValid) {
-            insertPayment(userId, propId, taxNo, amount, pdate, mode);
+
+            long id = insertPayment(userId, propId, taxNo, amount, pdate, mode);
+
+            if (id < 0L) {
+
+                //Todo update payment info
+
+            } else {
+
+                Intent intent = new Intent(this, PrintActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, propId);
+                intent.putExtras(extras);
+                startActivity(intent);
+                finish();
+            }
         } else {
             findViewById(R.id.et_amount).requestFocus();
         }
@@ -151,14 +167,7 @@ public class PaymentActivity extends BaseActivity {
 
     private long insertPayment(String userId, String propId, String taxno, String amount, String pdate, String mode) {
 
-        String toStirng = "PropId" + propId + "\n"
-                + " UserId" + userId + "\n"
-                + " taxNo " + taxno + "\n"
-                + " Amount " + amount + "\n"
-                + " Payment Date " + pdate + "\n"
-                + " Mode " + mode + "";
-
-        Logger.d(toStirng);
+        Logger.d(TAG, " @Payment Date" + pdate);
 
         PaymentContentValues contentValues = new PaymentContentValues();
         contentValues.putUserid(userId);
