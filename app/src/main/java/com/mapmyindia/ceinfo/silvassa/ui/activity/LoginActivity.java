@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatEditText;
@@ -14,13 +15,18 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
+import com.mapmyindia.ceinfo.silvassa.wsmodel.UserWSModel;
 import com.orhanobut.logger.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -77,11 +83,11 @@ public class LoginActivity extends AppCompatActivity {
     private void doLogin() {
 //        View focusView = null;
         boolean isvalid = true;
-        String username = mEditTextUname.getText().toString();
+        String userId = mEditTextUname.getText().toString();
         String paswd = mEditTextPaswd.getText().toString();
 
 
-        if (StringUtils.isNullOrEmpty(username)) {
+        if (StringUtils.isNullOrEmpty(userId)) {
             isvalid = false;
 //            mEditTextUname.setError("Please provide a valid username");
 //            focusView = mEditTextUname;
@@ -93,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (isvalid) {
-            attemptLogin(username, paswd);
+            attemptLogin(userId, paswd);
         } else {
 //            focusView.requestFocus();
             new DialogHandler(LoginActivity.this).showAlertDialog("Please provide a valid username/password");
@@ -103,15 +109,15 @@ public class LoginActivity extends AppCompatActivity {
 //        mEditTextPaswd.setText("");
     }
 
-    private void attemptLogin(String username, String pwd) {
+    private void attemptLogin(String userId, String pwd) {
 
         showProgress(true);
 
         UserModel payload = new UserModel();
-        payload.setUserId(SharedPrefeHelper.getUserId(this));
-        payload.setDeviceId(SharedPrefeHelper.getDeviceId(this));
-        payload.setUserName(username);
+        payload.setUserId(userId);
         payload.setPassword(pwd);
+        payload.setUserName("");
+        payload.setDeviceId(SharedPrefeHelper.getDeviceId(this));
 
         String toJson = new Gson().toJson(payload, UserModel.class);
 
@@ -126,8 +132,39 @@ public class LoginActivity extends AppCompatActivity {
 
                 if (response.isSuccessful()) {
 
-                    startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
-                    finish();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body().toString());
+
+                        if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
+                        if (Integer.parseInt(jsonObject.getString("status")) != 200) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
+                        if (null == jsonObject.get("data")) {
+                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            return;
+                        }
+
+                        UserWSModel data = new Gson().fromJson(jsonObject.getString("data"), new TypeToken<UserWSModel>() {
+                        }.getType());
+
+                        SharedPrefeHelper.setUserId(LoginActivity.this, data.getUserId());
+
+                        SharedPrefeHelper.setUserInfo(LoginActivity.this, new Gson().toJson(data, UserWSModel.class));
+
+                        Logger.json(new Gson().toJson(data, UserWSModel.class));
+
+                        startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
+
+                        finish();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
 

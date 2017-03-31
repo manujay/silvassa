@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.provider.Settings;
 
-import com.mapmyindia.ceinfo.silvassa.ui.activity.LoginActivity;
-
 /**
  * Created by ceinfo on 21-03-2017.
  */
@@ -16,8 +14,7 @@ public class SharedPrefeHelper {
     private static final String PREFERENCE_KEY_ZONE = "default-zone";
     private static final String PREFERENCE_LAST_SYNC = "last-sync";
     private static final String PREFERENCE_USERID = "user-userId";
-    private static final String PREFERENCE_USERNAME = "user-name";
-    private static final String PREFERENCE_PASSWORD = "user-password";
+    private static final String PREFERENCE_USERINFO = "user-info";
     private static SharedPreferences mDefaultPref;
 
     private static SharedPreferences getDefaultPref(Context context) {
@@ -58,25 +55,21 @@ public class SharedPrefeHelper {
         return uuid;
     }
 
-    public static void setUserInfo(Context context, LoginActivity.UserModel userModel) {
+    public static void setUserInfo(Context context, String json) {
         SharedPreferences pref = getDefaultPref(context);
         SharedPreferences.Editor editor = pref.edit();
-        editor.putString(PREFERENCE_USERID, userModel.getUserId());
-        editor.putString(PREFERENCE_USERNAME, userModel.getUserName());
-        editor.putString(PREFERENCE_PASSWORD, userModel.getPassword());
+        editor.putString(PREFERENCE_USERINFO, json);
         editor.commit();
     }
 
-
-    public static String getUserId(Context context) {
-        return getDefaultPref(context).getString(PREFERENCE_USERID, "");
+    public static String getUserId(Context mContext) {
+        return getDefaultPref(mContext).getString(PREFERENCE_USERID, "");
     }
 
-    public static String getPassword(Context context) {
-        return getDefaultPref(context).getString(PREFERENCE_PASSWORD, "");
-    }
-
-    public static String getUserName(Context context) {
-        return getDefaultPref(context).getString(PREFERENCE_USERNAME, "");
+    public static void setUserId(Context context, String userId) {
+        SharedPreferences pref = getDefaultPref(context);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString(PREFERENCE_USERID, userId);
+        edit.commit();
     }
 }
