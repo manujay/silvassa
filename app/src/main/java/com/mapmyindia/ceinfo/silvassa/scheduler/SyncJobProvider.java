@@ -17,6 +17,6 @@ public class SyncJobProvider extends com.firebase.jobdispatcher.JobService {
 
     @Override
     public boolean onStopJob(JobParameters job) {
-        return true;
+        return false;
     }
 }

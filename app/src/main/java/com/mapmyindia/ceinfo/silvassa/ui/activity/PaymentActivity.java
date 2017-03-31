@@ -145,6 +145,8 @@ public class PaymentActivity extends BaseActivity {
             findViewById(R.id.et_amount).requestFocus();
         }
 
+        cursor.close();
+
     }
 
     private long insertPayment(String userId, String propId, String taxno, String amount, String pdate, String mode) {

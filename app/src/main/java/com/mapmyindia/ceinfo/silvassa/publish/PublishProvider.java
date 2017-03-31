@@ -11,6 +11,8 @@ import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.orhanobut.logger.Logger;
 
+import org.json.JSONObject;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -98,8 +100,17 @@ public class PublishProvider {
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
 
-                    Logger.json(response.body().toString());
+                    try {
 
+                        JSONObject json = new JSONObject(response.body().string());
+
+                        String toJson = new Gson().toJson(json);
+
+                        Logger.json(toJson);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
