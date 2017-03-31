@@ -10,48 +10,32 @@ import android.support.annotation.NonNull;
 @SuppressWarnings({"WeakerAccess", "unused", "ConstantConditions"})
 public class PaymentBean implements PaymentModel {
     private long mId;
+    private String mUserid;
     private String mPropertyuniqueid;
     private String mTaxno;
     private String mMode;
-    private String mPayableamount;
     private String mAmount;
-    private String mCheuque;
-    private String mDd;
-    private String mPos;
-    private String mEmail;
-    private String mPhone;
     private String mPdate;
 
     /**
      * Instantiate a new PaymentBean with specified values.
      */
     @NonNull
-    public static PaymentBean newInstance(long id, @NonNull String propertyuniqueid, @NonNull String taxno, @NonNull String mode, @NonNull String payableamount, @NonNull String amount, @NonNull String cheuque, @NonNull String dd, @NonNull String pos, @NonNull String email, @NonNull String phone, @NonNull String pdate) {
+    public static PaymentBean newInstance(long id, @NonNull String userid, @NonNull String propertyuniqueid, @NonNull String taxno, @NonNull String mode, @NonNull String amount, @NonNull String pdate) {
+        if (userid == null) throw new IllegalArgumentException("userid must not be null");
         if (propertyuniqueid == null)
             throw new IllegalArgumentException("propertyuniqueid must not be null");
         if (taxno == null) throw new IllegalArgumentException("taxno must not be null");
         if (mode == null) throw new IllegalArgumentException("mode must not be null");
-        if (payableamount == null)
-            throw new IllegalArgumentException("payableamount must not be null");
         if (amount == null) throw new IllegalArgumentException("amount must not be null");
-        if (cheuque == null) throw new IllegalArgumentException("cheuque must not be null");
-        if (dd == null) throw new IllegalArgumentException("dd must not be null");
-        if (pos == null) throw new IllegalArgumentException("pos must not be null");
-        if (email == null) throw new IllegalArgumentException("email must not be null");
-        if (phone == null) throw new IllegalArgumentException("phone must not be null");
         if (pdate == null) throw new IllegalArgumentException("pdate must not be null");
         PaymentBean res = new PaymentBean();
         res.mId = id;
+        res.mUserid = userid;
         res.mPropertyuniqueid = propertyuniqueid;
         res.mTaxno = taxno;
         res.mMode = mode;
-        res.mPayableamount = payableamount;
         res.mAmount = amount;
-        res.mCheuque = cheuque;
-        res.mDd = dd;
-        res.mPos = pos;
-        res.mEmail = email;
-        res.mPhone = phone;
         res.mPdate = pdate;
         return res;
     }
@@ -63,16 +47,11 @@ public class PaymentBean implements PaymentModel {
     public static PaymentBean copy(@NonNull PaymentModel from) {
         PaymentBean res = new PaymentBean();
         res.mId = from.getId();
+        res.mUserid = from.getUserid();
         res.mPropertyuniqueid = from.getPropertyuniqueid();
         res.mTaxno = from.getTaxno();
         res.mMode = from.getMode();
-        res.mPayableamount = from.getPayableamount();
         res.mAmount = from.getAmount();
-        res.mCheuque = from.getCheuque();
-        res.mDd = from.getDd();
-        res.mPos = from.getPos();
-        res.mEmail = from.getEmail();
-        res.mPhone = from.getPhone();
         res.mPdate = from.getPdate();
         return res;
     }
@@ -97,6 +76,25 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
+     * UserId.
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    @Override
+    public String getUserid() {
+        return mUserid;
+    }
+
+    /**
+     * UserId.
+     * Must not be {@code null}.
+     */
+    public void setUserid(@NonNull String userid) {
+        if (userid == null) throw new IllegalArgumentException("userid must not be null");
+        mUserid = userid;
+    }
+
+    /**
      * propertyUniqueId.
      * Cannot be {@code null}.
      */
@@ -117,7 +115,7 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
-     * taxNo
+     * TaxNo.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -127,7 +125,7 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
-     * taxNo
+     * TaxNo.
      * Must not be {@code null}.
      */
     public void setTaxno(@NonNull String taxno) {
@@ -155,26 +153,6 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
-     * payableAmount
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getPayableamount() {
-        return mPayableamount;
-    }
-
-    /**
-     * payableAmount
-     * Must not be {@code null}.
-     */
-    public void setPayableamount(@NonNull String payableamount) {
-        if (payableamount == null)
-            throw new IllegalArgumentException("payableamount must not be null");
-        mPayableamount = payableamount;
-    }
-
-    /**
      * Amount
      * Cannot be {@code null}.
      */
@@ -191,101 +169,6 @@ public class PaymentBean implements PaymentModel {
     public void setAmount(@NonNull String amount) {
         if (amount == null) throw new IllegalArgumentException("amount must not be null");
         mAmount = amount;
-    }
-
-    /**
-     * Cheuque
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getCheuque() {
-        return mCheuque;
-    }
-
-    /**
-     * Cheuque
-     * Must not be {@code null}.
-     */
-    public void setCheuque(@NonNull String cheuque) {
-        if (cheuque == null) throw new IllegalArgumentException("cheuque must not be null");
-        mCheuque = cheuque;
-    }
-
-    /**
-     * DD
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getDd() {
-        return mDd;
-    }
-
-    /**
-     * DD
-     * Must not be {@code null}.
-     */
-    public void setDd(@NonNull String dd) {
-        if (dd == null) throw new IllegalArgumentException("dd must not be null");
-        mDd = dd;
-    }
-
-    /**
-     * POS
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getPos() {
-        return mPos;
-    }
-
-    /**
-     * POS
-     * Must not be {@code null}.
-     */
-    public void setPos(@NonNull String pos) {
-        if (pos == null) throw new IllegalArgumentException("pos must not be null");
-        mPos = pos;
-    }
-
-    /**
-     * email
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getEmail() {
-        return mEmail;
-    }
-
-    /**
-     * email
-     * Must not be {@code null}.
-     */
-    public void setEmail(@NonNull String email) {
-        if (email == null) throw new IllegalArgumentException("email must not be null");
-        mEmail = email;
-    }
-
-    /**
-     * phone
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getPhone() {
-        return mPhone;
-    }
-
-    /**
-     * phone
-     * Must not be {@code null}.
-     */
-    public void setPhone(@NonNull String phone) {
-        if (phone == null) throw new IllegalArgumentException("phone must not be null");
-        mPhone = phone;
     }
 
     /**
@@ -332,6 +215,16 @@ public class PaymentBean implements PaymentModel {
         }
 
         /**
+         * UserId.
+         * Must not be {@code null}.
+         */
+        public Builder userid(@NonNull String userid) {
+            if (userid == null) throw new IllegalArgumentException("userid must not be null");
+            mRes.mUserid = userid;
+            return this;
+        }
+
+        /**
          * propertyUniqueId.
          * Must not be {@code null}.
          */
@@ -343,7 +236,7 @@ public class PaymentBean implements PaymentModel {
         }
 
         /**
-         * taxNo
+         * TaxNo.
          * Must not be {@code null}.
          */
         public Builder taxno(@NonNull String taxno) {
@@ -363,73 +256,12 @@ public class PaymentBean implements PaymentModel {
         }
 
         /**
-         * payableAmount
-         * Must not be {@code null}.
-         */
-        public Builder payableamount(@NonNull String payableamount) {
-            if (payableamount == null)
-                throw new IllegalArgumentException("payableamount must not be null");
-            mRes.mPayableamount = payableamount;
-            return this;
-        }
-
-        /**
          * Amount
          * Must not be {@code null}.
          */
         public Builder amount(@NonNull String amount) {
             if (amount == null) throw new IllegalArgumentException("amount must not be null");
             mRes.mAmount = amount;
-            return this;
-        }
-
-        /**
-         * Cheuque
-         * Must not be {@code null}.
-         */
-        public Builder cheuque(@NonNull String cheuque) {
-            if (cheuque == null) throw new IllegalArgumentException("cheuque must not be null");
-            mRes.mCheuque = cheuque;
-            return this;
-        }
-
-        /**
-         * DD
-         * Must not be {@code null}.
-         */
-        public Builder dd(@NonNull String dd) {
-            if (dd == null) throw new IllegalArgumentException("dd must not be null");
-            mRes.mDd = dd;
-            return this;
-        }
-
-        /**
-         * POS
-         * Must not be {@code null}.
-         */
-        public Builder pos(@NonNull String pos) {
-            if (pos == null) throw new IllegalArgumentException("pos must not be null");
-            mRes.mPos = pos;
-            return this;
-        }
-
-        /**
-         * email
-         * Must not be {@code null}.
-         */
-        public Builder email(@NonNull String email) {
-            if (email == null) throw new IllegalArgumentException("email must not be null");
-            mRes.mEmail = email;
-            return this;
-        }
-
-        /**
-         * phone
-         * Must not be {@code null}.
-         */
-        public Builder phone(@NonNull String phone) {
-            if (phone == null) throw new IllegalArgumentException("phone must not be null");
-            mRes.mPhone = phone;
             return this;
         }
 
@@ -447,19 +279,12 @@ public class PaymentBean implements PaymentModel {
          * Get a new PaymentBean built with the given values.
          */
         public PaymentBean build() {
+            if (mRes.mUserid == null) throw new IllegalArgumentException("userid must not be null");
             if (mRes.mPropertyuniqueid == null)
                 throw new IllegalArgumentException("propertyuniqueid must not be null");
             if (mRes.mTaxno == null) throw new IllegalArgumentException("taxno must not be null");
             if (mRes.mMode == null) throw new IllegalArgumentException("mode must not be null");
-            if (mRes.mPayableamount == null)
-                throw new IllegalArgumentException("payableamount must not be null");
             if (mRes.mAmount == null) throw new IllegalArgumentException("amount must not be null");
-            if (mRes.mCheuque == null)
-                throw new IllegalArgumentException("cheuque must not be null");
-            if (mRes.mDd == null) throw new IllegalArgumentException("dd must not be null");
-            if (mRes.mPos == null) throw new IllegalArgumentException("pos must not be null");
-            if (mRes.mEmail == null) throw new IllegalArgumentException("email must not be null");
-            if (mRes.mPhone == null) throw new IllegalArgumentException("phone must not be null");
             if (mRes.mPdate == null) throw new IllegalArgumentException("pdate must not be null");
             return mRes;
         }

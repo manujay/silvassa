@@ -25,7 +25,6 @@ import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.UserWSModel;
 import com.orhanobut.logger.Logger;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import okhttp3.ResponseBody;
@@ -133,20 +132,20 @@ public class LoginActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
 
                     try {
-                        JSONObject jsonObject = new JSONObject(response.body().toString());
+                        JSONObject jsonObject = new JSONObject(response.body().string());
 
                         if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
-                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            Snackbar.make(getWindow().getDecorView(), jsonObject.getString("message"), Snackbar.LENGTH_SHORT).show();
                             return;
                         }
 
                         if (Integer.parseInt(jsonObject.getString("status")) != 200) {
-                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            Snackbar.make(getWindow().getDecorView(), jsonObject.getString("message"), Snackbar.LENGTH_SHORT).show();
                             return;
                         }
 
                         if (null == jsonObject.get("data")) {
-                            Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT);
+                            Snackbar.make(getWindow().getDecorView(), jsonObject.getString("message"), Snackbar.LENGTH_SHORT).show();
                             return;
                         }
 
@@ -162,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
 
                         finish();
-                    } catch (JSONException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
 

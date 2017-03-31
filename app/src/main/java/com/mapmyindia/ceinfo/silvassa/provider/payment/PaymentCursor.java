@@ -28,6 +28,19 @@ public class PaymentCursor extends AbstractCursor implements PaymentModel {
     }
 
     /**
+     * UserId.
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    @Override
+    public String getUserid() {
+        String res = getStringOrNull(PaymentColumns.USERID);
+        if (res == null)
+            throw new NullPointerException("The value of 'userid' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
      * propertyUniqueId.
      * Cannot be {@code null}.
      */
@@ -41,7 +54,7 @@ public class PaymentCursor extends AbstractCursor implements PaymentModel {
     }
 
     /**
-     * taxNo
+     * TaxNo.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -67,19 +80,6 @@ public class PaymentCursor extends AbstractCursor implements PaymentModel {
     }
 
     /**
-     * payableAmount
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getPayableamount() {
-        String res = getStringOrNull(PaymentColumns.PAYABLEAMOUNT);
-        if (res == null)
-            throw new NullPointerException("The value of 'payableamount' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
-
-    /**
      * Amount
      * Cannot be {@code null}.
      */
@@ -89,71 +89,6 @@ public class PaymentCursor extends AbstractCursor implements PaymentModel {
         String res = getStringOrNull(PaymentColumns.AMOUNT);
         if (res == null)
             throw new NullPointerException("The value of 'amount' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
-
-    /**
-     * Cheuque
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getCheuque() {
-        String res = getStringOrNull(PaymentColumns.CHEUQUE);
-        if (res == null)
-            throw new NullPointerException("The value of 'cheuque' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
-
-    /**
-     * DD
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getDd() {
-        String res = getStringOrNull(PaymentColumns.DD);
-        if (res == null)
-            throw new NullPointerException("The value of 'dd' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
-
-    /**
-     * POS
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getPos() {
-        String res = getStringOrNull(PaymentColumns.POS);
-        if (res == null)
-            throw new NullPointerException("The value of 'pos' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
-
-    /**
-     * email
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getEmail() {
-        String res = getStringOrNull(PaymentColumns.EMAIL);
-        if (res == null)
-            throw new NullPointerException("The value of 'email' in the database was null, which is not allowed according to the model definition");
-        return res;
-    }
-
-    /**
-     * phone
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    @Override
-    public String getPhone() {
-        String res = getStringOrNull(PaymentColumns.PHONE);
-        if (res == null)
-            throw new NullPointerException("The value of 'phone' in the database was null, which is not allowed according to the model definition");
         return res;
     }
 

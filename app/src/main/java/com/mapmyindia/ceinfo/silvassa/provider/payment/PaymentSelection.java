@@ -79,6 +79,46 @@ public class PaymentSelection extends AbstractSelection<PaymentSelection> {
         return orderById(false);
     }
 
+    public PaymentSelection userid(String... value) {
+        addEquals(PaymentColumns.USERID, value);
+        return this;
+    }
+
+    public PaymentSelection useridNot(String... value) {
+        addNotEquals(PaymentColumns.USERID, value);
+        return this;
+    }
+
+    public PaymentSelection useridLike(String... value) {
+        addLike(PaymentColumns.USERID, value);
+        return this;
+    }
+
+    public PaymentSelection useridContains(String... value) {
+        addContains(PaymentColumns.USERID, value);
+        return this;
+    }
+
+    public PaymentSelection useridStartsWith(String... value) {
+        addStartsWith(PaymentColumns.USERID, value);
+        return this;
+    }
+
+    public PaymentSelection useridEndsWith(String... value) {
+        addEndsWith(PaymentColumns.USERID, value);
+        return this;
+    }
+
+    public PaymentSelection orderByUserid(boolean desc) {
+        orderBy(PaymentColumns.USERID, desc);
+        return this;
+    }
+
+    public PaymentSelection orderByUserid() {
+        orderBy(PaymentColumns.USERID, false);
+        return this;
+    }
+
     public PaymentSelection propertyuniqueid(String... value) {
         addEquals(PaymentColumns.PROPERTYUNIQUEID, value);
         return this;
@@ -199,46 +239,6 @@ public class PaymentSelection extends AbstractSelection<PaymentSelection> {
         return this;
     }
 
-    public PaymentSelection payableamount(String... value) {
-        addEquals(PaymentColumns.PAYABLEAMOUNT, value);
-        return this;
-    }
-
-    public PaymentSelection payableamountNot(String... value) {
-        addNotEquals(PaymentColumns.PAYABLEAMOUNT, value);
-        return this;
-    }
-
-    public PaymentSelection payableamountLike(String... value) {
-        addLike(PaymentColumns.PAYABLEAMOUNT, value);
-        return this;
-    }
-
-    public PaymentSelection payableamountContains(String... value) {
-        addContains(PaymentColumns.PAYABLEAMOUNT, value);
-        return this;
-    }
-
-    public PaymentSelection payableamountStartsWith(String... value) {
-        addStartsWith(PaymentColumns.PAYABLEAMOUNT, value);
-        return this;
-    }
-
-    public PaymentSelection payableamountEndsWith(String... value) {
-        addEndsWith(PaymentColumns.PAYABLEAMOUNT, value);
-        return this;
-    }
-
-    public PaymentSelection orderByPayableamount(boolean desc) {
-        orderBy(PaymentColumns.PAYABLEAMOUNT, desc);
-        return this;
-    }
-
-    public PaymentSelection orderByPayableamount() {
-        orderBy(PaymentColumns.PAYABLEAMOUNT, false);
-        return this;
-    }
-
     public PaymentSelection amount(String... value) {
         addEquals(PaymentColumns.AMOUNT, value);
         return this;
@@ -276,206 +276,6 @@ public class PaymentSelection extends AbstractSelection<PaymentSelection> {
 
     public PaymentSelection orderByAmount() {
         orderBy(PaymentColumns.AMOUNT, false);
-        return this;
-    }
-
-    public PaymentSelection cheuque(String... value) {
-        addEquals(PaymentColumns.CHEUQUE, value);
-        return this;
-    }
-
-    public PaymentSelection cheuqueNot(String... value) {
-        addNotEquals(PaymentColumns.CHEUQUE, value);
-        return this;
-    }
-
-    public PaymentSelection cheuqueLike(String... value) {
-        addLike(PaymentColumns.CHEUQUE, value);
-        return this;
-    }
-
-    public PaymentSelection cheuqueContains(String... value) {
-        addContains(PaymentColumns.CHEUQUE, value);
-        return this;
-    }
-
-    public PaymentSelection cheuqueStartsWith(String... value) {
-        addStartsWith(PaymentColumns.CHEUQUE, value);
-        return this;
-    }
-
-    public PaymentSelection cheuqueEndsWith(String... value) {
-        addEndsWith(PaymentColumns.CHEUQUE, value);
-        return this;
-    }
-
-    public PaymentSelection orderByCheuque(boolean desc) {
-        orderBy(PaymentColumns.CHEUQUE, desc);
-        return this;
-    }
-
-    public PaymentSelection orderByCheuque() {
-        orderBy(PaymentColumns.CHEUQUE, false);
-        return this;
-    }
-
-    public PaymentSelection dd(String... value) {
-        addEquals(PaymentColumns.DD, value);
-        return this;
-    }
-
-    public PaymentSelection ddNot(String... value) {
-        addNotEquals(PaymentColumns.DD, value);
-        return this;
-    }
-
-    public PaymentSelection ddLike(String... value) {
-        addLike(PaymentColumns.DD, value);
-        return this;
-    }
-
-    public PaymentSelection ddContains(String... value) {
-        addContains(PaymentColumns.DD, value);
-        return this;
-    }
-
-    public PaymentSelection ddStartsWith(String... value) {
-        addStartsWith(PaymentColumns.DD, value);
-        return this;
-    }
-
-    public PaymentSelection ddEndsWith(String... value) {
-        addEndsWith(PaymentColumns.DD, value);
-        return this;
-    }
-
-    public PaymentSelection orderByDd(boolean desc) {
-        orderBy(PaymentColumns.DD, desc);
-        return this;
-    }
-
-    public PaymentSelection orderByDd() {
-        orderBy(PaymentColumns.DD, false);
-        return this;
-    }
-
-    public PaymentSelection pos(String... value) {
-        addEquals(PaymentColumns.POS, value);
-        return this;
-    }
-
-    public PaymentSelection posNot(String... value) {
-        addNotEquals(PaymentColumns.POS, value);
-        return this;
-    }
-
-    public PaymentSelection posLike(String... value) {
-        addLike(PaymentColumns.POS, value);
-        return this;
-    }
-
-    public PaymentSelection posContains(String... value) {
-        addContains(PaymentColumns.POS, value);
-        return this;
-    }
-
-    public PaymentSelection posStartsWith(String... value) {
-        addStartsWith(PaymentColumns.POS, value);
-        return this;
-    }
-
-    public PaymentSelection posEndsWith(String... value) {
-        addEndsWith(PaymentColumns.POS, value);
-        return this;
-    }
-
-    public PaymentSelection orderByPos(boolean desc) {
-        orderBy(PaymentColumns.POS, desc);
-        return this;
-    }
-
-    public PaymentSelection orderByPos() {
-        orderBy(PaymentColumns.POS, false);
-        return this;
-    }
-
-    public PaymentSelection email(String... value) {
-        addEquals(PaymentColumns.EMAIL, value);
-        return this;
-    }
-
-    public PaymentSelection emailNot(String... value) {
-        addNotEquals(PaymentColumns.EMAIL, value);
-        return this;
-    }
-
-    public PaymentSelection emailLike(String... value) {
-        addLike(PaymentColumns.EMAIL, value);
-        return this;
-    }
-
-    public PaymentSelection emailContains(String... value) {
-        addContains(PaymentColumns.EMAIL, value);
-        return this;
-    }
-
-    public PaymentSelection emailStartsWith(String... value) {
-        addStartsWith(PaymentColumns.EMAIL, value);
-        return this;
-    }
-
-    public PaymentSelection emailEndsWith(String... value) {
-        addEndsWith(PaymentColumns.EMAIL, value);
-        return this;
-    }
-
-    public PaymentSelection orderByEmail(boolean desc) {
-        orderBy(PaymentColumns.EMAIL, desc);
-        return this;
-    }
-
-    public PaymentSelection orderByEmail() {
-        orderBy(PaymentColumns.EMAIL, false);
-        return this;
-    }
-
-    public PaymentSelection phone(String... value) {
-        addEquals(PaymentColumns.PHONE, value);
-        return this;
-    }
-
-    public PaymentSelection phoneNot(String... value) {
-        addNotEquals(PaymentColumns.PHONE, value);
-        return this;
-    }
-
-    public PaymentSelection phoneLike(String... value) {
-        addLike(PaymentColumns.PHONE, value);
-        return this;
-    }
-
-    public PaymentSelection phoneContains(String... value) {
-        addContains(PaymentColumns.PHONE, value);
-        return this;
-    }
-
-    public PaymentSelection phoneStartsWith(String... value) {
-        addStartsWith(PaymentColumns.PHONE, value);
-        return this;
-    }
-
-    public PaymentSelection phoneEndsWith(String... value) {
-        addEndsWith(PaymentColumns.PHONE, value);
-        return this;
-    }
-
-    public PaymentSelection orderByPhone(boolean desc) {
-        orderBy(PaymentColumns.PHONE, desc);
-        return this;
-    }
-
-    public PaymentSelection orderByPhone() {
-        orderBy(PaymentColumns.PHONE, false);
         return this;
     }
 

@@ -41,6 +41,16 @@ public class PaymentContentValues extends AbstractContentValues {
     }
 
     /**
+     * UserId.
+     */
+    public PaymentContentValues putUserid(@NonNull String value) {
+        if (value == null) throw new IllegalArgumentException("userid must not be null");
+        mContentValues.put(PaymentColumns.USERID, value);
+        return this;
+    }
+
+
+    /**
      * propertyUniqueId.
      */
     public PaymentContentValues putPropertyuniqueid(@NonNull String value) {
@@ -51,7 +61,7 @@ public class PaymentContentValues extends AbstractContentValues {
 
 
     /**
-     * taxNo
+     * TaxNo.
      */
     public PaymentContentValues putTaxno(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("taxno must not be null");
@@ -71,71 +81,11 @@ public class PaymentContentValues extends AbstractContentValues {
 
 
     /**
-     * payableAmount
-     */
-    public PaymentContentValues putPayableamount(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("payableamount must not be null");
-        mContentValues.put(PaymentColumns.PAYABLEAMOUNT, value);
-        return this;
-    }
-
-
-    /**
      * Amount
      */
     public PaymentContentValues putAmount(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("amount must not be null");
         mContentValues.put(PaymentColumns.AMOUNT, value);
-        return this;
-    }
-
-
-    /**
-     * Cheuque
-     */
-    public PaymentContentValues putCheuque(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("cheuque must not be null");
-        mContentValues.put(PaymentColumns.CHEUQUE, value);
-        return this;
-    }
-
-
-    /**
-     * DD
-     */
-    public PaymentContentValues putDd(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("dd must not be null");
-        mContentValues.put(PaymentColumns.DD, value);
-        return this;
-    }
-
-
-    /**
-     * POS
-     */
-    public PaymentContentValues putPos(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("pos must not be null");
-        mContentValues.put(PaymentColumns.POS, value);
-        return this;
-    }
-
-
-    /**
-     * email
-     */
-    public PaymentContentValues putEmail(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("email must not be null");
-        mContentValues.put(PaymentColumns.EMAIL, value);
-        return this;
-    }
-
-
-    /**
-     * phone
-     */
-    public PaymentContentValues putPhone(@NonNull String value) {
-        if (value == null) throw new IllegalArgumentException("phone must not be null");
-        mContentValues.put(PaymentColumns.PHONE, value);
         return this;
     }
 

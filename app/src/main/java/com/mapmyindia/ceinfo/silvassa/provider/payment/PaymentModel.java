@@ -18,6 +18,13 @@ public interface PaymentModel extends BaseModel {
     long getId();
 
     /**
+     * UserId.
+     * Cannot be {@code null}.
+     */
+    @NonNull
+    String getUserid();
+
+    /**
      * propertyUniqueId.
      * Cannot be {@code null}.
      */
@@ -25,7 +32,7 @@ public interface PaymentModel extends BaseModel {
     String getPropertyuniqueid();
 
     /**
-     * taxNo
+     * TaxNo.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -39,53 +46,11 @@ public interface PaymentModel extends BaseModel {
     String getMode();
 
     /**
-     * payableAmount
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    String getPayableamount();
-
-    /**
      * Amount
      * Cannot be {@code null}.
      */
     @NonNull
     String getAmount();
-
-    /**
-     * Cheuque
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    String getCheuque();
-
-    /**
-     * DD
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    String getDd();
-
-    /**
-     * POS
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    String getPos();
-
-    /**
-     * email
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    String getEmail();
-
-    /**
-     * phone
-     * Cannot be {@code null}.
-     */
-    @NonNull
-    String getPhone();
 
     /**
      * PaymentDate

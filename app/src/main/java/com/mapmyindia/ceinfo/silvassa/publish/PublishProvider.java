@@ -41,14 +41,15 @@ public class PublishProvider {
 
     public void publishOnServer() {
 
+        String deviceId = SharedPrefeHelper.getDeviceId(mContext);
+
         try {
             String[] projection = {
+                    PaymentColumns.USERID,
                     PaymentColumns.PROPERTYUNIQUEID,
                     PaymentColumns.TAXNO,
                     PaymentColumns.AMOUNT,
                     PaymentColumns.MODE,
-                    PaymentColumns.EMAIL,
-                    PaymentColumns.PHONE,
                     PaymentColumns.PDATE
             };
 
@@ -61,8 +62,8 @@ public class PublishProvider {
                 while (!cursor.isAfterLast()) {
 
                     PaymentBean paymentBean = new PaymentBean();
-                    paymentBean.setDeviceId(SharedPrefeHelper.getDeviceId(mContext));
-                    paymentBean.setUserId(SharedPrefeHelper.getUserId(mContext));
+                    paymentBean.setDeviceId(deviceId);
+                    paymentBean.setUserId(cursor.getUserid());
                     paymentBean.setPropertyId(cursor.getPropertyuniqueid());
                     paymentBean.setPaymentAmount(cursor.getAmount());
                     paymentBean.setPayDate(cursor.getPdate());
