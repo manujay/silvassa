@@ -84,6 +84,14 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
+    protected void onDestroy() {
+
+        getSupportLoaderManager().destroyLoader(INIT_ZONE_LOADER);
+
+        super.onDestroy();
+    }
+
+    @Override
     public void setTitle(String mTitle) {
         binding.toolbar.setMTitle(mTitle);
     }
@@ -409,7 +417,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            return LayoutInflater.from(context).inflate(R.layout.layout_zone_spinner_single_item, parent, false);
+            return getCustomView(context, cursor, parent);
         }
 
         @Override
@@ -420,6 +428,10 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         @Override
         public View newDropDownView(Context context, Cursor cursor, ViewGroup parent) {
+            return getCustomView(context, cursor, parent);
+        }
+
+        private View getCustomView(Context context, Cursor cursor, ViewGroup parent) {
             return LayoutInflater.from(context).inflate(R.layout.layout_zone_spinner_single_item, parent, false);
         }
     }

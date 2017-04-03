@@ -64,6 +64,14 @@ public class ResultsActivity extends BaseActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+
+        getSupportLoaderManager().destroyLoader(INIT_RESULTS_LOADER);
+
+        super.onDestroy();
+    }
+
     private void populateResults() {
         getSupportLoaderManager().initLoader(INIT_RESULTS_LOADER, null, new LoaderManager.LoaderCallbacks<Cursor>() {
             @Override

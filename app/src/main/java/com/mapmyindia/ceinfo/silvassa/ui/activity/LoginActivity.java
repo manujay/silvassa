@@ -19,6 +19,7 @@ import com.google.gson.reflect.TypeToken;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
+import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
@@ -74,30 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String fromJson = SharedPrefeHelper.getUserInfo(LoginActivity.this);
-
-                /* Check for existing userinfo for offline login*/
-
-                if (!StringUtils.isNullOrEmpty(fromJson)) {  //old Login
-
-                    UserWSModel userWSModel = new Gson().fromJson(fromJson, new TypeToken<UserWSModel>() {
-                    }.getType());
-
-                    String userId = mEditTextUname.getText().toString();
-                    String paswd = mEditTextPaswd.getText().toString();
-
-                    if (userId.equalsIgnoreCase(userWSModel.getUserId()) && paswd.equalsIgnoreCase(userWSModel.getPasword())) {
-
-                        mEditTextUname.setFocusable(false);
-                        mEditTextPaswd.setFocusable(false);
-
-                        startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
-                        finish();
-                    }
-                } else {  /* Continue online login*/
-                    doLogin(); //new Login
-                }
+                doLogin();
             }
         });
 
@@ -138,7 +116,30 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         if (isvalid) {
-            attemptLogin(userId, paswd);
+
+            String fromJson = SharedPrefeHelper.getUserInfo(LoginActivity.this);
+
+            if (!StringUtils.isNullOrEmpty(fromJson)) {  //offline Login
+
+                UserWSModel userWSModel = new Gson().fromJson(fromJson, new TypeToken<UserWSModel>() {
+                }.getType());
+
+                if (userId.equalsIgnoreCase(userWSModel.getUserId()) && paswd.equalsIgnoreCase(userWSModel.getPasword())) {
+
+                    mEditTextUname.setFocusable(false);
+                    mEditTextPaswd.setFocusable(false);
+
+                    startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
+                    finish();
+                }
+            }
+
+            if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
+                Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+            } else {
+                attemptLogin(userId, paswd);
+            }
+
         } else {
 //            focusView.requestFocus();
             new DialogHandler(LoginActivity.this).showAlertDialog("Please provide a valid username/password");
