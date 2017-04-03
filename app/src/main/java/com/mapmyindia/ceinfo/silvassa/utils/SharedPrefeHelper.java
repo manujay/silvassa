@@ -123,4 +123,8 @@ public class SharedPrefeHelper {
         String messageDigest = sb.toString();
         return messageDigest;
     }
+
+    public static String getUserInfo(Context context) {
+        return getDefaultPref(context).getString(PREFERENCE_USERINFO, "");
+    }
 }

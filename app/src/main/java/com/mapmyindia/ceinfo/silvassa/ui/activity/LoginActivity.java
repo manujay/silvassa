@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.support.v7.widget.AppCompatEditText;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
-    private AppCompatEditText mEditTextUname, mEditTextPaswd;
+    private TextInputEditText mEditTextUname, mEditTextPaswd;
     private AppCompatButton mButtonLogin;
     private ProgressBar progressBar;
 
@@ -56,8 +56,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void findViewByIDs() {
-        mEditTextUname = (AppCompatEditText) findViewById(R.id.et_login_username);
-        mEditTextPaswd = (AppCompatEditText) findViewById(R.id.et_login_password);
+        mEditTextUname = (TextInputEditText) findViewById(R.id.et_login_username);
+        mEditTextPaswd = (TextInputEditText) findViewById(R.id.et_login_password);
         mButtonLogin = (AppCompatButton) findViewById(R.id.et_login_button);
 
         mEditTextPaswd.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -74,9 +74,49 @@ public class LoginActivity extends AppCompatActivity {
         mButtonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                doLogin();
+
+                String fromJson = SharedPrefeHelper.getUserInfo(LoginActivity.this);
+
+                /* Check for existing userinfo for offline login*/
+
+                if (!StringUtils.isNullOrEmpty(fromJson)) {  //old Login
+
+                    UserWSModel userWSModel = new Gson().fromJson(fromJson, new TypeToken<UserWSModel>() {
+                    }.getType());
+
+                    String userId = mEditTextUname.getText().toString();
+                    String paswd = mEditTextPaswd.getText().toString();
+
+                    if (userId.equalsIgnoreCase(userWSModel.getUserId()) && paswd.equalsIgnoreCase(userWSModel.getPasword())) {
+
+                        mEditTextUname.setFocusable(false);
+                        mEditTextPaswd.setFocusable(false);
+
+                        startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
+                        finish();
+                    }
+                } else {  /* Continue online login*/
+                    doLogin(); //new Login
+                }
             }
         });
+
+        /* Set values from existing login*/
+
+        if (!StringUtils.isNullOrEmpty(SharedPrefeHelper.getUserInfo(this))) {
+
+            String fromJson = SharedPrefeHelper.getUserInfo(this);
+
+            UserWSModel userWSModel = new Gson().fromJson(fromJson, new TypeToken<UserWSModel>() {
+            }.getType());
+
+            String userId = userWSModel.getUserId();
+            String paswd = userWSModel.getPasword();
+
+            mEditTextUname.setText(userId);
+            mEditTextPaswd.setText(paswd);
+
+        }
     }
 
     private void doLogin() {

@@ -79,6 +79,9 @@ public class SyncService extends Service {
                     .setContentTitle("Publish on Cloud")
                     .setContentText("Sync in progress")
                     .setSmallIcon(R.drawable.ic_cloud_upload);
+            // Sets an activity indicator for an operation of indeterminate length
+            mBuilder.setProgress(0, 0, true);// Issues the notification
+            mNotifyManager.notify(_id, mBuilder.build());
 
             while (!stop) {
                 PublishProvider.getPublishProvider(context, new PublishProvider.OnPublishCallBack() {
@@ -87,10 +90,6 @@ public class SyncService extends Service {
                         stop = flag && !stop;
                     }
                 }).publishOnServer();
-
-                // Sets an activity indicator for an operation of indeterminate length
-                mBuilder.setProgress(0, 0, true);// Issues the notification
-                mNotifyManager.notify(_id, mBuilder.build());
             }
 
             // When the loop is finished, updates the notification
