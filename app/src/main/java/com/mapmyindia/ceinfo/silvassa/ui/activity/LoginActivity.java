@@ -103,7 +103,6 @@ public class LoginActivity extends AppCompatActivity {
         String userId = mEditTextUname.getText().toString();
         String paswd = mEditTextPaswd.getText().toString();
 
-
         if (StringUtils.isNullOrEmpty(userId)) {
             isvalid = false;
 //            mEditTextUname.setError("Please provide a valid username");
@@ -156,7 +155,7 @@ public class LoginActivity extends AppCompatActivity {
         UserModel payload = new UserModel();
         payload.setUserId(userId);
         payload.setPassword(pwd);
-        payload.setUserName("");
+        payload.setUserName(SharedPrefeHelper.getUserName(this));
         payload.setDeviceId(SharedPrefeHelper.getDeviceId(this));
 
         String toJson = new Gson().toJson(payload, UserModel.class);

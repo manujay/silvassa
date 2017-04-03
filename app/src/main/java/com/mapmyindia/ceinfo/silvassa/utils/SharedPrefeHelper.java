@@ -21,6 +21,7 @@ public class SharedPrefeHelper {
     private static final String PREFERENCE_LAST_SYNC = "last-sync";
     private static final String PREFERENCE_USERID = "user-userId";
     private static final String PREFERENCE_USERINFO = "user-info";
+    private static final String PREFERENCE_USERNAME = "user-name";
     private static SharedPreferences mDefaultPref;
 
     private static SharedPreferences getDefaultPref(Context context) {
@@ -93,6 +94,17 @@ public class SharedPrefeHelper {
         SharedPreferences pref = getDefaultPref(context);
         SharedPreferences.Editor edit = pref.edit();
         edit.putString(PREFERENCE_USERID, userId);
+        edit.commit();
+    }
+
+    public static String getUserName(Context context) {
+        return getDefaultPref(context).getString(PREFERENCE_USERNAME, "");
+    }
+
+    public static void setUserName(Context context, String userName) {
+        SharedPreferences pref = getDefaultPref(context);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putString(PREFERENCE_USERNAME, userName);
         edit.commit();
     }
 
