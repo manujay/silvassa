@@ -1,0 +1,56 @@
+apply plugin: "com.android.library"
+apply from: "constants.gradle"
+
+android {
+    compileSdkVersion project.ext.compileSdk
+    buildToolsVersion project.ext.buildtools
+
+    defaultConfig {
+        minSdkVersion project.ext.minSdk
+        targetSdkVersion project.ext.compileSdk
+        versionCode 1
+        versionName project.ext.version
+    }
+
+    defaultPublishConfig "noDepRelease"
+    publishNonDefault true
+
+    buildTypes {
+        debug {
+            testCoverageEnabled true
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt')
+        }
+    }
+
+    productFlavors {
+        withGcmDep
+        noDep
+    }
+}
+
+dependencies {
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.robolectric:robolectric:3.1.2'
+    testCompile 'org.mockito:mockito-core:2.2.5'
+    compile "com.android.support:support-v4:${project.ext.supportLibraryVersion}"
+    // In a perfect world we'd have these dependencies totally handled by the
+    // Android plugin using a combination of "provided" (compile-time only) and
+    // "package" (runtime only) rules:
+    //
+    // noDepCompile project(":gcm_defs")
+    // withGcmDepProvided project(":gcm_defs")
+    //
+    // Unfortunately this doesn't work. We can't import the same project with
+    // different visibility settings because the Android plugin reuses the
+    // same identifier when it creates the necessary backing rules, so we get a
+    // dupe rule error.
+    //
+    // So, instead we mark the gcm_defs as provided (compile-time only) and
+    // manually copy the required classes into the noDep flavor (below).
+    provided project(':gcm_defs')
+    // the withGcmDep version has an explicit dependency on the GCM library.
+    withGcmDepCompile "com.google.android.gms:play-services-gcm:10.0.1"
+}
