@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.activity.MainActivity"
+            android:name="com.mapmyindia.ceinfo.silvassa.ui.activity.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,22 +24,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name="com.mapmyindia.ceinfo.silvassa.ui.activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.SyncSearchActivity"
+            android:name="com.mapmyindia.ceinfo.silvassa.ui.activity.SyncSearchActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.ResultsActivity"
+            android:name="com.mapmyindia.ceinfo.silvassa.ui.activity.ResultsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.PaymentActivity"
+            android:name="com.mapmyindia.ceinfo.silvassa.ui.activity.PaymentActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.PrefillActivity"
+            android:name="com.mapmyindia.ceinfo.silvassa.ui.activity.PrefillActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activity.PrintActivity"
+            android:name="com.mapmyindia.ceinfo.silvassa.ui.activity.PrintActivity"
             android:screenOrientation="portrait" />
 
         <provider
@@ -55,12 +55,14 @@
             </intent-filter>
         </service>
         <service
-            android:name=".service.SyncService"
+            android:name="com.mapmyindia.ceinfo.silvassa.service.SyncService"
             android:exported="false" />
 
-        <receiver android:name=".reciever.BootReciever">
+        <receiver android:name="com.mapmyindia.ceinfo.silvassa.reciever.BootReciever">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
             </intent-filter>
         </receiver>

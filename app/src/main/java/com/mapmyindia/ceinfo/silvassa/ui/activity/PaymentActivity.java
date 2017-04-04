@@ -107,7 +107,7 @@ public class PaymentActivity extends BaseActivity {
         selection.propertyid(propId);
         TaxdetailCursor cursor = selection.query(getContentResolver());
 
-        String taxNo = cursor.moveToFirst() ? cursor.getPayableamount() : "";
+        String taxNo = cursor.moveToFirst() ? cursor.getTaxno() : "";
         String mode = ((RadioButton) findViewById(((RadioGroup) findViewById(R.id.rg_ptp)).getCheckedRadioButtonId())).getText().toString();
         String amount = ((EditText) findViewById(R.id.et_amount)).getText().toString();
         String userId = SharedPrefeHelper.getUserId(this);

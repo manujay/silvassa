@@ -29,7 +29,7 @@ public class RestAppController {
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                     .create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(RestApiClient.DEBUG_URL)
+                    .baseUrl(RestApiClient.BASE_URL)
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();

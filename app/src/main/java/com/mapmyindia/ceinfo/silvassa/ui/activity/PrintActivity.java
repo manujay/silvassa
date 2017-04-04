@@ -140,8 +140,8 @@ public class PrintActivity extends BaseActivity {
             textView6.setTypeface(Typeface.MONOSPACE);
             textView6.setTextSize(12.0f);
             textView6.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            String taxNo = paymentCursor.getStringOrNull(PaymentColumns.TAXNO) == null ? "" : paymentCursor.getStringOrNull(PaymentColumns.TAXNO);
-            textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", PaymentColumns.TAXNO, taxNo));
+            String taxNo = taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO);
+            textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.TAXNO, taxNo));
 
             TextView textView7 = new TextView(this);
             textView7.setAllCaps(true);

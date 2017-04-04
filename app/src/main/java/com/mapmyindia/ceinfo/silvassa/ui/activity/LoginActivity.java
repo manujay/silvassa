@@ -130,14 +130,23 @@ public class LoginActivity extends AppCompatActivity {
 
                     startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
                     finish();
+
+                } else {
+                    if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
+                        Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+                    } else {
+                        attemptLogin(userId, paswd);
+                    }
+                }
+
+            } else {
+                if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
+                    Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+                } else {
+                    attemptLogin(userId, paswd);
                 }
             }
 
-            if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
-                Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
-            } else {
-                attemptLogin(userId, paswd);
-            }
 
         } else {
 //            focusView.requestFocus();
@@ -202,11 +211,12 @@ public class LoginActivity extends AppCompatActivity {
 
                         finish();
                     } catch (Exception e) {
+                        Logger.e(TAG, " @attemptLogin : FAILURE : REQUEST " + call.request() + " ERROR: " + e.getLocalizedMessage());
                         e.printStackTrace();
                     }
 
                 } else {
-
+                    Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -215,7 +225,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 showProgress(false);
-                Logger.e(TAG, " @getZone : FAILURE : " + call.request());
+                Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT).show();
+                Logger.e(TAG, " @attemptLogin : FAILURE : REQUEST " + call.request() + " ERROR: " + t.getLocalizedMessage());
             }
         });
     }
