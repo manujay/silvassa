@@ -1,26 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="5dp"
-    android:background="@color/gray"
+    android:background="@color/color_toolbar"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingEnd="@dimen/activity_horizontal_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingStart="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <TextView
-        android:id="@+id/list_item_results"
+        android:id="@+id/list_item_results0"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_toLeftOf="@+id/add_remove_iv"
         android:layout_toStartOf="@+id/add_remove_iv"
-        android:gravity="center"
+        android:gravity="fill_horizontal|start"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/list_item_results1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/list_item_results0"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_toLeftOf="@+id/add_remove_iv"
+        android:layout_toStartOf="@+id/add_remove_iv"
+        android:gravity="fill_horizontal|start"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/list_item_results2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/list_item_results1"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_toLeftOf="@+id/add_remove_iv"
+        android:layout_toStartOf="@+id/add_remove_iv"
+        android:gravity="fill_horizontal|start"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/text_small" />
+
+    <TextView
+        android:id="@+id/list_item_results3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/list_item_results2"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/activity_horizontal_margin"
+        android:layout_toLeftOf="@+id/add_remove_iv"
+        android:layout_toStartOf="@+id/add_remove_iv"
+        android:gravity="fill_horizontal|start"
         android:textColor="@color/dark_gray"
         android:textSize="@dimen/text_small" />
 
@@ -31,5 +74,8 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_add_circle_outline" />
+        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:src="@drawable/ic_add_circle_outline"
+        tools:ignore="ContentDescription" />
 </RelativeLayout>
