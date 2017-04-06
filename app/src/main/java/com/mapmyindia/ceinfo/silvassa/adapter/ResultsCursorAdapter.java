@@ -53,7 +53,8 @@ public class ResultsCursorAdapter extends CursorRecyclerAdapter<RecyclerView.Vie
         holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
         ((ViewHolder) holder).mItemTextView3.setText(
                 String.format(Locale.getDefault(), "HouseNo/Building : %-22s ",
-                        !StringUtils.isNullOrEmpty(propertyCursor.getPropertyhouseno()) ? propertyCursor.getPropertyhouseno() : propertyCursor.getPropertybuildingname()));
+                        !StringUtils.isNullOrEmpty(propertyCursor.getPropertyhouseno()) ? propertyCursor.getPropertyhouseno() :
+                                !StringUtils.isNullOrEmpty(propertyCursor.getPropertybuildingname()) ? propertyCursor.getPropertybuildingname() : "N/A"));
         ((ViewHolder) holder).mItemTextView3.setTypeface(Typeface.MONOSPACE);
         holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
     }
