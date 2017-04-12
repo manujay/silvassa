@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\AndroidWorkSpace\Silvassa\jobdispatcher\src\main\shaders"/></dataSet><dataSet config="withGcmDep"><source path="D:\AndroidWorkSpace\Silvassa\jobdispatcher\src\withGcmDep\shaders"/></dataSet><dataSet config="release"><source path="D:\AndroidWorkSpace\Silvassa\jobdispatcher\src\release\shaders"/></dataSet><dataSet config="withGcmDepRelease"><source path="D:\AndroidWorkSpace\Silvassa\jobdispatcher\src\withGcmDepRelease\shaders"/></dataSet></merger>

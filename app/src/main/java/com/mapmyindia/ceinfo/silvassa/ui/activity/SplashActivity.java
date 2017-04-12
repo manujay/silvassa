@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -32,15 +33,15 @@ import retrofit2.Callback;
 import retrofit2.HttpException;
 import retrofit2.Response;
 
-public class MainActivity extends BaseActivity {
+public class SplashActivity extends AppCompatActivity {
 
-    private static final String TAG = MainActivity.class.getSimpleName();
+    private static final String TAG = SplashActivity.class.getSimpleName();
     private ProgressBar progressBar;
 
-    @Override
+    /*@Override
     public void setTitle(String mTitle) {
 
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +55,7 @@ public class MainActivity extends BaseActivity {
                 getZone();
             }
         } else {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
             finish();
         }
     }
@@ -78,17 +79,17 @@ public class MainActivity extends BaseActivity {
                         JSONObject jsonObject = new JSONObject(response.body().string());
 
                         if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
-                            new DialogHandler(MainActivity.this).showAlertDialog(getString(R.string.error_server));
+                            new DialogHandler(SplashActivity.this).showAlertDialog(getString(R.string.error_server));
                             return;
                         }
 
                         if (Integer.parseInt(jsonObject.getString("status")) != 200) {
-                            new DialogHandler(MainActivity.this).showAlertDialog(getString(R.string.error_server));
+                            new DialogHandler(SplashActivity.this).showAlertDialog(getString(R.string.error_server));
                             return;
                         }
 
                         if (null == jsonObject.get("data")) {
-                            new DialogHandler(MainActivity.this).showAlertDialog(getString(R.string.error_server));
+                            new DialogHandler(SplashActivity.this).showAlertDialog(getString(R.string.error_server));
                             return;
                         }
 
@@ -99,11 +100,11 @@ public class MainActivity extends BaseActivity {
                             insertZone(zoneWSModel.getZoneName(), zoneWSModel.getZoneId());
                         }
 
-                        startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                         finish();
 
                     } catch (Exception e) {
-                        new DialogHandler(MainActivity.this).showAlertDialog(e.getMessage());
+                        new DialogHandler(SplashActivity.this).showAlertDialog(e.getMessage());
                         e.printStackTrace();
                     }
 
@@ -111,7 +112,7 @@ public class MainActivity extends BaseActivity {
 
                 } else {
                     Logger.e(TAG, " @getZone : FAILURE : " + call.request());
-                    new DialogHandler(MainActivity.this).showAlertDialog(call.request().toString());
+                    new DialogHandler(SplashActivity.this).showAlertDialog(call.request().toString());
                 }
             }
 
@@ -127,7 +128,7 @@ public class MainActivity extends BaseActivity {
                         throw new Exception(t.getMessage());
                     }
                 } catch (Exception e) {
-                    new DialogHandler(MainActivity.this).showAlertDialog(e.getMessage());
+                    new DialogHandler(SplashActivity.this).showAlertDialog(e.getMessage());
                     e.printStackTrace();
                 }
             }
