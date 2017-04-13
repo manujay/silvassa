@@ -35,10 +35,10 @@ public class BootReciever extends BroadcastReceiver {
                 Job myJob = dispatcher.newJobBuilder()
                         .setService(SyncJobProvider.class) // the JobService that will be called
                         .setTag(jobTag)        // uniquely identifies the job
-                        // one-off job
+                        // recurring job
                         .setRecurring(true)
-                        // don't persist past a device reboot
-                        .setLifetime(Lifetime.UNTIL_NEXT_BOOT)
+                        // persist past a device reboot
+                        .setLifetime(Lifetime.FOREVER)
                         // start between 0 and 60 seconds from now
                         .setTrigger(Trigger.executionWindow(0, 60))
                         // don't overwrite an existing job with the same tag

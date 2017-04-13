@@ -33,6 +33,7 @@ import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneSelection;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
+import com.mapmyindia.ceinfo.silvassa.service.SyncService;
 import com.mapmyindia.ceinfo.silvassa.sync.SyncProvider;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
@@ -284,6 +285,8 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                     SharedPrefeHelper.setLastSync(SyncSearchActivity.this, sdf.format(new Date()));
+
+                    doPublish();
                 }
 
                 @Override
@@ -298,6 +301,11 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
         }
 
         setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
+    }
+
+    private void doPublish() {
+        if (!isServiceRunning(SyncSearchActivity.this, SyncService.class))
+            SyncService.start(SyncSearchActivity.this);
     }
 
     @Override
