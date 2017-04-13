@@ -154,7 +154,7 @@ public class PaymentActivity extends BaseActivity {
                 Bundle extras = new Bundle();
                 extras.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, propId);
                 intent.putExtras(extras);
-                startActivity(intent);
+                startActivityForIntent(intent);
                 finish();
             }
         } else {

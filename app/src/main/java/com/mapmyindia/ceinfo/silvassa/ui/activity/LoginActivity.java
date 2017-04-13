@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.KeyEvent;
 import android.view.View;
@@ -37,7 +36,7 @@ import retrofit2.Response;
  * Created by ceinfo on 27-02-2017.
  */
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
     private static final String TAG = LoginActivity.class.getSimpleName();
 
@@ -53,6 +52,11 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.layout_activity_login);
 
         findViewByIDs();
+
+    }
+
+    @Override
+    public void setTitle(String mTitle) {
 
     }
 
@@ -128,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
                     mEditTextUname.setFocusable(false);
                     mEditTextPaswd.setFocusable(false);
 
-                    startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
+                    startActivityForIntent(new Intent(LoginActivity.this, SyncSearchActivity.class));
                     finish();
 
                 } else {
@@ -207,7 +211,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         Logger.json(new Gson().toJson(data, UserWSModel.class));
 
-                        startActivity(new Intent(LoginActivity.this, SyncSearchActivity.class));
+                        startActivityForIntent(new Intent(LoginActivity.this, SyncSearchActivity.class));
 
                         finish();
                     } catch (Exception e) {

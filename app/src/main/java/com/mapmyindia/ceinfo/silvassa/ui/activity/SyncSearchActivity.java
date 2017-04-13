@@ -243,7 +243,12 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                 bundle.putString(INTENT_PARAMETERS._PREFILL_OWNER, owner);
                 bundle.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, property_id);
                 intent.putExtras(bundle);
-                startActivity(intent);
+                startActivityForIntent(intent);
+
+                binding.contentLayout.spinnerRow1.setText("");
+                binding.contentLayout.spinnerRow2.setText("");
+                binding.contentLayout.spinnerRow3.setText("");
+
             } else {
                 new DialogHandler(SyncSearchActivity.this).showAlertDialog("\tPlease Sync Database\n\n\rRequires Network Connectvity!!");
             }

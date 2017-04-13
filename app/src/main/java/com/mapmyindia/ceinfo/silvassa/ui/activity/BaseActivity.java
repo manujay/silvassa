@@ -1,6 +1,7 @@
 package com.mapmyindia.ceinfo.silvassa.ui.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -33,4 +34,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public abstract void setTitle(String mTitle);
+
+    public void startActivityForIntent(Intent intent) {
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
 }

@@ -2,6 +2,7 @@ package com.mapmyindia.ceinfo.silvassa.restcontroller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.mapmyindia.ceinfo.silvassa.utils.APIUrls;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -29,7 +30,7 @@ public class RestAppController {
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ssZ")
                     .create();
             retrofit = new Retrofit.Builder()
-                    .baseUrl(RestApiClient.BASE_URL)
+                    .baseUrl(APIUrls.getBaseUrl())
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();

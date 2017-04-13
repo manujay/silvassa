@@ -23,6 +23,7 @@ import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailSelection;
 import com.mapmyindia.ceinfo.silvassa.ui.activity.PaymentActivity;
+import com.mapmyindia.ceinfo.silvassa.ui.activity.ResultsActivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DateTimeUtils;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 
@@ -74,7 +75,7 @@ public class PlaceHolderFragment extends Fragment {
                 Bundle bundle = new Bundle();
                 bundle.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, getArguments().getString(PLACEHOLDER_KEY));
                 intent.putExtras(bundle);
-                getActivity().startActivity(intent);
+                ((ResultsActivity) getActivity()).startActivityForIntent(intent);
             }
         });
 

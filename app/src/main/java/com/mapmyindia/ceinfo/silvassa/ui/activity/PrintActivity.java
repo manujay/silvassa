@@ -185,7 +185,7 @@ public class PrintActivity extends BaseActivity {
         switch (item.getItemId()) {
             case R.id.home:
                 Intent intent = new Intent(this, SyncSearchActivity.class);
-                startActivity(intent);
+                startActivityForIntent(intent);
                 finish();
                 break;
         }
