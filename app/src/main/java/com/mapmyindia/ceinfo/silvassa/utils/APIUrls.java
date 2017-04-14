@@ -14,7 +14,7 @@ public class APIUrls {
 
     public static String getBaseUrl() {
         if (BuildConfig.DEBUG)
-            return DEVELOPMENT_URL;
+            return PRODUCTION_URL;
         else
             return PRODUCTION_URL;
     }

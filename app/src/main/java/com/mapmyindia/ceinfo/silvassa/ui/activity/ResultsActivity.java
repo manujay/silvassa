@@ -4,9 +4,11 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -166,6 +168,8 @@ public class ResultsActivity extends BaseActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
 
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+
         resultsCursorAdapter = new ResultsCursorAdapter(null);
 
         recyclerView.setAdapter(resultsCursorAdapter);
@@ -179,28 +183,30 @@ public class ResultsActivity extends BaseActivity {
     }
 
     private void showTaxDetails(String propertyId) {
-
-        PlaceHolderFragment fragment = (PlaceHolderFragment) getSupportFragmentManager().findFragmentById(R.id.frame_results);
-
-        if (null == fragment) {
-            getSupportFragmentManager()
-                    .beginTransaction()
-                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left)
-                    .add(R.id.frame_results, PlaceHolderFragment.getInstance(propertyId),
-                            PlaceHolderFragment.TAG)
-                    .addToBackStack(PlaceHolderFragment.TAG)
-                    .commit();
-        } else {
-            replaceFragmentWithAnimation(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG);
-        }
+        replaceFragmentWithAnimation(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG, true, true);
     }
 
-    public void replaceFragmentWithAnimation(android.support.v4.app.Fragment fragment, String tag) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setCustomAnimations(R.anim.enter_from_left, R.anim.exit_to_right, R.anim.enter_from_right, R.anim.exit_to_left);
-        transaction.replace(R.id.frame_results, fragment);
-        transaction.addToBackStack(tag);
-        transaction.commit();
+    public void replaceFragmentWithAnimation(Fragment fragment, String tag, boolean animate, boolean addToBackStack) {
+
+        PlaceHolderFragment oldfragment = (PlaceHolderFragment) getSupportFragmentManager().findFragmentById(R.id.frame_results);
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+
+        if (animate) {
+            ft.setCustomAnimations(R.anim.enter_from_right, 0, 0, R.anim.exit_to_left);
+        }
+
+        if (null == oldfragment) {
+            ft.add(R.id.frame_results, fragment, tag);
+        } else {
+            ft.replace(R.id.frame_results, fragment, tag);
+        }
+
+        if (addToBackStack) {
+            ft.addToBackStack(tag);
+        }
+
+        ft.commit();
     }
 
     @Override

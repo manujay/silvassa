@@ -3,7 +3,6 @@ package com.mapmyindia.ceinfo.silvassa.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.widget.AppCompatButton;
 import android.view.KeyEvent;
@@ -19,7 +18,6 @@ import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
-import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.UserWSModel;
@@ -137,7 +135,7 @@ public class LoginActivity extends BaseActivity {
 
                 } else {
                     if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
-                        Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+                        showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
                     } else {
                         attemptLogin(userId, paswd);
                     }
@@ -145,7 +143,7 @@ public class LoginActivity extends BaseActivity {
 
             } else {
                 if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
-                    Snackbar.make(getWindow().getDecorView(), R.string.error_network, Snackbar.LENGTH_SHORT).show();
+                    showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
                 } else {
                     attemptLogin(userId, paswd);
                 }
@@ -154,7 +152,7 @@ public class LoginActivity extends BaseActivity {
 
         } else {
 //            focusView.requestFocus();
-            new DialogHandler(LoginActivity.this).showAlertDialog("Please provide a valid username/password");
+            showToast(LoginActivity.this, "Incorrect Username/Password");
         }
 
 //        mEditTextUname.setText("");
@@ -188,17 +186,17 @@ public class LoginActivity extends BaseActivity {
                         JSONObject jsonObject = new JSONObject(response.body().string());
 
                         if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
-                            Snackbar.make(getWindow().getDecorView(), jsonObject.getString("message"), Snackbar.LENGTH_SHORT).show();
+                            showSnackBar(getWindow().getDecorView(), jsonObject.getString("message"));
                             return;
                         }
 
                         if (Integer.parseInt(jsonObject.getString("status")) != 200) {
-                            Snackbar.make(getWindow().getDecorView(), jsonObject.getString("message"), Snackbar.LENGTH_SHORT).show();
+                            showSnackBar(getWindow().getDecorView(), jsonObject.getString("message"));
                             return;
                         }
 
                         if (null == jsonObject.get("data")) {
-                            Snackbar.make(getWindow().getDecorView(), jsonObject.getString("message"), Snackbar.LENGTH_SHORT).show();
+                            showSnackBar(getWindow().getDecorView(), jsonObject.getString("message"));
                             return;
                         }
 
@@ -220,7 +218,7 @@ public class LoginActivity extends BaseActivity {
                     }
 
                 } else {
-                    Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT).show();
+                    showSnackBar(getWindow().getDecorView(), getString(R.string.error_server));
                     return;
                 }
 
@@ -229,7 +227,7 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 showProgress(false);
-                Snackbar.make(getWindow().getDecorView(), R.string.error_server, Snackbar.LENGTH_SHORT).show();
+                showSnackBar(getWindow().getDecorView(), getString(R.string.error_server));
                 Logger.e(TAG, " @attemptLogin : FAILURE : REQUEST " + call.request() + " ERROR: " + t.getLocalizedMessage());
             }
         });
