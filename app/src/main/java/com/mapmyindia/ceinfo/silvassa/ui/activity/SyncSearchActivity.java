@@ -103,7 +103,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
 
-        binding.contentLayout.labelRow0.setText(Html.fromHtml(getString(R.string.zone)));
+        binding.contentLayout.labelRow0.setText(Html.fromHtml(getString(R.string.zone) + "<font color='RED'>&#42;</font>"));
 
         binding.contentLayout.etSearchButton.setOnClickListener(new View.OnClickListener() {
             @Override

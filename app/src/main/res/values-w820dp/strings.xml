@@ -3,7 +3,7 @@
     <string name="et_username_hint">User Name</string>
     <string name="et_password_hint">Password</string>
     <string name="login">Log In</string>
-    <string name="zone"><p>Zone<b style="color:red">&#42;</b></p></string>
+    <string name="zone">Zone</string>
     <string name="owner_name">Owner Name</string>
     <string name="occupier_name">Occupier Name</string>
     <string name="property_id">Property ID</string>
