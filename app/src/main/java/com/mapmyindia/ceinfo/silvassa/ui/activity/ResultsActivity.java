@@ -177,7 +177,10 @@ public class ResultsActivity extends BaseActivity {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                showTaxDetails(view.getTag().toString());
+
+                String propertyId = view.getTag().toString();
+
+                showTaxDetails(propertyId);
             }
         }));
     }

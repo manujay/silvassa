@@ -109,120 +109,120 @@ public class PlaceHolderFragment extends Fragment {
 
         if (propertyCursor.moveToFirst()) {
             TextView tv_property0 = new TextView(getActivity());
-            tv_property0.setAllCaps(true);
+            tv_property0.setAllCaps(false);
             tv_property0.setTypeface(Typeface.MONOSPACE);
             tv_property0.setTextSize(11.0f);
             tv_property0.setLayoutParams(tv_params);
             String propertyUniqueId = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYUNIQUEID) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYUNIQUEID);
-            tv_property0.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYUNIQUEID, propertyUniqueId));
+            tv_property0.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property ID", propertyUniqueId));
             parent.addView(tv_property0);
 
             TextView tv_property1 = new TextView(getActivity());
-            tv_property1.setAllCaps(true);
+            tv_property1.setAllCaps(false);
             tv_property1.setTypeface(Typeface.MONOSPACE);
             tv_property1.setTextSize(11.0f);
             tv_property1.setLayoutParams(tv_params);
             String propertyOwner = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOWNER) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOWNER);
-            tv_property1.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYOWNER, propertyOwner));
+            tv_property1.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Owner", propertyOwner));
             parent.addView(tv_property1);
 
             TextView tv_property2 = new TextView(getActivity());
-            tv_property2.setAllCaps(true);
+            tv_property2.setAllCaps(false);
             tv_property2.setTypeface(Typeface.MONOSPACE);
             tv_property2.setTextSize(11.0f);
             tv_property2.setLayoutParams(tv_params);
             String propertyOccupierName = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOCCUPIERNAME) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOCCUPIERNAME);
-            tv_property2.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYOCCUPIERNAME, propertyOccupierName));
+            tv_property2.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Occupier", propertyOccupierName));
             parent.addView(tv_property2);
 
             TextView tv_property3 = new TextView(getActivity());
-            tv_property3.setAllCaps(true);
+            tv_property3.setAllCaps(false);
             tv_property3.setTypeface(Typeface.MONOSPACE);
             tv_property3.setTextSize(11.0f);
             tv_property3.setLayoutParams(tv_params);
             String propertyRelationOwner = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYRELATIONOWNER) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYRELATIONOWNER);
-            tv_property3.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYRELATIONOWNER, propertyRelationOwner));
+            tv_property3.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Occupier Relation", propertyRelationOwner));
             parent.addView(tv_property3);
 
             TextView tv_property4 = new TextView(getActivity());
-            tv_property4.setAllCaps(true);
+            tv_property4.setAllCaps(false);
             tv_property4.setTypeface(Typeface.MONOSPACE);
             tv_property4.setTextSize(11.0f);
             tv_property4.setLayoutParams(tv_params);
             String propertySublocality = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYSUBLOCALITY) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYSUBLOCALITY);
-            tv_property4.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYSUBLOCALITY, propertySublocality));
+            tv_property4.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Sublocality", propertySublocality));
             parent.addView(tv_property4);
 
             TextView tv_property5 = new TextView(getActivity());
-            tv_property5.setAllCaps(true);
+            tv_property5.setAllCaps(false);
             tv_property5.setTypeface(Typeface.MONOSPACE);
             tv_property5.setTextSize(11.0f);
             tv_property5.setLayoutParams(tv_params);
             String email = propertyCursor.getStringOrNull(PropertyColumns.EMAIL) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.EMAIL);
-            tv_property5.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.EMAIL, email));
+            tv_property5.setText(String.format(Locale.getDefault(), "%-22s : %s", "Email", email));
             parent.addView(tv_property5);
 
             TextView tv_property6 = new TextView(getActivity());
-            tv_property6.setAllCaps(true);
+            tv_property6.setAllCaps(false);
             tv_property6.setTypeface(Typeface.MONOSPACE);
             tv_property6.setTextSize(11.0f);
             tv_property6.setLayoutParams(tv_params);
             String phone = propertyCursor.getStringOrNull(PropertyColumns.PHONE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PHONE);
-            tv_property6.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PHONE, phone));
+            tv_property6.setText(String.format(Locale.getDefault(), "%-22s : %s", "Phone", phone));
             parent.addView(tv_property6);
 
             TextView tv_property7 = new TextView(getActivity());
-            tv_property7.setAllCaps(true);
+            tv_property7.setAllCaps(false);
             tv_property7.setTypeface(Typeface.MONOSPACE);
             tv_property7.setTextSize(11.0f);
             tv_property7.setLayoutParams(tv_params);
             String propertyLandmark = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYLANDMARK) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYLANDMARK);
-            tv_property7.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYLANDMARK, propertyLandmark));
+            tv_property7.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Landmark", propertyLandmark));
             parent.addView(tv_property7);
 
             TextView tv_property8 = new TextView(getActivity());
-            tv_property8.setAllCaps(true);
+            tv_property8.setAllCaps(false);
             tv_property8.setTextSize(11.0f);
             tv_property8.setTypeface(Typeface.MONOSPACE);
             tv_property8.setLayoutParams(tv_params);
             String propertyPlotNo = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYPLOTNO) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYPLOTNO);
-            tv_property8.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYPLOTNO, propertyPlotNo));
+            tv_property8.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property PlotNo", propertyPlotNo));
             parent.addView(tv_property8);
 
             TextView tv_property9 = new TextView(getActivity());
-            tv_property9.setAllCaps(true);
+            tv_property9.setAllCaps(false);
             tv_property9.setTypeface(Typeface.MONOSPACE);
             tv_property9.setTextSize(11.0f);
             tv_property9.setLayoutParams(tv_params);
             String propertyHouseNo = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYHOUSENO) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYHOUSENO);
-            tv_property9.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYHOUSENO, propertyHouseNo));
+            tv_property9.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property HouseNo", propertyHouseNo));
             parent.addView(tv_property9);
 
             TextView tv_property10 = new TextView(getActivity());
             tv_property10.setTextSize(11.0f);
-            tv_property10.setAllCaps(true);
+            tv_property10.setAllCaps(false);
             tv_property10.setTypeface(Typeface.MONOSPACE);
             tv_property10.setLayoutParams(tv_params);
             String propertyRoad = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYROAD) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYROAD);
-            tv_property10.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYROAD, propertyRoad));
+            tv_property10.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Road", propertyRoad));
             parent.addView(tv_property10);
 
             TextView tv_property11 = new TextView(getActivity());
             tv_property11.setTextSize(11.0f);
-            tv_property11.setAllCaps(true);
+            tv_property11.setAllCaps(false);
             tv_property11.setTypeface(Typeface.MONOSPACE);
             tv_property11.setLayoutParams(tv_params);
             String propertyPincode = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYPINCODE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYPINCODE);
-            tv_property11.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYPINCODE, propertyPincode));
+            tv_property11.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Pincode", propertyPincode));
             parent.addView(tv_property11);
 
             TextView tv_property12 = new TextView(getActivity());
             tv_property12.setTextSize(11.0f);
-            tv_property12.setAllCaps(true);
+            tv_property12.setAllCaps(false);
             tv_property12.setTypeface(Typeface.MONOSPACE);
             tv_property12.setLayoutParams(tv_params);
             String propertyBuildingName = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYBUILDINGNAME) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYBUILDINGNAME);
-            tv_property12.setText(String.format(Locale.getDefault(), "%-22s : %s", PropertyColumns.PROPERTYBUILDINGNAME, propertyBuildingName));
+            tv_property12.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property BuildingName", propertyBuildingName));
             parent.addView(tv_property12);
         }
 
@@ -246,7 +246,7 @@ public class PlaceHolderFragment extends Fragment {
         taxDetailHeader.setTextColor(getResources().getColor(R.color.dark_gray));
         taxDetailHeader.setTypeface(Typeface.MONOSPACE);
         taxDetailHeader.setTextSize(12.0f);
-        taxDetailHeader.setAllCaps(true);
+        taxDetailHeader.setAllCaps(false);
         taxDetailHeader.setText("Tax Details(Rs)");
 
         final ImageView imageView = new ImageView(getActivity());
@@ -298,184 +298,184 @@ public class PlaceHolderFragment extends Fragment {
         if (taxdetailCursor.moveToFirst()) {
 
             TextView tv_taxdetail0 = new TextView(getActivity());
-            tv_taxdetail0.setAllCaps(true);
+            tv_taxdetail0.setAllCaps(false);
             tv_taxdetail0.setTextSize(11.0f);
             tv_taxdetail0.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail0.setLayoutParams(tv_params);
             String taxNo = taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO);
-            tv_taxdetail0.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.TAXNO, taxNo));
+            tv_taxdetail0.setText(String.format(Locale.getDefault(), "%-22s : %s", "TaxNo", taxNo));
             linearChild.addView(tv_taxdetail0);
 
             TextView tv_taxdetail01 = new TextView(getActivity());
             tv_taxdetail01.setTextSize(11.0f);
-            tv_taxdetail01.setAllCaps(true);
+            tv_taxdetail01.setAllCaps(false);
             tv_taxdetail01.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail01.setLayoutParams(tv_params);
             String financialYear = taxdetailCursor.getStringOrNull(TaxdetailColumns.FINANCIALYEAR) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.FINANCIALYEAR);
-            tv_taxdetail01.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.FINANCIALYEAR, financialYear));
+            tv_taxdetail01.setText(String.format(Locale.getDefault(), "%-22s : %s", "Financial Year", financialYear));
             linearChild.addView(tv_taxdetail01);
 
             TextView tv_taxdetail02 = new TextView(getActivity());
             tv_taxdetail02.setTextSize(11.0f);
-            tv_taxdetail02.setAllCaps(true);
+            tv_taxdetail02.setAllCaps(false);
             tv_taxdetail02.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail02.setLayoutParams(tv_params);
             String propertyTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.PROPERTYTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.PROPERTYTAX);
-            tv_taxdetail02.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.PROPERTYTAX, propertyTax));
+            tv_taxdetail02.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Tax", propertyTax));
             linearChild.addView(tv_taxdetail02);
 
             TextView tv_taxdetail03 = new TextView(getActivity());
             tv_taxdetail03.setTextSize(11.0f);
-            tv_taxdetail03.setAllCaps(true);
+            tv_taxdetail03.setAllCaps(false);
             tv_taxdetail03.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail03.setLayoutParams(tv_params);
             String waterTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERTAX);
-            tv_taxdetail03.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.WATERTAX, waterTax));
+            tv_taxdetail03.setText(String.format(Locale.getDefault(), "%-22s : %s", "Water Tax", waterTax));
             linearChild.addView(tv_taxdetail03);
 
             TextView tv_taxdetail04 = new TextView(getActivity());
             tv_taxdetail04.setTextSize(11.0f);
-            tv_taxdetail04.setAllCaps(true);
+            tv_taxdetail04.setAllCaps(false);
             tv_taxdetail04.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail04.setLayoutParams(tv_params);
             String conservancyTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.CONSERVANCYTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.CONSERVANCYTAX);
-            tv_taxdetail04.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.CONSERVANCYTAX, conservancyTax));
+            tv_taxdetail04.setText(String.format(Locale.getDefault(), "%-22s : %s", "Conservancy Tax", conservancyTax));
             linearChild.addView(tv_taxdetail04);
 
             TextView tv_taxdetail05 = new TextView(getActivity());
             tv_taxdetail05.setTextSize(11.0f);
-            tv_taxdetail05.setAllCaps(true);
+            tv_taxdetail05.setAllCaps(false);
             tv_taxdetail05.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail05.setLayoutParams(tv_params);
             String waterSewerageCharge = taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERSEWERAGECHARGE) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERSEWERAGECHARGE);
-            tv_taxdetail05.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.WATERSEWERAGECHARGE, waterSewerageCharge));
+            tv_taxdetail05.setText(String.format(Locale.getDefault(), "%-22s : %s", "Water Sewerage Charge", waterSewerageCharge));
             linearChild.addView(tv_taxdetail05);
 
             TextView tv_taxdetail06 = new TextView(getActivity());
             tv_taxdetail06.setTextSize(11.0f);
-            tv_taxdetail06.setAllCaps(true);
+            tv_taxdetail06.setAllCaps(false);
             tv_taxdetail06.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail06.setLayoutParams(tv_params);
             String waterMeterBillAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERMETERBILLAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERMETERBILLAMOUNT);
-            tv_taxdetail06.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.WATERMETERBILLAMOUNT, waterMeterBillAmount));
+            tv_taxdetail06.setText(String.format(Locale.getDefault(), "%-22s : %s", "Water Bill Amount", waterMeterBillAmount));
             linearChild.addView(tv_taxdetail06);
 
             TextView tv_taxdetail07 = new TextView(getActivity());
             tv_taxdetail07.setTextSize(11.0f);
-            tv_taxdetail07.setAllCaps(true);
+            tv_taxdetail07.setAllCaps(false);
             tv_taxdetail07.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail07.setLayoutParams(tv_params);
             String arrearAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.ARREARAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.ARREARAMOUNT);
-            tv_taxdetail07.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.ARREARAMOUNT, arrearAmount));
+            tv_taxdetail07.setText(String.format(Locale.getDefault(), "%-22s : %s", "Arrear Amount", arrearAmount));
             linearChild.addView(tv_taxdetail07);
 
 
             TextView tv_taxdetail08 = new TextView(getActivity());
             tv_taxdetail08.setTextSize(11.0f);
-            tv_taxdetail08.setAllCaps(true);
+            tv_taxdetail08.setAllCaps(false);
             tv_taxdetail08.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail08.setLayoutParams(tv_params);
             String advancePaidAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.ADVANCEPAIDAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.ADVANCEPAIDAMOUNT);
-            tv_taxdetail08.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.ADVANCEPAIDAMOUNT, advancePaidAmount));
+            tv_taxdetail08.setText(String.format(Locale.getDefault(), "%-22s : %s", "Advance Paid Amount", advancePaidAmount));
             linearChild.addView(tv_taxdetail08);
 
             TextView tv_taxdetail09 = new TextView(getActivity());
             tv_taxdetail09.setTextSize(11.0f);
-            tv_taxdetail09.setAllCaps(true);
+            tv_taxdetail09.setAllCaps(false);
             tv_taxdetail09.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail09.setLayoutParams(tv_params);
             String rebateAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.REBATEAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.REBATEAMOUNT);
-            tv_taxdetail09.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.REBATEAMOUNT, rebateAmount));
+            tv_taxdetail09.setText(String.format(Locale.getDefault(), "%-22s : %s", "Rebate Amount", rebateAmount));
             linearChild.addView(tv_taxdetail09);
 
             TextView tv_taxdetail10 = new TextView(getActivity());
             tv_taxdetail10.setTextSize(11.0f);
-            tv_taxdetail10.setAllCaps(true);
+            tv_taxdetail10.setAllCaps(false);
             tv_taxdetail10.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail10.setLayoutParams(tv_params);
             String adjustmentAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.ADJUSTMENTAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.ADJUSTMENTAMOUNT);
-            tv_taxdetail10.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.ADJUSTMENTAMOUNT, adjustmentAmount));
+            tv_taxdetail10.setText(String.format(Locale.getDefault(), "%-22s : %s", "Adjustment Amount", adjustmentAmount));
             linearChild.addView(tv_taxdetail10);
 
             TextView tv_taxdetail11 = new TextView(getActivity());
             tv_taxdetail11.setTextSize(11.0f);
-            tv_taxdetail11.setAllCaps(true);
+            tv_taxdetail11.setAllCaps(false);
             tv_taxdetail11.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail11.setLayoutParams(tv_params);
             String totalPropertyTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.TOTALPROPERTYTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.TOTALPROPERTYTAX);
-            tv_taxdetail11.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.TOTALPROPERTYTAX, totalPropertyTax));
+            tv_taxdetail11.setText(String.format(Locale.getDefault(), "%-22s : %s", "Total Property Tax", totalPropertyTax));
             linearChild.addView(tv_taxdetail11);
 
             TextView tv_taxdetail12 = new TextView(getActivity());
             tv_taxdetail12.setTextSize(11.0f);
-            tv_taxdetail12.setAllCaps(true);
+            tv_taxdetail12.setAllCaps(false);
             tv_taxdetail12.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail12.setLayoutParams(tv_params);
             String serviceTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.SERVICETAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.SERVICETAX);
-            tv_taxdetail12.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.SERVICETAX, serviceTax));
+            tv_taxdetail12.setText(String.format(Locale.getDefault(), "%-22s : %s", "Service Tax", serviceTax));
             linearChild.addView(tv_taxdetail12);
 
             TextView tv_taxdetail13 = new TextView(getActivity());
             tv_taxdetail13.setTextSize(11.0f);
-            tv_taxdetail13.setAllCaps(true);
+            tv_taxdetail13.setAllCaps(false);
             tv_taxdetail13.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail13.setLayoutParams(tv_params);
             String otherTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.OTHERTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.OTHERTAX);
-            tv_taxdetail13.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.OTHERTAX, otherTax));
+            tv_taxdetail13.setText(String.format(Locale.getDefault(), "%-22s : %s", "Other Tax", otherTax));
             linearChild.addView(tv_taxdetail13);
 
             TextView tv_taxdetail14 = new TextView(getActivity());
             tv_taxdetail14.setTextSize(11.0f);
-            tv_taxdetail14.setAllCaps(true);
+            tv_taxdetail14.setAllCaps(false);
             tv_taxdetail14.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail14.setLayoutParams(tv_params);
             String grandTotal = taxdetailCursor.getStringOrNull(TaxdetailColumns.GRANDTOTAL) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.GRANDTOTAL);
-            tv_taxdetail14.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.GRANDTOTAL, grandTotal));
+            tv_taxdetail14.setText(String.format(Locale.getDefault(), "%-22s : %s", "Grand Total", grandTotal));
             linearChild.addView(tv_taxdetail14);
 
             TextView tv_taxdetail15 = new TextView(getActivity());
             tv_taxdetail15.setTextSize(11.0f);
-            tv_taxdetail15.setAllCaps(true);
+            tv_taxdetail15.setAllCaps(false);
             tv_taxdetail15.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail15.setLayoutParams(tv_params);
             String delayPaymentCharges = taxdetailCursor.getStringOrNull(TaxdetailColumns.DELAYPAYMENTCHARGES) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.DELAYPAYMENTCHARGES);
-            tv_taxdetail15.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.DELAYPAYMENTCHARGES, delayPaymentCharges));
+            tv_taxdetail15.setText(String.format(Locale.getDefault(), "%-22s : %s", "Delayed Payment Charges", delayPaymentCharges));
             linearChild.addView(tv_taxdetail15);
 
             TextView tv_taxdetail16 = new TextView(getActivity());
             tv_taxdetail16.setTextSize(11.0f);
-            tv_taxdetail16.setAllCaps(true);
+            tv_taxdetail16.setAllCaps(false);
             tv_taxdetail16.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail16.setLayoutParams(tv_params);
             String payableAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.PAYABLEAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.PAYABLEAMOUNT);
-            tv_taxdetail16.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.PAYABLEAMOUNT, payableAmount));
+            tv_taxdetail16.setText(String.format(Locale.getDefault(), "%-22s : %s", "Payable Amount", payableAmount));
             linearChild.addView(tv_taxdetail16);
 
             TextView tv_taxdetail17 = new TextView(getActivity());
             tv_taxdetail17.setTextSize(11.0f);
-            tv_taxdetail17.setAllCaps(true);
+            tv_taxdetail17.setAllCaps(false);
             tv_taxdetail17.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail17.setLayoutParams(tv_params);
             String dueDate = taxdetailCursor.getStringOrNull(TaxdetailColumns.DUEDATE) == null ? "0" : taxdetailCursor.getStringOrNull(TaxdetailColumns.DUEDATE);
-            tv_taxdetail17.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.DUEDATE, DateTimeUtils.getFormattedDatefromLong(Long.parseLong(dueDate))));
+            tv_taxdetail17.setText(String.format(Locale.getDefault(), "%-22s : %s", "DueDate", DateTimeUtils.getFormattedDatefromLong(Long.parseLong(dueDate))));
             linearChild.addView(tv_taxdetail17);
 
             TextView tv_taxdetail18 = new TextView(getActivity());
             tv_taxdetail18.setTextSize(11.0f);
-            tv_taxdetail18.setAllCaps(true);
+            tv_taxdetail18.setAllCaps(false);
             tv_taxdetail18.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail18.setLayoutParams(tv_params);
             String noticeGenerated = taxdetailCursor.getStringOrNull(TaxdetailColumns.NOTICEGENERATED) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.NOTICEGENERATED);
-            tv_taxdetail18.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.NOTICEGENERATED, noticeGenerated));
+            tv_taxdetail18.setText(String.format(Locale.getDefault(), "%-22s : %s", "Notice Generated", noticeGenerated));
             linearChild.addView(tv_taxdetail18);
 
             TextView tv_taxdetail19 = new TextView(getActivity());
             tv_taxdetail19.setTextSize(11.0f);
-            tv_taxdetail19.setAllCaps(true);
+            tv_taxdetail19.setAllCaps(false);
             tv_taxdetail19.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail19.setLayoutParams(tv_params);
             String objectionStatus = taxdetailCursor.getStringOrNull(TaxdetailColumns.OBJECTIONSTATUS) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.OBJECTIONSTATUS);
-            tv_taxdetail19.setText(String.format(Locale.getDefault(), "%-22s : %s", TaxdetailColumns.OBJECTIONSTATUS, objectionStatus));
+            tv_taxdetail19.setText(String.format(Locale.getDefault(), "%-22s : %s", "Objection Status", objectionStatus));
             linearChild.addView(tv_taxdetail19);
 
         }

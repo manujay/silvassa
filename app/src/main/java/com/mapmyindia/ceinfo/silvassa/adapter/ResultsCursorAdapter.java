@@ -36,24 +36,23 @@ public class ResultsCursorAdapter extends CursorRecyclerAdapter<RecyclerView.Vie
     public void onBindViewHolderCursor(RecyclerView.ViewHolder holder, Cursor cursor) {
         PropertyCursor propertyCursor = new PropertyCursor(cursor);
         ((ViewHolder) holder).mItemTextView0.setText(
-                String.format(Locale.getDefault(),
-                        "Property ID : %-22s ",
-                        propertyCursor.getPropertyuniqueid()));
+                String.format(Locale.getDefault(), "%-18s : %s",
+                        "Property ID", propertyCursor.getPropertyuniqueid()));
         ((ViewHolder) holder).mItemTextView0.setTypeface(Typeface.MONOSPACE);
         holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
         ((ViewHolder) holder).mItemTextView1.setText(
-                String.format(Locale.getDefault(), "Owner : %-22s ",
-                        propertyCursor.getPropertyowner()));
+                String.format(Locale.getDefault(), "%-18s : %s",
+                        "Owner", propertyCursor.getPropertyowner()));
         ((ViewHolder) holder).mItemTextView1.setTypeface(Typeface.MONOSPACE);
         holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
         ((ViewHolder) holder).mItemTextView2.setText(
-                String.format(Locale.getDefault(), "Occupier : %-22s ",
-                        propertyCursor.getPropertyoccupiername()));
+                String.format(Locale.getDefault(), "%-18s : %s",
+                        "Occupier", propertyCursor.getPropertyoccupiername()));
         ((ViewHolder) holder).mItemTextView2.setTypeface(Typeface.MONOSPACE);
         holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
         ((ViewHolder) holder).mItemTextView3.setText(
-                String.format(Locale.getDefault(), "HouseNo/Building : %-22s ",
-                        !StringUtils.isNullOrEmpty(propertyCursor.getPropertyhouseno()) ? propertyCursor.getPropertyhouseno() :
+                String.format(Locale.getDefault(), "%-18s : %s",
+                        "HouseNo/Building", !StringUtils.isNullOrEmpty(propertyCursor.getPropertyhouseno()) ? propertyCursor.getPropertyhouseno() :
                                 !StringUtils.isNullOrEmpty(propertyCursor.getPropertybuildingname()) ? propertyCursor.getPropertybuildingname() : "N/A"));
         ((ViewHolder) holder).mItemTextView3.setTypeface(Typeface.MONOSPACE);
         holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
