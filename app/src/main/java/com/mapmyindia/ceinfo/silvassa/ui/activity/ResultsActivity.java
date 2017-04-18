@@ -13,7 +13,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.adapter.ResultsCursorAdapter;
@@ -153,15 +152,17 @@ public class ResultsActivity extends BaseActivity {
     }
 
     @Override
-    public void setTitle(String mTitle) {
-        ((TextView) getToolbar().findViewById(R.id.tv_toolbar)).setText(mTitle);
+    public void setmTitle(String mTitle) {
+        getToolbar().setSubtitle(mTitle);
     }
 
     private void findViewByIDs() {
 
         setToolbar((Toolbar) findViewById(R.id.toolbar));
 
-        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ResultsActivity.this));
+        setmTitle("Last Synced: " + SharedPrefeHelper.getLastSync(ResultsActivity.this));
+
+        setSupportActionBar(getToolbar());
 
         recyclerView = (RecyclerView) findViewById(R.id.expandable_list);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

@@ -14,6 +14,8 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,8 +35,10 @@ import com.mapmyindia.ceinfo.silvassa.sync.ZoneProvider;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
+import com.mapmyindia.ceinfo.silvassa.utils.PostExecutionThread;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
+import com.mapmyindia.ceinfo.silvassa.utils.UIThread;
 import com.orhanobut.logger.Logger;
 
 import java.text.SimpleDateFormat;
@@ -93,15 +97,17 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
-    public void setTitle(String mTitle) {
-        binding.toolbar.setMTitle(mTitle);
+    public void setmTitle(String mTitle) {
+        getToolbar().setSubtitle(mTitle);
     }
 
     private void findViewByIDs() {
 
         setToolbar((Toolbar) binding.toolbar.getRoot());
 
-        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
+        setmTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
+
+        setSupportActionBar(getToolbar());
 
         binding.contentLayout.labelRow0.setText(Html.fromHtml(getString(R.string.zone) + "<font color='RED'>&#42;</font>"));
 
@@ -302,12 +308,43 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
             new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select \n\n\tZone ID");
         }
 
-        setTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
+        setmTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
     }
 
     private void doPublish() {
         if (!isServiceRunning(SyncSearchActivity.this, SyncService.class))
             SyncService.start(SyncSearchActivity.this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.logout:
+
+                SharedPrefeHelper.setIsLogin(SyncSearchActivity.this, false);
+
+                PostExecutionThread handlerThread = UIThread.getInstance();
+                handlerThread.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivityForIntent(new Intent(SyncSearchActivity.this, LoginActivity.class));
+                        finish();
+                    }
+                });
+
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

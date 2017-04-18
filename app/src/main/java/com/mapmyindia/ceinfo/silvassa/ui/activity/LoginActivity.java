@@ -18,8 +18,10 @@ import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
+import com.mapmyindia.ceinfo.silvassa.utils.PostExecutionThread;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
+import com.mapmyindia.ceinfo.silvassa.utils.UIThread;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.UserWSModel;
 import com.orhanobut.logger.Logger;
 
@@ -47,14 +49,25 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.layout_activity_login);
+        boolean isLogin = SharedPrefeHelper.isLogin(this);
 
-        findViewByIDs();
-
+        if (isLogin) {
+            PostExecutionThread handlerThread = UIThread.getInstance();
+            handlerThread.post(new Runnable() {
+                @Override
+                public void run() {
+                    startActivityForIntent(new Intent(LoginActivity.this, SyncSearchActivity.class));
+                    finish();
+                }
+            });
+        } else {
+            setContentView(R.layout.layout_activity_login);
+            findViewByIDs();
+        }
     }
 
     @Override
-    public void setTitle(String mTitle) {
+    public void setmTitle(String mTitle) {
 
     }
 
@@ -205,7 +218,11 @@ public class LoginActivity extends BaseActivity {
 
                         SharedPrefeHelper.setUserId(LoginActivity.this, data.getUserId());
 
+                        SharedPrefeHelper.setUserName(LoginActivity.this, data.getUsername());
+
                         SharedPrefeHelper.setUserInfo(LoginActivity.this, new Gson().toJson(data, UserWSModel.class));
+
+                        SharedPrefeHelper.setIsLogin(LoginActivity.this, true);
 
                         Logger.json(new Gson().toJson(data, UserWSModel.class));
 

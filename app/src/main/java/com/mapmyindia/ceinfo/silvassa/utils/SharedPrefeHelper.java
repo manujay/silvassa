@@ -22,6 +22,7 @@ public class SharedPrefeHelper {
     private static final String PREFERENCE_USERID = "user-userId";
     private static final String PREFERENCE_USERINFO = "user-info";
     private static final String PREFERENCE_USERNAME = "user-name";
+    private static final String PREFERENCE_USERLOGIN = "user-login";
     private static SharedPreferences mDefaultPref;
 
     private static SharedPreferences getDefaultPref(Context context) {
@@ -138,5 +139,16 @@ public class SharedPrefeHelper {
 
     public static String getUserInfo(Context context) {
         return getDefaultPref(context).getString(PREFERENCE_USERINFO, "");
+    }
+
+    public static void setIsLogin(Context context, boolean isLogin) {
+        SharedPreferences pref = getDefaultPref(context);
+        SharedPreferences.Editor edit = pref.edit();
+        edit.putBoolean(PREFERENCE_USERLOGIN, isLogin);
+        edit.commit();
+    }
+
+    public static boolean isLogin(Context context) {
+        return getDefaultPref(context).getBoolean(PREFERENCE_USERLOGIN, false);
     }
 }

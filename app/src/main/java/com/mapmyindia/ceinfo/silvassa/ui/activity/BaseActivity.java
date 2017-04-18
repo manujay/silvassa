@@ -43,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.mToolbar = mToolbar;
     }
 
-    public abstract void setTitle(String mTitle);
+    public abstract void setmTitle(String mTitle);
 
     public void startActivityForIntent(Intent intent) {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentContentValues;
@@ -59,15 +58,17 @@ public class PaymentActivity extends BaseActivity {
     }
 
     @Override
-    public void setTitle(String mTitle) {
-        ((TextView) getToolbar().findViewById(R.id.tv_toolbar)).setText(mTitle);
+    public void setmTitle(String mTitle) {
+        getToolbar().setSubtitle(mTitle);
     }
 
     private void findViewByIDs() {
 
         setToolbar((Toolbar) findViewById(R.id.toolbar));
 
-        setTitle("\rPropertyID : " + propId + " Last Synced : " + SharedPrefeHelper.getLastSync(this));
+        setmTitle("Last Synced : " + SharedPrefeHelper.getLastSync(this));
+
+        setSupportActionBar(getToolbar());
 
         RadioGroup rgPtop = (RadioGroup) findViewById(R.id.rg_ptp);
 

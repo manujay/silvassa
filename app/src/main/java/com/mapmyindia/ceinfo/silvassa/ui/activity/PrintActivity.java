@@ -35,10 +35,10 @@ public class PrintActivity extends BaseActivity {
 
     private static final String TAG = PrintActivity.class.getSimpleName();
     private String propertyId;
-    private Toolbar mToolbar;
 
     @Override
-    public void setTitle(String mTitle) {
+    public void setmTitle(String mTitle) {
+        getToolbar().setSubtitle(mTitle);
     }
 
     @Override
@@ -47,9 +47,9 @@ public class PrintActivity extends BaseActivity {
 
         setContentView(R.layout.layout_activity_print_details);
 
-        mToolbar = (Toolbar) findViewById(R.id.print_toolbar);
+        setToolbar((Toolbar) findViewById(R.id.toolbar));
 
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(getToolbar());
 
         Bundle extras = getIntent().getExtras();
 
@@ -188,7 +188,7 @@ public class PrintActivity extends BaseActivity {
 
         getMenuInflater().inflate(R.menu.silvassa_menu, menu);
 
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

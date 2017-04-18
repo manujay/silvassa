@@ -114,14 +114,14 @@ public class PrefillActivity extends BaseActivity {
     private void findViewByIDs() {
 
         setToolbar((Toolbar) findViewById(R.id.toolbar));
-        setTitle(getResources().getString(R.string.app_name));
+        setSupportActionBar(getToolbar());
 
         if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OWNER))
-            setTitle(getResources().getString(R.string.owner_name));
+            setmTitle(getResources().getString(R.string.owner_name));
         else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OCCUPIER))
-            setTitle(getResources().getString(R.string.occupier_name));
+            setmTitle(getResources().getString(R.string.occupier_name));
         else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_PROPERTYID))
-            setTitle(getResources().getString(R.string.property_id));
+            setmTitle(getResources().getString(R.string.property_id));
 
         AppCompatEditText mSearchableEditText = (AppCompatEditText) findViewById(R.id.search_et);
 
@@ -185,7 +185,7 @@ public class PrefillActivity extends BaseActivity {
     }
 
     @Override
-    public void setTitle(String mTitle) {
-        ((TextView) getToolbar().findViewById(R.id.tv_toolbar)).setText(mTitle);
+    public void setmTitle(String mTitle) {
+        getToolbar().setSubtitle(mTitle);
     }
 }
