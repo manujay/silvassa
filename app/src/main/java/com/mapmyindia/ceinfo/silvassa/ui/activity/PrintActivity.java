@@ -38,7 +38,7 @@ public class PrintActivity extends BaseActivity {
 
     @Override
     public void setmTitle(String mTitle) {
-        getToolbar().setSubtitle(mTitle);
+        ((TextView) getToolbar().findViewById(R.id.tv_toolbar)).setText(mTitle);
     }
 
     @Override

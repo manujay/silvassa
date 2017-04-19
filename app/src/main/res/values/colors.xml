@@ -10,8 +10,13 @@
     <color name="base_color">#FFD9EAFE</color>
     <color name="dark_gray">#FF5E5E5C</color>
     <color name="color_strip">#FF9E9E9E</color>
+    <color name="black_transparent_0D">#0d000000</color>
+    <!-- color palette-->
     <color name="transparent">#00000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#FFE6E6E6</color>
+    <color name="Grey_200">#EEEEEE</color>
+    <color name="Grey_400">#bdbdbd</color>
+    <color name="Grey_700">#616161</color>
 
 </resources>

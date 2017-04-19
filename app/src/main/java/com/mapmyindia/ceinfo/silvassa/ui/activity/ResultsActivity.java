@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.adapter.ResultsCursorAdapter;
@@ -153,7 +154,7 @@ public class ResultsActivity extends BaseActivity {
 
     @Override
     public void setmTitle(String mTitle) {
-        getToolbar().setSubtitle(mTitle);
+        ((TextView) getToolbar().findViewById(R.id.tv_toolbar)).setText(mTitle);
     }
 
     private void findViewByIDs() {

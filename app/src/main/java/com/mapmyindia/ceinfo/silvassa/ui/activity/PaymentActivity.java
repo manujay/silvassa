@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentContentValues;
@@ -59,7 +60,7 @@ public class PaymentActivity extends BaseActivity {
 
     @Override
     public void setmTitle(String mTitle) {
-        getToolbar().setSubtitle(mTitle);
+        ((TextView) getToolbar().findViewById(R.id.tv_toolbar)).setText(mTitle);
     }
 
     private void findViewByIDs() {

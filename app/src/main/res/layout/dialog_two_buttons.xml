@@ -19,7 +19,7 @@
         android:paddingLeft="@dimen/spacing_large"
         android:paddingRight="@dimen/spacing_large"
         android:paddingTop="@dimen/spacing_large"
-        android:text="@string/alert_message"
+        android:text="@string/logout_message"
         android:textColor="#616161"
         android:textSize="@dimen/abc_text_size_medium_material"
         tools:ignore="PrivateResource" />
@@ -30,7 +30,7 @@
         android:background="#777777"
         android:visibility="gone" />
 
-    <!--<RelativeLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -44,6 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/positive_button"
+            android:layout_toStartOf="@+id/positive_button"
             android:background="@drawable/button_material"
             android:gravity="center"
             android:minEms="3"
@@ -56,14 +57,15 @@
             android:id="@+id/positive_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:background="@drawable/button_material"
             android:gravity="center"
             android:minEms="3"
             android:padding="@dimen/spacing_medium"
             android:text="@string/yes_label"
-            android:textColor="@color/base_color"
+            android:textColor="@color/Grey_700"
             android:textSize="@dimen/abc_text_size_medium_material" />
-    </RelativeLayout>-->
+    </RelativeLayout>
 
 </LinearLayout>

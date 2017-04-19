@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Silvassa</string>
+    <string name="app_name">Silvassa Municipal Corporation</string>
     <string name="et_username_hint">User Name</string>
     <string name="et_password_hint">Password</string>
     <string name="login">Log In</string>
@@ -25,6 +25,9 @@
     <string name="sorry_no_results">Sorry no results match your search criteria!</string>
     <string name="pos">Pos</string>
     <string name="menu_logout">Logout</string>
+    <string name="no_label">No</string>
+    <string name="yes_label">Yes</string>
+    <string name="logout_message">Due you want to Logout?</string>
 
 
     <string-array name="spinner_array">

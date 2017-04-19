@@ -49,7 +49,7 @@ import java.util.Locale;
  * Created by ceinfo on 27-02-2017.
  */
 
-public class SyncSearchActivity extends BaseActivity implements View.OnClickListener {
+public class SyncSearchActivity extends BaseActivity implements View.OnClickListener, DialogHandler.DialogLogoutListener {
 
     private static final String TAG = SyncSearchActivity.class.getSimpleName();
     private static final int INIT_ZONE_LOADER = 12212;
@@ -98,7 +98,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
     @Override
     public void setmTitle(String mTitle) {
-        getToolbar().setSubtitle(mTitle);
+        binding.toolbar.setMTitle(mTitle);
     }
 
     private void findViewByIDs() {
@@ -308,12 +308,14 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
             new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select \n\n\tZone ID");
         }
 
-        setmTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
+//        setmTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
     }
 
     private void doPublish() {
         if (!isServiceRunning(SyncSearchActivity.this, SyncService.class))
             SyncService.start(SyncSearchActivity.this);
+
+        setmTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
     }
 
     @Override
@@ -330,21 +332,26 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
         switch (item.getItemId()) {
             case R.id.logout:
 
-                SharedPrefeHelper.setIsLogin(SyncSearchActivity.this, false);
-
-                PostExecutionThread handlerThread = UIThread.getInstance();
-                handlerThread.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        startActivityForIntent(new Intent(SyncSearchActivity.this, LoginActivity.class));
-                        finish();
-                    }
-                });
+                new DialogHandler(SyncSearchActivity.this).showLogoutDialog(this);
 
                 break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onLogoutClicked() {
+        SharedPrefeHelper.setIsLogin(SyncSearchActivity.this, false);
+
+        PostExecutionThread handlerThread = UIThread.getInstance();
+        handlerThread.post(new Runnable() {
+            @Override
+            public void run() {
+                startActivityForIntent(new Intent(SyncSearchActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
     }
 
     @Override
