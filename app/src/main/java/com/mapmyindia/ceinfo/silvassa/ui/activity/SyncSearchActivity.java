@@ -32,6 +32,7 @@ import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneSelection;
 import com.mapmyindia.ceinfo.silvassa.service.SyncService;
 import com.mapmyindia.ceinfo.silvassa.sync.SyncProvider;
 import com.mapmyindia.ceinfo.silvassa.sync.ZoneProvider;
+import com.mapmyindia.ceinfo.silvassa.utils.CompoundTextView;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
@@ -145,6 +146,34 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
+
+        binding.contentLayout.spinnerRow1.setOnCompoundClickListener(new CompoundTextView.CompoundDrawableClickListener() {
+            @Override
+            public void onClick(DrawablePosition target) {
+                if (target.compareTo(DrawablePosition.RIGHT) == 0) {
+                    ((CompoundTextView) findViewById(R.id.spinner_row1)).setText("");
+                }
+            }
+        });
+
+        binding.contentLayout.spinnerRow2.setOnCompoundClickListener(new CompoundTextView.CompoundDrawableClickListener() {
+            @Override
+            public void onClick(DrawablePosition target) {
+                if (target.compareTo(DrawablePosition.RIGHT) == 0) {
+                    ((CompoundTextView) findViewById(R.id.spinner_row2)).setText("");
+                }
+            }
+        });
+
+        binding.contentLayout.spinnerRow3.setOnCompoundClickListener(new CompoundTextView.CompoundDrawableClickListener() {
+            @Override
+            public void onClick(DrawablePosition target) {
+                if (target.compareTo(DrawablePosition.RIGHT) == 0) {
+                    ((CompoundTextView) findViewById(R.id.spinner_row3)).setText("");
+                }
             }
         });
 
