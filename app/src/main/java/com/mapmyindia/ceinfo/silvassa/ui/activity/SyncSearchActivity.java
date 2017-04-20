@@ -54,6 +54,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
     private static final String TAG = SyncSearchActivity.class.getSimpleName();
     private static final int INIT_ZONE_LOADER = 12212;
+    private boolean isBackPressed = false;
     private ProgressBar progressBar;
     private LayoutActivitySyncsearchBinding binding;
     private SyncSpinnerAdapter spinnerAdapter;
@@ -426,6 +427,16 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
         Logger.d(TAG, " @payload:toJson : " + toJson);
 
         return toJson;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (!isBackPressed) {
+            showSnackBar(getWindow().getDecorView(), "Press Again to Exit");
+            isBackPressed = true;
+        } else {
+            super.onBackPressed();
+        }
     }
 
     public class SyncSpinnerAdapter extends CursorAdapter {
