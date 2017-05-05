@@ -158,11 +158,11 @@ public class LoginActivity extends BaseActivity {
 //                }
 
 //            } else {
-                if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
-                    showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
-                } else {
-                    attemptLogin(userId, paswd);
-                }
+            if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
+                showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
+            } else {
+                attemptLogin(userId, paswd);
+            }
 //            }
 
 
@@ -201,18 +201,16 @@ public class LoginActivity extends BaseActivity {
                     try {
                         JSONObject jsonObject = new JSONObject(response.body().string());
 
-                        if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
-                            showSnackBar(getWindow().getDecorView(), jsonObject.getString("message"));
+                        String message = jsonObject.getString("message");
+                        int Status = Integer.parseInt(jsonObject.getString("status"));
+
+                        if (!StringUtils.isNullOrEmpty(message) && Status == 1001) {
+                            showToast(LoginActivity.this, "Incorrect Username/Password");
                             return;
                         }
 
-                        if (Integer.parseInt(jsonObject.getString("status")) != 200) {
-                            showSnackBar(getWindow().getDecorView(), jsonObject.getString("message"));
-                            return;
-                        }
-
-                        if (null == jsonObject.get("data")) {
-                            showSnackBar(getWindow().getDecorView(), jsonObject.getString("message"));
+                        if (!StringUtils.isNullOrEmpty(message) && Status != 200) {
+                            showSnackBar(getWindow().getDecorView(), message);
                             return;
                         }
 
