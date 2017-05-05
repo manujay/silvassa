@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="@dimen/spacing_medium"
     android:background="@android:drawable/alert_light_frame"
-    android:orientation="vertical"
-    android:padding="@dimen/spacing_medium">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/content_message"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:paddingBottom="25dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="25dp"
+        android:paddingBottom="@dimen/spacing_large"
+        android:paddingLeft="@dimen/spacing_large"
+        android:paddingRight="@dimen/spacing_large"
+        android:paddingTop="@dimen/spacing_large"
         android:text="@string/alert_message"
-        android:textColor="#616161"
-        android:textSize="@dimen/abc_text_size_medium_material" />
+        android:textColor="@color/Grey_700"
+        android:textSize="@dimen/abc_text_size_medium_material"
+        tools:ignore="PrivateResource" />
 
     <!--<TextView
         android:id="@+id/ok_button"
@@ -34,6 +34,4 @@
         android:text="Ok"
         android:textColor="#616161"
         android:textSize="@dimen/abc_text_size_medium_material" />-->
-
-
 </LinearLayout>

@@ -319,7 +319,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onSyncResponse(String msg) {
                     showProgress(false);
-                    new DialogHandler(SyncSearchActivity.this).showAlertDialog("Data Synced Successfully");
+                    new DialogHandler(SyncSearchActivity.this).showAlertDialog("Data Sync Successful");
 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault());
                     SharedPrefeHelper.setLastSync(SyncSearchActivity.this, sdf.format(new Date()));
@@ -330,7 +330,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onSyncError(String msg) {
                     showProgress(false);
-                    new DialogHandler(SyncSearchActivity.this).showAlertDialog("Data Synced Failed :Error\n\n\t" + msg);
+                    new DialogHandler(SyncSearchActivity.this).showAlertDialog("Data Sync Failed :Error\n\n\t" + msg);
                 }
             }, payload);
 

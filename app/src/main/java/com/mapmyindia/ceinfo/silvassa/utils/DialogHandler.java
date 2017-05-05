@@ -2,6 +2,7 @@ package com.mapmyindia.ceinfo.silvassa.utils;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -53,8 +54,8 @@ public class DialogHandler {
     public void showLogoutDialog(final DialogLogoutListener dialogLogoutListener) {
         if (mTwoButtonDialog != null && !mTwoButtonDialog.isShowing()) {
             TextView message = (TextView) mTwoButtonDialog.findViewById(R.id.content_message);
-            TextView positiveButton = (TextView) mTwoButtonDialog.findViewById(R.id.positive_button);
-            TextView negativeButton = (TextView) mTwoButtonDialog.findViewById(R.id.ok_button);
+            AppCompatButton positiveButton = (AppCompatButton) mTwoButtonDialog.findViewById(R.id.positive_button);
+            AppCompatButton negativeButton = (AppCompatButton) mTwoButtonDialog.findViewById(R.id.ok_button);
 
             positiveButton.setOnClickListener(new View.OnClickListener() {
 
