@@ -14,7 +14,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.FilterQueryProvider;
 import android.widget.TextView;
 
@@ -24,6 +26,7 @@ import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertySelection;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
+import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 
 /**
  * Created by ceinfo on 07-03-2017.
@@ -123,7 +126,7 @@ public class PrefillActivity extends BaseActivity {
         else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_PROPERTYID))
             setmTitle(getResources().getString(R.string.property_id));
 
-        AppCompatEditText mSearchableEditText = (AppCompatEditText) findViewById(R.id.search_et);
+        final AppCompatEditText mSearchableEditText = (AppCompatEditText) findViewById(R.id.search_et);
 
         mSearchableEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -141,6 +144,25 @@ public class PrefillActivity extends BaseActivity {
                 filterableCursorAdapter.getFilter().filter(s.toString());
             }
         });
+
+        mSearchableEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    mButtonLogin.performClick();
+                    ViewUtils.hideKeyboardFrom(PrefillActivity.this, mSearchableEditText.getRootView());
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OWNER))
+            mSearchableEditText.setHint(R.string.string_hint_search_owner);
+        else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_OCCUPIER))
+            mSearchableEditText.setHint(R.string.string_hint_search_occupier);
+        else if (preString.equalsIgnoreCase(INTENT_PARAMETERS._PREFILL_PROPERTYID))
+            mSearchableEditText.setHint(R.string.string_hint_search_property);
 
         recyclerView = (RecyclerView) findViewById(R.id.rcv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

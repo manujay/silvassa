@@ -15,7 +15,9 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.FilterQueryProvider;
 import android.widget.TextView;
 
@@ -29,6 +31,7 @@ import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
+import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 
 /**
  * Created by ceinfo on 01-03-2017.
@@ -79,20 +82,12 @@ public class ResultsActivity extends BaseActivity {
                 PropertySelection selection = new PropertySelection();
 
                 if (constraint.length() > 0) {
-                    if (!StringUtils.isNullOrEmpty(zoneId)) {
-                        selection.zoneidContains(zoneId);
-                    }
-
-                    if (!StringUtils.isNullOrEmpty(propertyId)) {
-                        selection.and().propertyuniqueidContains(propertyId);
-                    }
-
-                    if (!StringUtils.isNullOrEmpty(owner)) {
-                        selection.and().propertyownerContains(owner);
-                    }
-
-                    if (!StringUtils.isNullOrEmpty(occupier)) {
-                        selection.and().propertyoccupiernameContains(occupier);
+                    if (StringUtils.isNullOrEmpty(propertyId)) {
+                        selection.propertyuniqueidContains(constraint.toString().toLowerCase());
+                    } else if (StringUtils.isNullOrEmpty(owner)) {
+                        selection.propertyownerContains(constraint.toString().toLowerCase());
+                    } else if (StringUtils.isNullOrEmpty(occupier)) {
+                        selection.propertyoccupiernameContains(constraint.toString().toLowerCase());
                     }
                 }
                 return selection.query(getContentResolver());
@@ -222,7 +217,7 @@ public class ResultsActivity extends BaseActivity {
             }
         }));
 
-        AppCompatEditText mSearchableEditText = (AppCompatEditText) findViewById(R.id.search_et);
+        final AppCompatEditText mSearchableEditText = (AppCompatEditText) findViewById(R.id.search_et);
 
         mSearchableEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -240,6 +235,26 @@ public class ResultsActivity extends BaseActivity {
                 resultsCursorAdapter.getFilter().filter(s.toString());
             }
         });
+
+        mSearchableEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    mButtonLogin.performClick();
+                    ViewUtils.hideKeyboardFrom(ResultsActivity.this, mSearchableEditText.getRootView());
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        if (StringUtils.isNullOrEmpty(propertyId)) {
+            mSearchableEditText.setHint(R.string.string_hint_search_property);
+        } else if (StringUtils.isNullOrEmpty(owner)) {
+            mSearchableEditText.setHint(R.string.string_hint_search_owner);
+        } else if (StringUtils.isNullOrEmpty(occupier)) {
+            mSearchableEditText.setHint(R.string.string_hint_search_occupier);
+        }
     }
 
     private void showTaxDetails(String propertyId) {

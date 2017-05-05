@@ -28,4 +28,7 @@
     <string name="no_label">No</string>
     <string name="yes_label">Yes</string>
     <string name="logout_message">Do you want to Logout?</string>
+    <string name="string_hint_search_property">Search propertyid</string>
+    <string name="string_hint_search_occupier">Search occupier</string>
+    <string name="string_hint_search_owner">Search owner</string>
 </resources>

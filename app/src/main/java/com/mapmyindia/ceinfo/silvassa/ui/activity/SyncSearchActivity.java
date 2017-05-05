@@ -321,7 +321,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                     showProgress(false);
                     new DialogHandler(SyncSearchActivity.this).showAlertDialog("Data Synced Successfully");
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault());
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault());
                     SharedPrefeHelper.setLastSync(SyncSearchActivity.this, sdf.format(new Date()));
 
                     doPublish();

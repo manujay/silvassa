@@ -20,6 +20,7 @@
             android:id="@+id/search_et"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:imeOptions="actionDone"
             android:inputType="text"
             android:padding="@dimen/border_login_padding" />
 
