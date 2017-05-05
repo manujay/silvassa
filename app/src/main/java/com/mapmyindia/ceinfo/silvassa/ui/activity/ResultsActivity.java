@@ -163,7 +163,7 @@ public class ResultsActivity extends BaseActivity {
                         new Handler().post(new Runnable() {
                             @Override
                             public void run() {
-                                showTaxDetails(propertyId);
+                                replaceFragment(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG, false, true);
                             }
                         });
                     }
@@ -258,10 +258,10 @@ public class ResultsActivity extends BaseActivity {
     }
 
     private void showTaxDetails(String propertyId) {
-        replaceFragmentWithAnimation(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG, true, true);
+        replaceFragment(PlaceHolderFragment.getInstance(propertyId), PlaceHolderFragment.TAG, true, true);
     }
 
-    public void replaceFragmentWithAnimation(Fragment fragment, String tag, boolean animate, boolean addToBackStack) {
+    public void replaceFragment(Fragment fragment, String tag, boolean animate, boolean addToBackStack) {
 
         PlaceHolderFragment oldfragment = (PlaceHolderFragment) getSupportFragmentManager().findFragmentById(R.id.frame_results);
 
