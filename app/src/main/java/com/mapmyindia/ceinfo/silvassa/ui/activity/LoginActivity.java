@@ -22,6 +22,7 @@ import com.mapmyindia.ceinfo.silvassa.utils.PostExecutionThread;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.utils.UIThread;
+import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.UserWSModel;
 import com.orhanobut.logger.Logger;
 
@@ -80,7 +81,8 @@ public class LoginActivity extends BaseActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    mButtonLogin.performClick();
+//                    mButtonLogin.performClick();
+                    ViewUtils.hideKeyboardFrom(LoginActivity.this, mEditTextPaswd.getRootView());
                     return true;
                 }
                 return false;
@@ -104,68 +106,69 @@ public class LoginActivity extends BaseActivity {
             }.getType());
 
             String userId = userWSModel.getUserId();
-            String paswd = userWSModel.getPasword();
+//            String paswd = userWSModel.getPasword();
 
             mEditTextUname.setText(userId);
-            mEditTextPaswd.setText(paswd);
+//            mEditTextPaswd.setText(paswd);
 
         }
     }
 
     private void doLogin() {
-//        View focusView = null;
+        View focusView = null;
         boolean isvalid = true;
         String userId = mEditTextUname.getText().toString();
         String paswd = mEditTextPaswd.getText().toString();
 
         if (StringUtils.isNullOrEmpty(userId)) {
             isvalid = false;
-//            mEditTextUname.setError("Please provide a valid username");
-//            focusView = mEditTextUname;
+            mEditTextUname.setError("Username Can't be Empty");
+            focusView = mEditTextUname;
         }
+
         if (StringUtils.isNullOrEmpty(paswd)) {
             isvalid = false;
-//            mEditTextPaswd.setError("Please provide a valid username/password");
-//            focusView = mEditTextPaswd;
+            mEditTextPaswd.setError("Username/Password Can't be Empty");
+            focusView = mEditTextPaswd;
         }
 
         if (isvalid) {
 
-            String fromJson = SharedPrefeHelper.getUserInfo(LoginActivity.this);
+//            String fromJson = SharedPrefeHelper.getUserInfo(LoginActivity.this);
 
-            if (!StringUtils.isNullOrEmpty(fromJson)) {  //offline Login
+//            if (!StringUtils.isNullOrEmpty(fromJson)) {  //offline Login
+//
+//                UserWSModel userWSModel = new Gson().fromJson(fromJson, new TypeToken<UserWSModel>() {
+//                }.getType());
+//
+//                if (userId.equalsIgnoreCase(userWSModel.getUserId()) && paswd.equalsIgnoreCase(userWSModel.getPasword())) {
+//
+//                    mEditTextUname.setFocusable(false);
+//                    mEditTextPaswd.setFocusable(false);
+//
+//                    startActivityForIntent(new Intent(LoginActivity.this, SyncSearchActivity.class));
+//                    finish();
+//
+//                } else {
+//                    if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
+//                        showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
+//                    } else {
+//                        attemptLogin(userId, paswd);
+//                    }
+//                }
 
-                UserWSModel userWSModel = new Gson().fromJson(fromJson, new TypeToken<UserWSModel>() {
-                }.getType());
-
-                if (userId.equalsIgnoreCase(userWSModel.getUserId()) && paswd.equalsIgnoreCase(userWSModel.getPasword())) {
-
-                    mEditTextUname.setFocusable(false);
-                    mEditTextPaswd.setFocusable(false);
-
-                    startActivityForIntent(new Intent(LoginActivity.this, SyncSearchActivity.class));
-                    finish();
-
-                } else {
-                    if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
-                        showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
-                    } else {
-                        attemptLogin(userId, paswd);
-                    }
-                }
-
-            } else {
+//            } else {
                 if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
                     showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
                 } else {
                     attemptLogin(userId, paswd);
                 }
-            }
+//            }
 
 
         } else {
-//            focusView.requestFocus();
-            showToast(LoginActivity.this, "Incorrect Username/Password");
+            focusView.requestFocus();
+//            showToast(LoginActivity.this, "Incorrect Username/Password");
         }
 
 //        mEditTextUname.setText("");

@@ -1,11 +1,14 @@
 package com.mapmyindia.ceinfo.silvassa.utils;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 /**
  * Created by ceinfo on 28-02-2017.
@@ -22,5 +25,10 @@ public class ViewUtils {
         } else if (background instanceof ColorDrawable) {
             ((ColorDrawable) background).setColor(Color.parseColor(color));
         }
+    }
+
+    public static void hideKeyboardFrom(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 }

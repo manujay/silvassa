@@ -6,16 +6,37 @@
         android:layout_height="match_parent"
         android:background="@null">
 
+        <android.support.v7.widget.ContentFrameLayout
+            android:id="@+id/container_frame"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/cardview_light_background"
+            android:paddingEnd="@dimen/padding_small"
+            android:paddingLeft="@dimen/padding_small"
+            android:paddingRight="@dimen/padding_small"
+            android:paddingStart="@dimen/padding_small">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/search_et"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:inputType="text"
+                android:padding="@dimen/border_login_padding" />
+
+        </android.support.v7.widget.ContentFrameLayout>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/expandable_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_below="@id/container_frame"
             android:visibility="gone" />
 
         <TextView
             android:id="@+id/empty_tv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@id/container_frame"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:gravity="center|fill_vertical"

@@ -8,11 +8,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
+import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.FilterQueryProvider;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
@@ -64,6 +68,36 @@ public class ResultsActivity extends BaseActivity {
 
         populateResults();
 
+    }
+
+    private void setfilterQueryProvider() {
+        resultsCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+
+            @Override
+            public Cursor runQuery(CharSequence constraint) {
+
+                PropertySelection selection = new PropertySelection();
+
+                if (constraint.length() > 0) {
+                    if (!StringUtils.isNullOrEmpty(zoneId)) {
+                        selection.zoneidContains(zoneId);
+                    }
+
+                    if (!StringUtils.isNullOrEmpty(propertyId)) {
+                        selection.and().propertyuniqueidContains(propertyId);
+                    }
+
+                    if (!StringUtils.isNullOrEmpty(owner)) {
+                        selection.and().propertyownerContains(owner);
+                    }
+
+                    if (!StringUtils.isNullOrEmpty(occupier)) {
+                        selection.and().propertyoccupiernameContains(occupier);
+                    }
+                }
+                return selection.query(getContentResolver());
+            }
+        });
     }
 
     @Override
@@ -174,6 +208,8 @@ public class ResultsActivity extends BaseActivity {
 
         resultsCursorAdapter = new ResultsCursorAdapter(null);
 
+        setfilterQueryProvider();
+
         recyclerView.setAdapter(resultsCursorAdapter);
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
@@ -185,6 +221,25 @@ public class ResultsActivity extends BaseActivity {
                 showTaxDetails(propertyId);
             }
         }));
+
+        AppCompatEditText mSearchableEditText = (AppCompatEditText) findViewById(R.id.search_et);
+
+        mSearchableEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                resultsCursorAdapter.getFilter().filter(s.toString());
+            }
+        });
     }
 
     private void showTaxDetails(String propertyId) {
