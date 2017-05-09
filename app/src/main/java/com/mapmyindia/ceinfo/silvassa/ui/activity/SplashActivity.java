@@ -23,13 +23,18 @@ public class SplashActivity extends BaseActivity {
     }
 
     @Override
+    public void onActionCliked() {
+        finish();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
             if (!Connectivity.isConnected(this)) {
-                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false);
+                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), true, this);
             } else {
 
                 showProgress(true);
@@ -44,8 +49,8 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void onError(String msg) {
                         showProgress(false);
-                        Logger.e(TAG, "@ZoneProvider.onError ", msg);
-                        showSnackBarLong(getWindow().getDecorView(), msg, true);
+                        Logger.e(TAG, " @ZoneProvider.onError ", msg);
+                        showSnackBarLong(getWindow().getDecorView(), msg, true, null);
                     }
                 });
 

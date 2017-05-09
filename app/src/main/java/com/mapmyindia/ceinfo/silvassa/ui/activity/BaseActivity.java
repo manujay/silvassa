@@ -9,11 +9,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.mapmyindia.ceinfo.silvassa.ui.SnackbarActionListener;
+
 /**
  * Created by ceinfo on 27-02-2017.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements SnackbarActionListener {
 
     private Toolbar mToolbar;
 
@@ -25,18 +27,19 @@ public abstract class BaseActivity extends AppCompatActivity {
         Snackbar.make(view, mesg, Snackbar.LENGTH_SHORT).show();
     }
 
-    private static void showSnackBarLong(View view, String mesg) {
+    private static void showSnackBarLong(View view, String mesg, final SnackbarActionListener listener) {
         Snackbar.make(view, mesg, Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Todo Automatically dismisses snackbar
+                if (null != listener)
+                    listener.onActionCliked();
             }
         }).setActionTextColor(view.getContext().getResources().getColor(android.R.color.holo_red_light)).show();
     }
 
-    public static void showSnackBarLong(View view, String mesg, boolean hasAction) {
+    public static void showSnackBarLong(View view, String mesg, boolean hasAction, SnackbarActionListener listener) {
         if (hasAction) {
-            showSnackBarLong(view, mesg);
+            showSnackBarLong(view, mesg, listener);
         } else showSnackBar(view, mesg);
     }
 

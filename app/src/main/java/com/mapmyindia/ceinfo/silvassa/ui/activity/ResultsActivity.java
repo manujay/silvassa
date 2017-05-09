@@ -73,6 +73,11 @@ public class ResultsActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onActionCliked() {
+
+    }
+
     private void setfilterQueryProvider() {
         resultsCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
 

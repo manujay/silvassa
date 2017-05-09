@@ -42,6 +42,11 @@ public class PrintActivity extends BaseActivity {
     }
 
     @Override
+    public void onActionCliked() {
+
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

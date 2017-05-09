@@ -75,6 +75,11 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onActionCliked() {
+
+    }
+
     private void findViewByIDs() {
         mEditTextUname = (TextInputEditText) findViewById(R.id.et_login_username);
         mEditTextPaswd = (TextInputEditText) findViewById(R.id.et_login_password);
@@ -162,7 +167,7 @@ public class LoginActivity extends BaseActivity {
 
 //            } else {
             if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
-                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false);
+                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false, null);
             } else {
                 attemptLogin(userId, paswd);
             }
@@ -213,7 +218,7 @@ public class LoginActivity extends BaseActivity {
                         }
 
                         if (!StringUtils.isNullOrEmpty(message) && Status != 200) {
-                            showSnackBarLong(getWindow().getDecorView(), message, false);
+                            showSnackBarLong(getWindow().getDecorView(), message, false, null);
                             return;
                         }
 
@@ -239,7 +244,7 @@ public class LoginActivity extends BaseActivity {
                     }
 
                 } else {
-                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network_connectivity), false);
+                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network_connectivity), true, null);
                     Logger.e(TAG, " @attemptLogin : FAILURE : REQUEST " + call.request() + " ERROR: " + response.message());
                 }
 
@@ -257,7 +262,7 @@ public class LoginActivity extends BaseActivity {
                         throw new Exception(t.getMessage());
                     }
                 } catch (Exception e) {
-                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network_connectivity), false);
+                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network_connectivity), true, null);
                     e.printStackTrace();
                 }
             }

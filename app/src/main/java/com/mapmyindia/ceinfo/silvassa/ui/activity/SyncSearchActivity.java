@@ -69,7 +69,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
             if (!Connectivity.isConnected(this)) {
-                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false);
+                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false, null);
             } else {
                 showProgress(true);
 
@@ -99,6 +99,11 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
+    public void onActionCliked() {
+
+    }
+
+    @Override
     public void setmTitle(String mTitle) {
         binding.toolbar.setMTitle(mTitle);
     }
@@ -124,7 +129,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 if (!Connectivity.isConnected(SyncSearchActivity.this)) {
-                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false);
+                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false, null);
                 } else {
                     doSync();
                 }
@@ -331,7 +336,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                 public void onSyncError(String msg) {
                     showProgress(false);
                     Logger.e(TAG, " @onSyncError: " + msg);
-                    showSnackBarLong(SyncSearchActivity.this.getWindow().getDecorView(), msg, true);
+                    showSnackBarLong(getWindow().getDecorView(), msg, true, null);
                 }
             }, payload);
 
@@ -433,7 +438,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         if (!isBackPressed) {
-            showSnackBarLong(getWindow().getDecorView(), "Press Again to Exit", false);
+            showSnackBarLong(getWindow().getDecorView(), "Press Again to Exit", true, null);
             isBackPressed = true;
         } else {
             super.onBackPressed();

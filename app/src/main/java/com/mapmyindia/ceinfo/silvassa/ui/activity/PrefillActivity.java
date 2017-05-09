@@ -56,6 +56,11 @@ public class PrefillActivity extends BaseActivity {
         populatePrefillAdapter();
     }
 
+    @Override
+    public void onActionCliked() {
+
+    }
+
     private void setfilterQueryProvider() {
         filterableCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
 

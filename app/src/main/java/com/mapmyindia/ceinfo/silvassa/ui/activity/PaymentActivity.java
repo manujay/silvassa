@@ -59,6 +59,11 @@ public class PaymentActivity extends BaseActivity {
     }
 
     @Override
+    public void onActionCliked() {
+
+    }
+
+    @Override
     public void setmTitle(String mTitle) {
         ((TextView) getToolbar().findViewById(R.id.tv_toolbar)).setText(mTitle);
     }
