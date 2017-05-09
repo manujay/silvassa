@@ -4,10 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
+    android:layout_marginBottom="@dimen/spacing_large"
+    android:layout_marginEnd="@dimen/spacing_large"
+    android:layout_marginLeft="@dimen/spacing_large"
+    android:layout_marginRight="@dimen/spacing_large"
+    android:layout_marginStart="@dimen/spacing_large"
+    android:layout_marginTop="@dimen/spacing_large"
     android:background="@android:drawable/alert_light_frame"
     android:orientation="vertical">
 
-    <TextView
+    <android.support.v7.widget.AppCompatTextView
         android:id="@+id/content_message"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -17,21 +23,9 @@
         android:paddingRight="@dimen/spacing_large"
         android:paddingTop="@dimen/spacing_large"
         android:text="@string/alert_message"
+        android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/Grey_700"
-        android:textSize="@dimen/abc_text_size_medium_material"
+        android:textSize="@dimen/text_medium"
         tools:ignore="PrivateResource" />
 
-    <!--<TextView
-        android:id="@+id/ok_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/spacing_medium"
-        android:layout_toLeftOf="@+id/positive_button"
-        android:gravity="center"
-        android:minEms="3"
-        android:padding="@dimen/spacing_medium"
-        android:text="Ok"
-        android:textColor="#616161"
-        android:textSize="@dimen/abc_text_size_medium_material" />-->
 </LinearLayout>

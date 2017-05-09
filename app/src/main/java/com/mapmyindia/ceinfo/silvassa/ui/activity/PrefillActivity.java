@@ -187,7 +187,7 @@ public class PrefillActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 String itemAtPosition = ((TextView) view.findViewById(R.id.item_tv)).getText().toString();
-
+                ViewUtils.hideKeyboardFrom(PrefillActivity.this, mSearchableEditText.getRootView());
                 setResult(itemAtPosition);
             }
         }));

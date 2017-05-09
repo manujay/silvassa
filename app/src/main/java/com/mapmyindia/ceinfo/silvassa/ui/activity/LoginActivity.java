@@ -136,7 +136,7 @@ public class LoginActivity extends BaseActivity {
 
         if (StringUtils.isNullOrEmpty(paswd)) {
             isvalid = false;
-            mEditTextPaswd.setError("Username/Password Can't be Empty");
+            mEditTextPaswd.setError("Password Can't be Empty");
             focusView = mEditTextPaswd;
         }
 
