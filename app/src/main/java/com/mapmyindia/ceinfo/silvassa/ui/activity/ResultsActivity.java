@@ -44,6 +44,7 @@ public class ResultsActivity extends BaseActivity {
     private String zoneId, occupier, owner, propertyId;
     private RecyclerView recyclerView;
     private ResultsCursorAdapter resultsCursorAdapter;
+    private AppCompatEditText mSearchableEditText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,13 +89,33 @@ public class ResultsActivity extends BaseActivity {
 
                 if (constraint.length() > 0) {
                     if (!StringUtils.isNullOrEmpty(occupier) && !StringUtils.isNullOrEmpty(owner)) {
-                        selection.propertyuniqueidContains(constraint.toString().toLowerCase());
+                        selection.propertyhousenoContains(constraint.toString().toLowerCase());
+                        return selection.query(getContentResolver());
                     } else if (!StringUtils.isNullOrEmpty(occupier)) {
                         selection.propertyoccupiernameContains(constraint.toString().toLowerCase());
+                        return selection.query(getContentResolver());
                     } else if (!StringUtils.isNullOrEmpty(owner)) {
                         selection.propertyownerContains(constraint.toString().toLowerCase());
+                        return selection.query(getContentResolver());
                     }
                 }
+
+                if (!StringUtils.isNullOrEmpty(zoneId)) {
+                    selection.zoneidContains(zoneId);
+                }
+
+                if (!StringUtils.isNullOrEmpty(propertyId)) {
+                    selection.and().propertyuniqueidContains(propertyId);
+                }
+
+                if (!StringUtils.isNullOrEmpty(owner)) {
+                    selection.and().propertyownerContains(owner);
+                }
+
+                if (!StringUtils.isNullOrEmpty(occupier)) {
+                    selection.and().propertyoccupiernameContains(occupier);
+                }
+
                 return selection.query(getContentResolver());
             }
         });
@@ -140,6 +161,7 @@ public class ResultsActivity extends BaseActivity {
                 if (null == resultsCursorAdapter) {
                     resultsCursorAdapter = new ResultsCursorAdapter(cursor);
                     recyclerView.setAdapter(resultsCursorAdapter);
+                    setfilterQueryProvider();
                 }
 
                 /* handle empty results */
@@ -174,6 +196,7 @@ public class ResultsActivity extends BaseActivity {
                     }
                 } else {
                     findViewById(R.id.empty_tv).setVisibility(View.VISIBLE);
+                    mSearchableEditText.setVisibility(View.GONE);
                 }
 
                 resultsCursorAdapter.changeCursor(cursor);
@@ -217,12 +240,12 @@ public class ResultsActivity extends BaseActivity {
             public void onItemClick(View view, int position) {
 
                 String propertyId = view.getTag().toString();
-
+                ViewUtils.hideKeyboardFrom(ResultsActivity.this, getWindow().getDecorView().getRootView());
                 showTaxDetails(propertyId);
             }
         }));
 
-        final AppCompatEditText mSearchableEditText = (AppCompatEditText) findViewById(R.id.search_et);
+        mSearchableEditText = (AppCompatEditText) findViewById(R.id.search_et);
 
         mSearchableEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -254,7 +277,7 @@ public class ResultsActivity extends BaseActivity {
         });
 
         if (!StringUtils.isNullOrEmpty(owner) && !StringUtils.isNullOrEmpty(occupier)) {
-            mSearchableEditText.setHint(R.string.string_hint_search_property);
+            mSearchableEditText.setHint(R.string.string_hint_search_house_no);
         } else if (!StringUtils.isNullOrEmpty(owner)) {
             mSearchableEditText.setHint(R.string.string_hint_search_owner);
         } else if (!StringUtils.isNullOrEmpty(occupier)) {

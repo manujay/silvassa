@@ -155,7 +155,7 @@ public class PrefillActivity extends BaseActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
 //                    mButtonLogin.performClick();
-                    ViewUtils.hideKeyboardFrom(PrefillActivity.this, mSearchableEditText.getRootView());
+                    ViewUtils.hideKeyboardFrom(PrefillActivity.this, getWindow().getDecorView().getRootView());
                     return true;
                 }
                 return false;
@@ -187,7 +187,7 @@ public class PrefillActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 String itemAtPosition = ((TextView) view.findViewById(R.id.item_tv)).getText().toString();
-                ViewUtils.hideKeyboardFrom(PrefillActivity.this, mSearchableEditText.getRootView());
+                ViewUtils.hideKeyboardFrom(PrefillActivity.this, getWindow().getDecorView().getRootView());
                 setResult(itemAtPosition);
             }
         }));
