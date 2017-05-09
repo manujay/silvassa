@@ -10,6 +10,7 @@ import com.mapmyindia.ceinfo.silvassa.sync.ZoneProvider;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
+import com.orhanobut.logger.Logger;
 
 public class SplashActivity extends BaseActivity {
 
@@ -28,7 +29,7 @@ public class SplashActivity extends BaseActivity {
 
         if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
             if (!Connectivity.isConnected(this)) {
-                showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
+                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false);
             } else {
 
                 showProgress(true);
@@ -43,7 +44,8 @@ public class SplashActivity extends BaseActivity {
                     @Override
                     public void onError(String msg) {
                         showProgress(false);
-                        showToast(SplashActivity.this, msg);
+                        Logger.e(TAG, "@ZoneProvider.onError ", msg);
+                        showSnackBarLong(getWindow().getDecorView(), msg, true);
                     }
                 });
 

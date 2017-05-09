@@ -22,7 +22,8 @@
         android:gravity="fill_horizontal|start"
         android:lines="1"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/text_small" />
+        android:textSize="@dimen/text_small"
+        android:typeface="monospace" />
 
     <TextView
         android:id="@+id/list_item_results1"
@@ -36,7 +37,8 @@
         android:gravity="fill_horizontal|start"
         android:lines="1"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/text_small" />
+        android:textSize="@dimen/text_small"
+        android:typeface="monospace" />
 
     <TextView
         android:id="@+id/list_item_results2"
@@ -50,7 +52,8 @@
         android:gravity="fill_horizontal|start"
         android:lines="1"
         android:textColor="@color/dark_gray"
-        android:textSize="@dimen/text_small" />
+        android:textSize="@dimen/text_small"
+        android:typeface="monospace" />
 
     <TextView
         android:id="@+id/list_item_results3"

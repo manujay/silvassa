@@ -21,8 +21,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         Toast.makeText(context, mesg, Toast.LENGTH_SHORT).show();
     }
 
-    public static void showSnackBar(View view, String mesg) {
+    private static void showSnackBar(View view, String mesg) {
         Snackbar.make(view, mesg, Snackbar.LENGTH_SHORT).show();
+    }
+
+    private static void showSnackBarLong(View view, String mesg) {
+        Snackbar.make(view, mesg, Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Todo Automatically dismisses snackbar
+            }
+        }).setActionTextColor(view.getContext().getResources().getColor(android.R.color.holo_red_light)).show();
+    }
+
+    public static void showSnackBarLong(View view, String mesg, boolean hasAction) {
+        if (hasAction) {
+            showSnackBarLong(view, mesg);
+        } else showSnackBar(view, mesg);
     }
 
     public static boolean isServiceRunning(Context context, Class _class) {

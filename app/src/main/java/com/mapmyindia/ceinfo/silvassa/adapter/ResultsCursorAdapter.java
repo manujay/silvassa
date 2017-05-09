@@ -1,7 +1,6 @@
 package com.mapmyindia.ceinfo.silvassa.adapter;
 
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,27 +33,26 @@ public class ResultsCursorAdapter extends CursorRecyclerAdapter<RecyclerView.Vie
 
     @Override
     public void onBindViewHolderCursor(RecyclerView.ViewHolder holder, Cursor cursor) {
+
         PropertyCursor propertyCursor = new PropertyCursor(cursor);
+
         ((ViewHolder) holder).mItemTextView0.setText(
                 String.format(Locale.getDefault(), "%-18s : %s",
                         "Property ID", propertyCursor.getPropertyuniqueid()));
-        ((ViewHolder) holder).mItemTextView0.setTypeface(Typeface.MONOSPACE);
-        holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
+
         ((ViewHolder) holder).mItemTextView1.setText(
                 String.format(Locale.getDefault(), "%-18s : %s",
-                        "Owner", propertyCursor.getPropertyowner()));
-        ((ViewHolder) holder).mItemTextView1.setTypeface(Typeface.MONOSPACE);
-        holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
+                        "Owner", !StringUtils.isNullOrEmpty(propertyCursor.getPropertyowner()) ? propertyCursor.getPropertyowner() : ""));
+
         ((ViewHolder) holder).mItemTextView2.setText(
                 String.format(Locale.getDefault(), "%-18s : %s",
-                        "Occupier", propertyCursor.getPropertyoccupiername()));
-        ((ViewHolder) holder).mItemTextView2.setTypeface(Typeface.MONOSPACE);
-        holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
+                        "Occupier", !StringUtils.isNullOrEmpty(propertyCursor.getPropertyoccupiername()) ? propertyCursor.getPropertyoccupiername() : ""));
+
         ((ViewHolder) holder).mItemTextView3.setText(
                 String.format(Locale.getDefault(), "%-18s : %s",
                         "HouseNo/Building", !StringUtils.isNullOrEmpty(propertyCursor.getPropertyhouseno()) ? propertyCursor.getPropertyhouseno() :
-                                !StringUtils.isNullOrEmpty(propertyCursor.getPropertybuildingname()) ? propertyCursor.getPropertybuildingname() : "N/A"));
-        ((ViewHolder) holder).mItemTextView3.setTypeface(Typeface.MONOSPACE);
+                                !StringUtils.isNullOrEmpty(propertyCursor.getPropertybuildingname()) ? propertyCursor.getPropertybuildingname() : ""));
+
         holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
     }
 

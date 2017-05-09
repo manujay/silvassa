@@ -82,11 +82,11 @@ public class ResultsActivity extends BaseActivity {
                 PropertySelection selection = new PropertySelection();
 
                 if (constraint.length() > 0) {
-                    if (StringUtils.isNullOrEmpty(propertyId)) {
+                    if (StringUtils.isNullOrEmpty(occupier) && StringUtils.isNullOrEmpty(owner)) {
                         selection.propertyuniqueidContains(constraint.toString().toLowerCase());
-                    } else if (StringUtils.isNullOrEmpty(owner)) {
+                    } else if (!StringUtils.isNullOrEmpty(occupier)) {
                         selection.propertyownerContains(constraint.toString().toLowerCase());
-                    } else if (StringUtils.isNullOrEmpty(occupier)) {
+                    } else if (!StringUtils.isNullOrEmpty(owner)) {
                         selection.propertyoccupiernameContains(constraint.toString().toLowerCase());
                     }
                 }
@@ -248,12 +248,12 @@ public class ResultsActivity extends BaseActivity {
             }
         });
 
-        if (StringUtils.isNullOrEmpty(propertyId)) {
+        if (StringUtils.isNullOrEmpty(owner) && StringUtils.isNullOrEmpty(occupier)) {
             mSearchableEditText.setHint(R.string.string_hint_search_property);
-        } else if (StringUtils.isNullOrEmpty(owner)) {
-            mSearchableEditText.setHint(R.string.string_hint_search_owner);
-        } else if (StringUtils.isNullOrEmpty(occupier)) {
+        } else if (!StringUtils.isNullOrEmpty(owner)) {
             mSearchableEditText.setHint(R.string.string_hint_search_occupier);
+        } else if (!StringUtils.isNullOrEmpty(occupier)) {
+            mSearchableEditText.setHint(R.string.string_hint_search_owner);
         }
     }
 

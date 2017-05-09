@@ -16,14 +16,17 @@ import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.PostExecutionThread;
+import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.utils.UIThread;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.PropertyWSModel;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.TAXDetailBean;
 import com.orhanobut.logger.Logger;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,18 +83,14 @@ public class SyncProvider {
 
                         final JSONObject jsonObject = new JSONObject(response.body().string());
 
-                        if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
-                            sendErrorResponse(listener, mContext.getString(R.string.error_server));
-                            return;
-                        }
+                        int status = Integer.parseInt(jsonObject.getString("status"));
+                        String message = jsonObject.getString("message");
 
-                        if (Integer.parseInt(jsonObject.getString("status")) != 200) {
-                            sendErrorResponse(listener, mContext.getString(R.string.error_server));
-                            return;
-                        }
-
-                        if (null == jsonObject.get("data")) {
-                            sendErrorResponse(listener, mContext.getString(R.string.error_server));
+                        if (status != 200) {
+                            if (!StringUtils.isNullOrEmpty(message))
+                                sendErrorResponse(listener, message);
+                            else
+                                sendErrorResponse(listener, mContext.getString(R.string.error_server));
                             return;
                         }
 
@@ -107,18 +106,16 @@ public class SyncProvider {
                             public void run() {
                                 try {
                                     saveInDatabase(data);
-                                } catch (Exception e) {
+                                } catch (SQLException e) {
                                     e.printStackTrace();
-                                    sendErrorResponse(listener, e.getLocalizedMessage());
                                 }
-
                                 sendSuccessResponse(listener, "Data Sync Successfull");
                             }
                         }).start();
 
-                    } catch (Exception e) {
-
-                        sendErrorResponse(listener, e.getLocalizedMessage());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
@@ -141,7 +138,7 @@ public class SyncProvider {
                         throw new Exception(t.getMessage());
                     }
                 } catch (Exception e) {
-                    sendErrorResponse(listener, t.getMessage());
+                    sendErrorResponse(listener, mContext.getResources().getString(R.string.error_network_connectivity));
                     e.printStackTrace();
                 }
             }
@@ -150,7 +147,7 @@ public class SyncProvider {
     }
 
 
-    private void saveInDatabase(List<PropertyWSModel> modelList) throws Exception {
+    private void saveInDatabase(List<PropertyWSModel> modelList) throws SQLException {
 
         for (PropertyWSModel wsModel : modelList) {
 

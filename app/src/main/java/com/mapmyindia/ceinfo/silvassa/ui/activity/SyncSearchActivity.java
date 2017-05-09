@@ -69,7 +69,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
             if (!Connectivity.isConnected(this)) {
-                showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
+                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false);
             } else {
                 showProgress(true);
 
@@ -83,7 +83,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                     @Override
                     public void onError(String msg) {
                         showProgress(false);
-                        showToast(SyncSearchActivity.this, msg);
+                        showToast(SyncSearchActivity.this, getString(R.string.error_sync_failed_response));
                     }
                 });
             }
@@ -124,7 +124,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 if (!Connectivity.isConnected(SyncSearchActivity.this)) {
-                    showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
+                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false);
                 } else {
                     doSync();
                 }
@@ -330,7 +330,8 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                 @Override
                 public void onSyncError(String msg) {
                     showProgress(false);
-                    new DialogHandler(SyncSearchActivity.this).showAlertDialog("Data Sync Failed :Error\n\n\t" + msg);
+                    Logger.e(TAG, " @onSyncError: " + msg);
+                    showSnackBarLong(SyncSearchActivity.this.getWindow().getDecorView(), msg, true);
                 }
             }, payload);
 
@@ -432,7 +433,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         if (!isBackPressed) {
-            showSnackBar(getWindow().getDecorView(), "Press Again to Exit");
+            showSnackBarLong(getWindow().getDecorView(), "Press Again to Exit", false);
             isBackPressed = true;
         } else {
             super.onBackPressed();

@@ -12,13 +12,16 @@ import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.PostExecutionThread;
+import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.utils.UIThread;
 import com.mapmyindia.ceinfo.silvassa.wsmodel.ZoneWSModel;
 import com.orhanobut.logger.Logger;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,21 +81,16 @@ public class ZoneProvider {
                     Logger.d(TAG, " @GetZoneListener:getZone : SUCCESS : " + response.body());
 
                     try {
-
                         JSONObject jsonObject = new JSONObject(response.body().string());
 
-                        if (!jsonObject.getString("message").equalsIgnoreCase("Success")) {
-                            sendErrorResponse(listener, mContext.getString(R.string.error_server));
-                            return;
-                        }
+                        int status = Integer.parseInt(jsonObject.getString("status"));
+                        String message = jsonObject.getString("message");
 
-                        if (Integer.parseInt(jsonObject.getString("status")) != 200) {
-                            sendErrorResponse(listener, mContext.getString(R.string.error_server));
-                            return;
-                        }
-
-                        if (null == jsonObject.get("data")) {
-                            sendErrorResponse(listener, mContext.getString(R.string.error_server));
+                        if (status != 200) {
+                            if (!StringUtils.isNullOrEmpty(message))
+                                sendErrorResponse(listener, message);
+                            else
+                                sendErrorResponse(listener, mContext.getString(R.string.error_server));
                             return;
                         }
 
@@ -104,16 +102,15 @@ public class ZoneProvider {
                             public void run() {
                                 try {
                                     saveInDataBase(data);
-                                } catch (Exception e) {
+                                } catch (SQLException e) {
                                     e.printStackTrace();
-                                    sendErrorResponse(listener, e.getLocalizedMessage());
                                 }
-                                sendSuccessResponse(listener, "Data Sync Successfull");
+                                sendSuccessResponse(listener, "Zone Data Sync Sucessfull");
                             }
                         }).start();
-
-                    } catch (Exception e) {
-                        sendErrorResponse(listener, mContext.getString(R.string.error_server));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
@@ -121,7 +118,7 @@ public class ZoneProvider {
 
                 } else {
                     Logger.e(TAG, " @getZone : FAILURE : " + call.request());
-                    sendErrorResponse(listener, mContext.getString(R.string.error_server));
+                    sendErrorResponse(listener, response.message());
                 }
             }
 
@@ -136,20 +133,25 @@ public class ZoneProvider {
                         throw new Exception(t.getMessage());
                     }
                 } catch (Exception e) {
-                    sendErrorResponse(listener, mContext.getString(R.string.error_server));
+                    sendErrorResponse(listener, mContext.getResources().getString(R.string.error_network_connectivity));
                     e.printStackTrace();
                 }
             }
         });
     }
 
-    private void saveInDataBase(List<ZoneWSModel> data) {
-        for (ZoneWSModel zoneWSModel : data) {
-            insertZone(zoneWSModel.getZoneName(), zoneWSModel.getZoneId());
+    private void saveInDataBase(List<ZoneWSModel> data) throws SQLException {
+
+        try {
+            for (ZoneWSModel zoneWSModel : data) {
+                insertZone(zoneWSModel.getZoneName(), zoneWSModel.getZoneId());
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e);
         }
     }
 
-    private void insertZone(String zoneName, String zoneId) {
+    private void insertZone(String zoneName, String zoneId) throws SQLException {
         ZoneContentValues contentValues = new ZoneContentValues();
         contentValues.putZoneid(zoneId);
         contentValues.putZonename(zoneName);

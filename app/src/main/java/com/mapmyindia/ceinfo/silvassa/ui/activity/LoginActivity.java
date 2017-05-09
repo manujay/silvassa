@@ -28,9 +28,12 @@ import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.HttpException;
 import retrofit2.Response;
 
 /**
@@ -159,7 +162,7 @@ public class LoginActivity extends BaseActivity {
 
 //            } else {
             if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
-                showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
+                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false);
             } else {
                 attemptLogin(userId, paswd);
             }
@@ -210,7 +213,7 @@ public class LoginActivity extends BaseActivity {
                         }
 
                         if (!StringUtils.isNullOrEmpty(message) && Status != 200) {
-                            showSnackBar(getWindow().getDecorView(), message);
+                            showSnackBarLong(getWindow().getDecorView(), message, false);
                             return;
                         }
 
@@ -236,8 +239,8 @@ public class LoginActivity extends BaseActivity {
                     }
 
                 } else {
-                    showSnackBar(getWindow().getDecorView(), getString(R.string.error_server));
-                    return;
+                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network_connectivity), false);
+                    Logger.e(TAG, " @attemptLogin : FAILURE : REQUEST " + call.request() + " ERROR: " + response.message());
                 }
 
             }
@@ -245,8 +248,18 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 showProgress(false);
-                showSnackBar(getWindow().getDecorView(), getString(R.string.error_server));
                 Logger.e(TAG, " @attemptLogin : FAILURE : REQUEST " + call.request() + " ERROR: " + t.getLocalizedMessage());
+
+                try {
+                    if (t instanceof IOException) {
+                        throw new IOException(t);
+                    } else if (t instanceof HttpException) {
+                        throw new Exception(t.getMessage());
+                    }
+                } catch (Exception e) {
+                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network_connectivity), false);
+                    e.printStackTrace();
+                }
             }
         });
     }

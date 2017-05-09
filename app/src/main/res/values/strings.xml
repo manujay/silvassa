@@ -31,6 +31,8 @@
     <string name="string_hint_search_property">Search propertyid</string>
     <string name="string_hint_search_occupier">Search occupier</string>
     <string name="string_hint_search_owner">Search owner</string>
+    <string name="error_sync_failed_response">"This might be a temporary issue, please try again!."</string>
+    <string name="error_network_connectivity">Please check your network connection.</string>
 
 
     <string-array name="spinner_array">
