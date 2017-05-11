@@ -89,13 +89,19 @@ public class ResultsActivity extends BaseActivity {
 
                 if (constraint.length() > 0) {
                     if (!StringUtils.isNullOrEmpty(occupier) && !StringUtils.isNullOrEmpty(owner)) {
-                        selection.propertyhousenoContains(constraint.toString().toLowerCase());
+                        selection.propertyownerContains(constraint.toString().toLowerCase())
+                                .or().propertyoccupiernameContains(constraint.toString().toLowerCase());
                         return selection.query(getContentResolver());
                     } else if (!StringUtils.isNullOrEmpty(occupier)) {
                         selection.propertyoccupiernameContains(constraint.toString().toLowerCase());
                         return selection.query(getContentResolver());
                     } else if (!StringUtils.isNullOrEmpty(owner)) {
                         selection.propertyownerContains(constraint.toString().toLowerCase());
+                        return selection.query(getContentResolver());
+                    } else {
+                        selection.propertyownerContains(constraint.toString().toLowerCase())
+                                .or().propertyoccupiernameContains(constraint.toString().toLowerCase())
+                                .or().propertyhousenoContains(constraint.toString().toLowerCase());
                         return selection.query(getContentResolver());
                     }
                 }
@@ -277,13 +283,13 @@ public class ResultsActivity extends BaseActivity {
         });
 
         if (!StringUtils.isNullOrEmpty(owner) && !StringUtils.isNullOrEmpty(occupier)) {
-            mSearchableEditText.setHint(R.string.string_hint_search_house_no);
+            mSearchableEditText.setHint(R.string.string_hint_search_owner_or_occupier);
         } else if (!StringUtils.isNullOrEmpty(owner)) {
             mSearchableEditText.setHint(R.string.string_hint_search_owner);
         } else if (!StringUtils.isNullOrEmpty(occupier)) {
             mSearchableEditText.setHint(R.string.string_hint_search_occupier);
         } else {
-            mSearchableEditText.setVisibility(View.GONE);
+            mSearchableEditText.setHint(R.string.string_hint_search_owner_or_occupier_or_houseno);
         }
     }
 

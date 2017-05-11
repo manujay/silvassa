@@ -29,6 +29,14 @@
     <string name="yes_label">Yes</string>
     <string name="logout_message">Do you want to Logout?</string>
     <string name="string_hint_search_property">Search propertyid</string>
-    <string name="string_hint_search_occupier">Search occupier</string>
-    <string name="string_hint_search_owner">Search owner</string>
+    <string name="string_hint_search_occupier">Search Occupier</string>
+    <string name="string_hint_search_owner">Search Owner</string>
+    <string name="error_sync_failed_response">"This might be a temporary issue, please try again!."</string>
+    <string name="error_network_connectivity">Please check your network connection.</string>
+    <string name="string_hint_search_house_no">Search By House No.</string>
+    <string name="select_propertyid">Select PropertyId</string>
+    <string name="select_occupier">Select Occupier</string>
+    <string name="select_owner">Select Owner</string>
+    <string name="string_hint_search_owner_or_occupier">Search Owner/Occupier</string>
+    <string name="string_hint_search_owner_or_occupier_or_houseno">Search Owner/Occupier/HouseNo.</string>
 </resources>

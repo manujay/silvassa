@@ -26,6 +26,8 @@ android {
         }
     }
     dataBinding.enabled = true
+    productFlavors {
+    }
 }
 
 dependencies {
