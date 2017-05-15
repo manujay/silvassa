@@ -19,8 +19,8 @@
     <string name="amount">Amount</string>
     <string name="back">Back</string>
     <string name="error_network">No Internet Connectivity</string>
-    <string name="error_server">Sorry, we r currently under maintenance!!</string>
-    <string name="print_response">Payment Confirmation Email be sent to your registered Email id</string>
+    <string name="error_server">Sorry, we\'r currently under maintenance!!</string>
+    <string name="print_response">Payment Confirmation has been sent to your registered Email.</string>
     <string name="error_payment">Failed to process payment!</string>
     <string name="sorry_no_results">Sorry no results match your search criteria!</string>
     <string name="pos">Pos</string>
@@ -28,15 +28,10 @@
     <string name="no_label">No</string>
     <string name="yes_label">Yes</string>
     <string name="logout_message">Do you want to Logout?</string>
-    <string name="string_hint_search_property">Search propertyid</string>
-    <string name="string_hint_search_occupier">Search Occupier</string>
-    <string name="string_hint_search_owner">Search Owner</string>
     <string name="error_sync_failed_response">"This might be a temporary issue, please try again!."</string>
     <string name="error_network_connectivity">Please check your network connection.</string>
-    <string name="string_hint_search_house_no">Search By House No.</string>
-    <string name="select_propertyid">Select PropertyId</string>
-    <string name="select_occupier">Select Occupier</string>
-    <string name="select_owner">Select Owner</string>
-    <string name="string_hint_search_owner_or_occupier">Search Owner/Occupier</string>
-    <string name="string_hint_search_owner_or_occupier_or_houseno">Search Owner/Occupier/HouseNo.</string>
+    <string name="search_hint_results">Search Results</string>
+    <string name="string_hint_search_owner">Search Owner Name</string>
+    <string name="string_hint_search_occupier">Search Occupier Name</string>
+    <string name="string_hint_search_property">Search Property Id</string>
 </resources>

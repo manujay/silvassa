@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.mapmyindia.ceinfo.silvassa.ApiCodes;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyContentValues;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyCursor;
@@ -86,7 +87,7 @@ public class SyncProvider {
                         int status = Integer.parseInt(jsonObject.getString("status"));
                         String message = jsonObject.getString("message");
 
-                        if (status != 200) {
+                        if (status != ApiCodes.STATUS_200) {
                             if (!StringUtils.isNullOrEmpty(message))
                                 sendErrorResponse(listener, message);
                             else

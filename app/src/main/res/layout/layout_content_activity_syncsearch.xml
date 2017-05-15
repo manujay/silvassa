@@ -30,8 +30,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin" />
+                    android:paddingBottom="@dimen/padding_large"
+                    android:paddingTop="@dimen/padding_large" />
 
                 <Spinner
                     android:id="@+id/spinner_row0"
@@ -55,8 +55,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:gravity="start|fill_horizontal"
+                    android:paddingBottom="@dimen/padding_large"
+                    android:paddingTop="@dimen/padding_large"
                     android:text="@string/owner_name" />
 
                 <com.mapmyindia.ceinfo.silvassa.utils.CompoundTextView
@@ -67,16 +68,16 @@
                     android:background="@drawable/drawable_background_edittext"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_clear"
-                    android:drawablePadding="@dimen/padding_medium"
                     android:drawableRight="@drawable/ic_clear"
+                    android:gravity="start|fill_horizontal"
                     android:hint="@string/select_owner"
                     android:inputType="none"
                     android:lines="1"
                     android:onClick="onClick"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/activity_horizontal_margin"
-                    android:paddingStart="@dimen/activity_horizontal_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/padding_large"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:paddingRight="@dimen/padding_small"
+                    android:paddingTop="@dimen/padding_large"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/darker_gray"
                     android:textSize="@dimen/font_normal" />
@@ -95,8 +96,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:gravity="start|fill_horizontal"
+                    android:paddingBottom="@dimen/padding_large"
+                    android:paddingTop="@dimen/padding_large"
                     android:text="@string/occupier_name" />
 
                 <com.mapmyindia.ceinfo.silvassa.utils.CompoundTextView
@@ -107,16 +109,16 @@
                     android:background="@drawable/drawable_background_edittext"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_clear"
-                    android:drawablePadding="@dimen/padding_medium"
                     android:drawableRight="@drawable/ic_clear"
+                    android:gravity="start|fill_horizontal"
                     android:hint="@string/select_occupier"
                     android:inputType="none"
                     android:lines="1"
                     android:onClick="onClick"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/activity_horizontal_margin"
-                    android:paddingStart="@dimen/activity_horizontal_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/padding_large"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:paddingRight="@dimen/padding_small"
+                    android:paddingTop="@dimen/padding_large"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/darker_gray"
                     android:textSize="@dimen/font_normal" />
@@ -136,8 +138,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="35"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:gravity="start|fill_horizontal"
+                    android:paddingBottom="@dimen/padding_large"
+                    android:paddingTop="@dimen/padding_large"
                     android:text="@string/property_id" />
 
                 <com.mapmyindia.ceinfo.silvassa.utils.CompoundTextView
@@ -148,16 +151,16 @@
                     android:background="@drawable/drawable_background_edittext"
                     android:clickable="true"
                     android:drawableEnd="@drawable/ic_clear"
-                    android:drawablePadding="@dimen/padding_medium"
                     android:drawableRight="@drawable/ic_clear"
+                    android:gravity="start|fill_horizontal"
                     android:hint="@string/select_propertyid"
                     android:inputType="none"
                     android:lines="1"
                     android:onClick="onClick"
-                    android:paddingBottom="@dimen/activity_vertical_margin"
-                    android:paddingEnd="@dimen/activity_horizontal_margin"
-                    android:paddingStart="@dimen/activity_horizontal_margin"
-                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/padding_large"
+                    android:paddingLeft="@dimen/padding_small"
+                    android:paddingRight="@dimen/padding_small"
+                    android:paddingTop="@dimen/padding_large"
                     android:textColor="@android:color/black"
                     android:textColorHint="@android:color/darker_gray"
                     android:textSize="@dimen/font_normal" />
@@ -170,7 +173,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="@dimen/padding_large"
             android:gravity="center"
             android:orientation="horizontal">
 

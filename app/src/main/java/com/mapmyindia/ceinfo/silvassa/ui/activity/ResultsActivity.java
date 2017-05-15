@@ -88,22 +88,12 @@ public class ResultsActivity extends BaseActivity {
                 PropertySelection selection = new PropertySelection();
 
                 if (constraint.length() > 0) {
-                    if (!StringUtils.isNullOrEmpty(occupier) && !StringUtils.isNullOrEmpty(owner)) {
-                        selection.propertyownerContains(constraint.toString().toLowerCase())
-                                .or().propertyoccupiernameContains(constraint.toString().toLowerCase());
-                        return selection.query(getContentResolver());
-                    } else if (!StringUtils.isNullOrEmpty(occupier)) {
-                        selection.propertyoccupiernameContains(constraint.toString().toLowerCase());
-                        return selection.query(getContentResolver());
-                    } else if (!StringUtils.isNullOrEmpty(owner)) {
-                        selection.propertyownerContains(constraint.toString().toLowerCase());
-                        return selection.query(getContentResolver());
-                    } else {
-                        selection.propertyownerContains(constraint.toString().toLowerCase())
-                                .or().propertyoccupiernameContains(constraint.toString().toLowerCase())
-                                .or().propertyhousenoContains(constraint.toString().toLowerCase());
-                        return selection.query(getContentResolver());
-                    }
+                    selection.propertyuniqueidContains(constraint.toString().toLowerCase())
+                            .or().propertyownerContains(constraint.toString().toLowerCase())
+                            .or().propertyoccupiernameContains(constraint.toString().toLowerCase())
+                            .or().propertybuildingnameContains(constraint.toString().toLowerCase())
+                            .or().propertyhousenoContains(constraint.toString().toLowerCase());
+                    return selection.query(getContentResolver());
                 }
 
                 if (!StringUtils.isNullOrEmpty(zoneId)) {
@@ -281,16 +271,6 @@ public class ResultsActivity extends BaseActivity {
                 return false;
             }
         });
-
-        if (!StringUtils.isNullOrEmpty(owner) && !StringUtils.isNullOrEmpty(occupier)) {
-            mSearchableEditText.setHint(R.string.string_hint_search_owner_or_occupier);
-        } else if (!StringUtils.isNullOrEmpty(owner)) {
-            mSearchableEditText.setHint(R.string.string_hint_search_owner);
-        } else if (!StringUtils.isNullOrEmpty(occupier)) {
-            mSearchableEditText.setHint(R.string.string_hint_search_occupier);
-        } else {
-            mSearchableEditText.setHint(R.string.string_hint_search_owner_or_occupier_or_houseno);
-        }
     }
 
     private void showTaxDetails(String propertyId) {

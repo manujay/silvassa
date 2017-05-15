@@ -110,7 +110,7 @@ public class PrintActivity extends BaseActivity {
             textView0.setTextSize(11.0f);
             textView0.setLayoutParams(tv_params);
             String propertyUniqueId = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYUNIQUEID) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYUNIQUEID);
-            textView0.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property ID", propertyUniqueId));
+            textView0.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Id", propertyUniqueId));
 
             TextView textView1 = new TextView(this);
             textView1.setAllCaps(false);
@@ -118,7 +118,7 @@ public class PrintActivity extends BaseActivity {
             textView1.setTextSize(11.0f);
             textView1.setLayoutParams(tv_params);
             String propertyOwner = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOWNER) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOWNER);
-            textView1.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Owner", propertyOwner));
+            textView1.setText(String.format(Locale.getDefault(), "%-22s : %s", "Owner", propertyOwner));
 
             TextView textView2 = new TextView(this);
             textView2.setAllCaps(false);
@@ -134,7 +134,7 @@ public class PrintActivity extends BaseActivity {
             textView3.setTextSize(11.0f);
             textView3.setLayoutParams(tv_params);
             String payableAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.PAYABLEAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.PAYABLEAMOUNT);
-            textView3.setText(String.format(Locale.getDefault(), "%-22s : %s", "Payable Amount", payableAmount));
+            textView3.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Payable Amount (Rs)", Double.parseDouble(payableAmount)));
 
             TextView textView4 = new TextView(this);
             textView4.setAllCaps(false);
@@ -142,7 +142,7 @@ public class PrintActivity extends BaseActivity {
             textView4.setTextSize(11.0f);
             textView4.setLayoutParams(tv_params);
             String Amount = paymentCursor.getStringOrNull(PaymentColumns.AMOUNT) == null ? "" : paymentCursor.getStringOrNull(PaymentColumns.AMOUNT);
-            textView4.setText(String.format(Locale.getDefault(), "%-22s : %s", "Amount", Amount));
+            textView4.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Amount (Rs)", Double.parseDouble(Amount)));
 
             TextView textView5 = new TextView(this);
             textView5.setAllCaps(false);
@@ -158,7 +158,7 @@ public class PrintActivity extends BaseActivity {
             textView6.setTextSize(11.0f);
             textView6.setLayoutParams(tv_params);
             String taxNo = taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO);
-            textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", "TaxNo", taxNo));
+            textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", "Tax Number", taxNo));
 
             TextView textView7 = new TextView(this);
             textView7.setAllCaps(false);

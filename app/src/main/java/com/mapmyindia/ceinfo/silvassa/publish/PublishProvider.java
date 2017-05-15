@@ -3,12 +3,14 @@ package com.mapmyindia.ceinfo.silvassa.publish;
 import android.content.Context;
 
 import com.google.gson.Gson;
+import com.mapmyindia.ceinfo.silvassa.ApiCodes;
 import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentSelection;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
+import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.orhanobut.logger.Logger;
 
 import org.json.JSONObject;
@@ -105,6 +107,13 @@ public class PublishProvider {
                         JSONObject json = new JSONObject(response.body().string());
 
                         String toJson = new Gson().toJson(json);
+
+                        int status = Integer.parseInt(json.getString("status"));
+                        String message = json.getString("message");
+
+                        if (!StringUtils.isNullOrEmpty(message) && status == ApiCodes.STATUS_200) {
+                            Logger.d(message);
+                        }
 
                         Logger.json(toJson);
 

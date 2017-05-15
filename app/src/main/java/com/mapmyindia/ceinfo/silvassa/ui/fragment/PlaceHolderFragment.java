@@ -114,7 +114,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property0.setTextSize(11.0f);
             tv_property0.setLayoutParams(tv_params);
             String propertyUniqueId = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYUNIQUEID) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYUNIQUEID);
-            tv_property0.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property ID", propertyUniqueId));
+            tv_property0.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Id", propertyUniqueId));
             parent.addView(tv_property0);
 
             TextView tv_property1 = new TextView(getActivity());
@@ -123,7 +123,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property1.setTextSize(11.0f);
             tv_property1.setLayoutParams(tv_params);
             String propertyOwner = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOWNER) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOWNER);
-            tv_property1.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Owner", propertyOwner));
+            tv_property1.setText(String.format(Locale.getDefault(), "%-22s : %s", "Owner", propertyOwner));
             parent.addView(tv_property1);
 
             TextView tv_property2 = new TextView(getActivity());
@@ -132,7 +132,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property2.setTextSize(11.0f);
             tv_property2.setLayoutParams(tv_params);
             String propertyOccupierName = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOCCUPIERNAME) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYOCCUPIERNAME);
-            tv_property2.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Occupier", propertyOccupierName));
+            tv_property2.setText(String.format(Locale.getDefault(), "%-22s : %s", "Occupier", propertyOccupierName));
             parent.addView(tv_property2);
 
             TextView tv_property3 = new TextView(getActivity());
@@ -141,7 +141,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property3.setTextSize(11.0f);
             tv_property3.setLayoutParams(tv_params);
             String propertyRelationOwner = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYRELATIONOWNER) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYRELATIONOWNER);
-            tv_property3.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Occupier Relation", propertyRelationOwner));
+            tv_property3.setText(String.format(Locale.getDefault(), "%-22s : %s", "Occupier Relation", propertyRelationOwner));
             parent.addView(tv_property3);
 
             TextView tv_property4 = new TextView(getActivity());
@@ -150,7 +150,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property4.setTextSize(11.0f);
             tv_property4.setLayoutParams(tv_params);
             String propertySublocality = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYSUBLOCALITY) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYSUBLOCALITY);
-            tv_property4.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Sublocality", propertySublocality));
+            tv_property4.setText(String.format(Locale.getDefault(), "%-22s : %s", "Sublocality", propertySublocality));
             parent.addView(tv_property4);
 
             TextView tv_property5 = new TextView(getActivity());
@@ -177,7 +177,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property7.setTextSize(11.0f);
             tv_property7.setLayoutParams(tv_params);
             String propertyLandmark = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYLANDMARK) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYLANDMARK);
-            tv_property7.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Landmark", propertyLandmark));
+            tv_property7.setText(String.format(Locale.getDefault(), "%-22s : %s", "Landmark", propertyLandmark));
             parent.addView(tv_property7);
 
             TextView tv_property8 = new TextView(getActivity());
@@ -186,7 +186,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property8.setTypeface(Typeface.MONOSPACE);
             tv_property8.setLayoutParams(tv_params);
             String propertyPlotNo = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYPLOTNO) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYPLOTNO);
-            tv_property8.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property PlotNo", propertyPlotNo));
+            tv_property8.setText(String.format(Locale.getDefault(), "%-22s : %s", "Plot Number", propertyPlotNo));
             parent.addView(tv_property8);
 
             TextView tv_property9 = new TextView(getActivity());
@@ -195,7 +195,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property9.setTextSize(11.0f);
             tv_property9.setLayoutParams(tv_params);
             String propertyHouseNo = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYHOUSENO) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYHOUSENO);
-            tv_property9.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property HouseNo", propertyHouseNo));
+            tv_property9.setText(String.format(Locale.getDefault(), "%-22s : %s", "House Number", propertyHouseNo));
             parent.addView(tv_property9);
 
             TextView tv_property10 = new TextView(getActivity());
@@ -204,7 +204,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property10.setTypeface(Typeface.MONOSPACE);
             tv_property10.setLayoutParams(tv_params);
             String propertyRoad = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYROAD) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYROAD);
-            tv_property10.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Road", propertyRoad));
+            tv_property10.setText(String.format(Locale.getDefault(), "%-22s : %s", "Road", propertyRoad));
             parent.addView(tv_property10);
 
             TextView tv_property11 = new TextView(getActivity());
@@ -213,7 +213,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property11.setTypeface(Typeface.MONOSPACE);
             tv_property11.setLayoutParams(tv_params);
             String propertyPincode = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYPINCODE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYPINCODE);
-            tv_property11.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Pincode", propertyPincode));
+            tv_property11.setText(String.format(Locale.getDefault(), "%-22s : %s", "Pincode", propertyPincode));
             parent.addView(tv_property11);
 
             TextView tv_property12 = new TextView(getActivity());
@@ -222,7 +222,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property12.setTypeface(Typeface.MONOSPACE);
             tv_property12.setLayoutParams(tv_params);
             String propertyBuildingName = propertyCursor.getStringOrNull(PropertyColumns.PROPERTYBUILDINGNAME) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PROPERTYBUILDINGNAME);
-            tv_property12.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property BuildingName", propertyBuildingName));
+            tv_property12.setText(String.format(Locale.getDefault(), "%-22s : %s", "Building", propertyBuildingName));
             parent.addView(tv_property12);
         }
 
@@ -321,7 +321,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail02.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail02.setLayoutParams(tv_params);
             String propertyTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.PROPERTYTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.PROPERTYTAX);
-            tv_taxdetail02.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Tax", propertyTax));
+            tv_taxdetail02.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Tax (Rs)", Double.parseDouble(propertyTax)));
             linearChild.addView(tv_taxdetail02);
 
             TextView tv_taxdetail03 = new TextView(getActivity());
@@ -330,7 +330,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail03.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail03.setLayoutParams(tv_params);
             String waterTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERTAX);
-            tv_taxdetail03.setText(String.format(Locale.getDefault(), "%-22s : %s", "Water Tax", waterTax));
+            tv_taxdetail03.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Tax (Rs)", Double.parseDouble(waterTax)));
             linearChild.addView(tv_taxdetail03);
 
             TextView tv_taxdetail04 = new TextView(getActivity());
@@ -339,7 +339,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail04.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail04.setLayoutParams(tv_params);
             String conservancyTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.CONSERVANCYTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.CONSERVANCYTAX);
-            tv_taxdetail04.setText(String.format(Locale.getDefault(), "%-22s : %s", "Conservancy Tax", conservancyTax));
+            tv_taxdetail04.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Conservancy Tax (Rs)", Double.parseDouble(conservancyTax)));
             linearChild.addView(tv_taxdetail04);
 
             TextView tv_taxdetail05 = new TextView(getActivity());
@@ -348,7 +348,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail05.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail05.setLayoutParams(tv_params);
             String waterSewerageCharge = taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERSEWERAGECHARGE) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERSEWERAGECHARGE);
-            tv_taxdetail05.setText(String.format(Locale.getDefault(), "%-22s : %s", "Water Sewerage Charge", waterSewerageCharge));
+            tv_taxdetail05.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Sewerage Charge (Rs)", Double.parseDouble(waterSewerageCharge)));
             linearChild.addView(tv_taxdetail05);
 
             TextView tv_taxdetail06 = new TextView(getActivity());
@@ -357,7 +357,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail06.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail06.setLayoutParams(tv_params);
             String waterMeterBillAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERMETERBILLAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERMETERBILLAMOUNT);
-            tv_taxdetail06.setText(String.format(Locale.getDefault(), "%-22s : %s", "Water Bill Amount", waterMeterBillAmount));
+            tv_taxdetail06.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Bill Amount (Rs)", Double.parseDouble(waterMeterBillAmount)));
             linearChild.addView(tv_taxdetail06);
 
             TextView tv_taxdetail07 = new TextView(getActivity());
@@ -366,7 +366,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail07.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail07.setLayoutParams(tv_params);
             String arrearAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.ARREARAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.ARREARAMOUNT);
-            tv_taxdetail07.setText(String.format(Locale.getDefault(), "%-22s : %s", "Arrear Amount", arrearAmount));
+            tv_taxdetail07.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Arrear Amount (Rs)", Double.parseDouble(arrearAmount)));
             linearChild.addView(tv_taxdetail07);
 
 
@@ -376,7 +376,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail08.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail08.setLayoutParams(tv_params);
             String advancePaidAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.ADVANCEPAIDAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.ADVANCEPAIDAMOUNT);
-            tv_taxdetail08.setText(String.format(Locale.getDefault(), "%-22s : %s", "Advance Paid Amount", advancePaidAmount));
+            tv_taxdetail08.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Advance Paid Amount (Rs)", Double.parseDouble(advancePaidAmount)));
             linearChild.addView(tv_taxdetail08);
 
             TextView tv_taxdetail09 = new TextView(getActivity());
@@ -385,7 +385,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail09.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail09.setLayoutParams(tv_params);
             String rebateAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.REBATEAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.REBATEAMOUNT);
-            tv_taxdetail09.setText(String.format(Locale.getDefault(), "%-22s : %s", "Rebate Amount", rebateAmount));
+            tv_taxdetail09.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Rebate Amount (Rs)", Double.parseDouble(rebateAmount)));
             linearChild.addView(tv_taxdetail09);
 
             TextView tv_taxdetail10 = new TextView(getActivity());
@@ -394,7 +394,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail10.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail10.setLayoutParams(tv_params);
             String adjustmentAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.ADJUSTMENTAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.ADJUSTMENTAMOUNT);
-            tv_taxdetail10.setText(String.format(Locale.getDefault(), "%-22s : %s", "Adjustment Amount", adjustmentAmount));
+            tv_taxdetail10.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Adjustment Amount (Rs)", Double.parseDouble(adjustmentAmount)));
             linearChild.addView(tv_taxdetail10);
 
             TextView tv_taxdetail11 = new TextView(getActivity());
@@ -403,7 +403,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail11.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail11.setLayoutParams(tv_params);
             String totalPropertyTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.TOTALPROPERTYTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.TOTALPROPERTYTAX);
-            tv_taxdetail11.setText(String.format(Locale.getDefault(), "%-22s : %s", "Total Property Tax", totalPropertyTax));
+            tv_taxdetail11.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Total Property Tax (Rs)", Double.parseDouble(totalPropertyTax)));
             linearChild.addView(tv_taxdetail11);
 
             TextView tv_taxdetail12 = new TextView(getActivity());
@@ -412,7 +412,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail12.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail12.setLayoutParams(tv_params);
             String serviceTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.SERVICETAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.SERVICETAX);
-            tv_taxdetail12.setText(String.format(Locale.getDefault(), "%-22s : %s", "Service Tax", serviceTax));
+            tv_taxdetail12.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Service Tax (Rs)", Double.parseDouble(serviceTax)));
             linearChild.addView(tv_taxdetail12);
 
             TextView tv_taxdetail13 = new TextView(getActivity());
@@ -421,7 +421,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail13.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail13.setLayoutParams(tv_params);
             String otherTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.OTHERTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.OTHERTAX);
-            tv_taxdetail13.setText(String.format(Locale.getDefault(), "%-22s : %s", "Other Tax", otherTax));
+            tv_taxdetail13.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Other Tax (Rs)", Double.parseDouble(otherTax)));
             linearChild.addView(tv_taxdetail13);
 
             TextView tv_taxdetail14 = new TextView(getActivity());
@@ -430,7 +430,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail14.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail14.setLayoutParams(tv_params);
             String grandTotal = taxdetailCursor.getStringOrNull(TaxdetailColumns.GRANDTOTAL) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.GRANDTOTAL);
-            tv_taxdetail14.setText(String.format(Locale.getDefault(), "%-22s : %s", "Grand Total", grandTotal));
+            tv_taxdetail14.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Grand Total (Rs)", Double.parseDouble(grandTotal)));
             linearChild.addView(tv_taxdetail14);
 
             TextView tv_taxdetail15 = new TextView(getActivity());
@@ -439,7 +439,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail15.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail15.setLayoutParams(tv_params);
             String delayPaymentCharges = taxdetailCursor.getStringOrNull(TaxdetailColumns.DELAYPAYMENTCHARGES) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.DELAYPAYMENTCHARGES);
-            tv_taxdetail15.setText(String.format(Locale.getDefault(), "%-22s : %s", "Delayed Payment Charges", delayPaymentCharges));
+            tv_taxdetail15.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Delayed Payment Charges (Rs)", Double.parseDouble(delayPaymentCharges)));
             linearChild.addView(tv_taxdetail15);
 
             TextView tv_taxdetail16 = new TextView(getActivity());
@@ -448,7 +448,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail16.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail16.setLayoutParams(tv_params);
             String payableAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.PAYABLEAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.PAYABLEAMOUNT);
-            tv_taxdetail16.setText(String.format(Locale.getDefault(), "%-22s : %s", "Payable Amount", payableAmount));
+            tv_taxdetail16.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Payable Amount (Rs)", Double.parseDouble(payableAmount)));
             linearChild.addView(tv_taxdetail16);
 
             TextView tv_taxdetail17 = new TextView(getActivity());

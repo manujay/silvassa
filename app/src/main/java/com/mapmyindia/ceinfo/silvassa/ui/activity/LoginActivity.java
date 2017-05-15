@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
+import com.mapmyindia.ceinfo.silvassa.ApiCodes;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestApiClient;
 import com.mapmyindia.ceinfo.silvassa.restcontroller.RestAppController;
@@ -123,16 +124,10 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void doLogin() {
-        View focusView = null;
         boolean isvalid = true;
+        View focusView = null;
         String userId = mEditTextUname.getText().toString();
         String paswd = mEditTextPaswd.getText().toString();
-
-        if (StringUtils.isNullOrEmpty(userId)) {
-            isvalid = false;
-            mEditTextUname.setError("Username Can't be Empty");
-            focusView = mEditTextUname;
-        }
 
         if (StringUtils.isNullOrEmpty(paswd)) {
             isvalid = false;
@@ -140,47 +135,24 @@ public class LoginActivity extends BaseActivity {
             focusView = mEditTextPaswd;
         }
 
+        if (StringUtils.isNullOrEmpty(userId)) {
+            isvalid = false;
+            mEditTextUname.setError("Username Can't be Empty");
+            focusView = mEditTextUname;
+        }
+
         if (isvalid) {
 
-//            String fromJson = SharedPrefeHelper.getUserInfo(LoginActivity.this);
-
-//            if (!StringUtils.isNullOrEmpty(fromJson)) {  //offline Login
-//
-//                UserWSModel userWSModel = new Gson().fromJson(fromJson, new TypeToken<UserWSModel>() {
-//                }.getType());
-//
-//                if (userId.equalsIgnoreCase(userWSModel.getUserId()) && paswd.equalsIgnoreCase(userWSModel.getPasword())) {
-//
-//                    mEditTextUname.setFocusable(false);
-//                    mEditTextPaswd.setFocusable(false);
-//
-//                    startActivityForIntent(new Intent(LoginActivity.this, SyncSearchActivity.class));
-//                    finish();
-//
-//                } else {
-//                    if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
-//                        showSnackBar(getWindow().getDecorView(), getString(R.string.error_network));
-//                    } else {
-//                        attemptLogin(userId, paswd);
-//                    }
-//                }
-
-//            } else {
             if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
                 showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false, null);
             } else {
                 attemptLogin(userId, paswd);
             }
-//            }
-
 
         } else {
             focusView.requestFocus();
-//            showToast(LoginActivity.this, "Incorrect Username/Password");
+            showSnackBarLong(getWindow().getDecorView(), "This page has empty fields!.", true, null);
         }
-
-//        mEditTextUname.setText("");
-//        mEditTextPaswd.setText("");
     }
 
     private void attemptLogin(String userId, String pwd) {
@@ -212,12 +184,12 @@ public class LoginActivity extends BaseActivity {
                         String message = jsonObject.getString("message");
                         int Status = Integer.parseInt(jsonObject.getString("status"));
 
-                        if (!StringUtils.isNullOrEmpty(message) && Status == 1001) {
+                        if (!StringUtils.isNullOrEmpty(message) && Status == ApiCodes.STATUS_1001) {
                             showToast(LoginActivity.this, "Incorrect Username/Password");
                             return;
                         }
 
-                        if (!StringUtils.isNullOrEmpty(message) && Status != 200) {
+                        if (!StringUtils.isNullOrEmpty(message) && Status != ApiCodes.STATUS_200) {
                             showSnackBarLong(getWindow().getDecorView(), message, false, null);
                             return;
                         }

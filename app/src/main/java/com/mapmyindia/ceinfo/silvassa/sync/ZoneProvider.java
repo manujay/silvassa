@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.mapmyindia.ceinfo.silvassa.ApiCodes;
 import com.mapmyindia.ceinfo.silvassa.R;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneContentValues;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneCursor;
@@ -86,7 +87,7 @@ public class ZoneProvider {
                         int status = Integer.parseInt(jsonObject.getString("status"));
                         String message = jsonObject.getString("message");
 
-                        if (status != 200) {
+                        if (status != ApiCodes.STATUS_200) {
                             if (!StringUtils.isNullOrEmpty(message))
                                 sendErrorResponse(listener, message);
                             else

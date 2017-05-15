@@ -37,21 +37,24 @@ public class ResultsCursorAdapter extends CursorRecyclerAdapter<RecyclerView.Vie
         PropertyCursor propertyCursor = new PropertyCursor(cursor);
 
         ((ViewHolder) holder).mItemTextView0.setText(
-                String.format(Locale.getDefault(), "%-18s : %s",
-                        "Property ID", propertyCursor.getPropertyuniqueid()));
+                String.format(Locale.getDefault(), "%-16s : %s",
+                        "Property Id", propertyCursor.getPropertyuniqueid()));
 
         ((ViewHolder) holder).mItemTextView1.setText(
-                String.format(Locale.getDefault(), "%-18s : %s",
+                String.format(Locale.getDefault(), "%-16s : %s",
                         "Owner", !StringUtils.isNullOrEmpty(propertyCursor.getPropertyowner()) ? propertyCursor.getPropertyowner() : ""));
 
         ((ViewHolder) holder).mItemTextView2.setText(
-                String.format(Locale.getDefault(), "%-18s : %s",
+                String.format(Locale.getDefault(), "%-16s : %s",
                         "Occupier", !StringUtils.isNullOrEmpty(propertyCursor.getPropertyoccupiername()) ? propertyCursor.getPropertyoccupiername() : ""));
 
         ((ViewHolder) holder).mItemTextView3.setText(
-                String.format(Locale.getDefault(), "%-18s : %s",
-                        "HouseNo/Building", !StringUtils.isNullOrEmpty(propertyCursor.getPropertyhouseno()) ? propertyCursor.getPropertyhouseno() :
-                                !StringUtils.isNullOrEmpty(propertyCursor.getPropertybuildingname()) ? propertyCursor.getPropertybuildingname() : ""));
+                String.format(Locale.getDefault(), "%-16s : %s",
+                        "Building", !StringUtils.isNullOrEmpty(propertyCursor.getPropertybuildingname()) ? propertyCursor.getPropertybuildingname() : ""));
+
+        ((ViewHolder) holder).mItemTextView4.setText(
+                String.format(Locale.getDefault(), "%-16s : %s",
+                        "House Number", !StringUtils.isNullOrEmpty(propertyCursor.getPropertyhouseno()) ? propertyCursor.getPropertyhouseno() : ""));
 
         holder.itemView.setTag(propertyCursor.getPropertyuniqueid());
     }
@@ -64,7 +67,7 @@ public class ResultsCursorAdapter extends CursorRecyclerAdapter<RecyclerView.Vie
 
     private class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView mItemTextView0, mItemTextView1, mItemTextView2, mItemTextView3;
+        TextView mItemTextView0, mItemTextView1, mItemTextView2, mItemTextView3, mItemTextView4;
 
         private ViewHolder(View itemView) {
             super(itemView);
@@ -72,6 +75,7 @@ public class ResultsCursorAdapter extends CursorRecyclerAdapter<RecyclerView.Vie
             mItemTextView1 = (TextView) itemView.findViewById(R.id.list_item_results1);
             mItemTextView2 = (TextView) itemView.findViewById(R.id.list_item_results2);
             mItemTextView3 = (TextView) itemView.findViewById(R.id.list_item_results3);
+            mItemTextView4 = (TextView) itemView.findViewById(R.id.list_item_results4);
         }
     }
 }

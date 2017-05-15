@@ -22,6 +22,8 @@ import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.orhanobut.logger.Logger;
 
+import java.util.Locale;
+
 /**
  * Created by ceinfo on 06-03-2017.
  */
@@ -31,6 +33,7 @@ public class PaymentActivity extends BaseActivity {
 
     private String payableAmount;
     private String propId;
+    private EditText mEditText;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,17 +79,27 @@ public class PaymentActivity extends BaseActivity {
 
         setSupportActionBar(getToolbar());
 
-        RadioGroup rgPtop = (RadioGroup) findViewById(R.id.rg_ptp);
+        mEditText = ((EditText) findViewById(R.id.et_amount));
+
+        final RadioGroup rgPtop = (RadioGroup) findViewById(R.id.rg_ptp);
 
         rgPtop.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-
+                mEditText.setText("");
+                mEditText.setHint("");
                 switch (checkedId) {
                     case R.id.rb_pmode_cash:
+                        mEditText.setText(String.format(Locale.getDefault(), "%.2f", Double.parseDouble(payableAmount)));
+                        break;
                     case R.id.rb_pmode_cheque:
+                        mEditText.setHint("Cheque/DD/");
+                        break;
                     case R.id.rb_pmode_pos:
+                        mEditText.setText("");
+                        break;
                     default:
+                        mEditText.setText("");
                         break;
                 }
             }
@@ -97,14 +110,15 @@ public class PaymentActivity extends BaseActivity {
         findViewById(R.id.et_payment_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                paymentOffline();
+
+                RadioButton rb = (RadioButton) rgPtop.findViewById(rgPtop.getCheckedRadioButtonId());
+
+                paymentOffline(null != rb && rb.isChecked() ? rb.getText().toString() : null, mEditText.getText().toString());
             }
         });
-
-        ((EditText) findViewById(R.id.et_amount)).setText(payableAmount);
     }
 
-    private void paymentOffline() {
+    private void paymentOffline(String mode, String amount) {
 
         boolean isValid = true;
 
@@ -115,8 +129,6 @@ public class PaymentActivity extends BaseActivity {
         TaxdetailCursor cursor = selection.query(getContentResolver());
 
         String taxNo = cursor.moveToFirst() ? cursor.getTaxno() : "";
-        String mode = ((RadioButton) findViewById(((RadioGroup) findViewById(R.id.rg_ptp)).getCheckedRadioButtonId())).getText().toString();
-        String amount = ((EditText) findViewById(R.id.et_amount)).getText().toString();
         String userId = SharedPrefeHelper.getUserId(this);
 
         long timeInMillis = System.currentTimeMillis();
@@ -166,6 +178,7 @@ public class PaymentActivity extends BaseActivity {
             }
         } else {
             findViewById(R.id.et_amount).requestFocus();
+            showSnackBarLong(getWindow().getDecorView(), "This page has empty fields!.", true, null);
         }
 
         cursor.close();
