@@ -83,27 +83,24 @@ public class PaymentActivity extends BaseActivity {
 
         final RadioGroup rgPtop = (RadioGroup) findViewById(R.id.rg_ptp);
 
-        rgPtop.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                mEditText.setText("");
-                mEditText.setHint("");
-                switch (checkedId) {
-                    case R.id.rb_pmode_cash:
-                        mEditText.setText(String.format(Locale.getDefault(), "%.2f", Double.parseDouble(payableAmount)));
-                        break;
-                    case R.id.rb_pmode_cheque:
-                        mEditText.setHint("Cheque/DD/");
-                        break;
-                    case R.id.rb_pmode_pos:
-                        mEditText.setText("");
-                        break;
-                    default:
-                        mEditText.setText("");
-                        break;
-                }
-            }
-        });
+//        rgPtop.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup group, int checkedId) {
+//                switch (checkedId) {
+//                    case R.id.rb_pmode_cash:
+//                        mEditText.setText(String.format(Locale.getDefault(), "%.2f", Double.parseDouble(payableAmount)));
+//                        break;
+//                    case R.id.rb_pmode_cheque:
+//                        break;
+//                    case R.id.rb_pmode_pos:
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            }
+//        });
+
+        mEditText.setHint(String.format(Locale.getDefault(), "%.2f", null != payableAmount && !payableAmount.isEmpty() ? Double.parseDouble(payableAmount) : 0));
 
         ((RadioButton) rgPtop.findViewById(R.id.rb_pmode_cash)).setChecked(true);
 
@@ -172,13 +169,14 @@ public class PaymentActivity extends BaseActivity {
                 Intent intent = new Intent(this, PrintActivity.class);
                 Bundle extras = new Bundle();
                 extras.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, propId);
+                extras.putLong(INTENT_PARAMETERS._PREFILL_PAYMENTID, id);
                 intent.putExtras(extras);
                 startActivityForIntent(intent);
                 finish();
             }
         } else {
             findViewById(R.id.et_amount).requestFocus();
-            showSnackBarLong(getWindow().getDecorView(), "This page has empty fields!.", true, null);
+            showToast(this, "Please fill in the Amount!.");
         }
 
         cursor.close();

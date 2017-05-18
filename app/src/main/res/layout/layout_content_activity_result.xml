@@ -20,10 +20,21 @@
                 android:id="@+id/search_et"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_marginBottom="@dimen/padding_small"
+                android:layout_marginLeft="@dimen/padding_small"
+                android:layout_marginRight="@dimen/padding_small"
+                android:layout_marginTop="@dimen/padding_small"
+                android:background="@drawable/drawable_background_stroke"
+                android:gravity="center_vertical|fill_horizontal"
                 android:hint="@string/search_hint_results"
                 android:imeOptions="actionDone"
                 android:inputType="text"
-                android:padding="@dimen/border_login_padding" />
+                android:padding="@dimen/border_login_padding"
+                android:paddingEnd="@dimen/padding_medium"
+                android:paddingLeft="@dimen/padding_medium"
+                android:paddingRight="@dimen/padding_medium"
+                android:paddingStart="@dimen/padding_medium"
+                android:textSize="@dimen/text_medium" />
 
         </android.support.v7.widget.ContentFrameLayout>
 

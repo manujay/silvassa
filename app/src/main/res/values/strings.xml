@@ -16,14 +16,14 @@
     <string name="print">Print</string>
     <string name="alert_message">Please provide valid input</string>
     <string name="pay_now">Pay Now</string>
-    <string name="amount">Amount</string>
+    <string name="amount">Amount (Rs)</string>
     <string name="back">Back</string>
     <string name="error_network">No Internet Connectivity</string>
     <string name="error_server">Sorry, we\'r currently under maintenance!!</string>
     <string name="print_response">Payment Confirmation has been sent to your registered Email.</string>
     <string name="error_payment">Failed to process payment!</string>
     <string name="sorry_no_results">Sorry no results match your search criteria!</string>
-    <string name="pos">Pos</string>
+    <string name="pos">POS</string>
     <string name="menu_logout">Logout</string>
     <string name="no_label">No</string>
     <string name="yes_label">Yes</string>
@@ -33,7 +33,7 @@
     <string name="select_propertyid">Select Property Id</string>
     <string name="select_occupier">Select Occupier</string>
     <string name="select_owner">Select Owner</string>
-    <string name="search_hint_results">Search Results</string>
+    <string name="search_hint_results">Search Owner/Occupier/House/Building or Property</string>
     <string name="string_hint_search_owner">Search Owner Name</string>
     <string name="string_hint_search_occupier">Search Occupier Name</string>
     <string name="string_hint_search_property">Search Property Id</string>

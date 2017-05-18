@@ -32,7 +32,6 @@ import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneSelection;
 import com.mapmyindia.ceinfo.silvassa.service.SyncService;
 import com.mapmyindia.ceinfo.silvassa.sync.SyncProvider;
 import com.mapmyindia.ceinfo.silvassa.sync.ZoneProvider;
-import com.mapmyindia.ceinfo.silvassa.utils.CompoundTextView;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
@@ -155,31 +154,22 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
             }
         });
 
-
-        binding.contentLayout.spinnerRow1.setOnCompoundClickListener(new CompoundTextView.CompoundDrawableClickListener() {
+        findViewById(R.id.row_clear1).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DrawablePosition target) {
-                if (target.compareTo(DrawablePosition.RIGHT) == 0) {
-                    ((CompoundTextView) findViewById(R.id.spinner_row1)).setText("");
-                }
+            public void onClick(View v) {
+                binding.contentLayout.spinnerRow1.setText("");
             }
         });
-
-        binding.contentLayout.spinnerRow2.setOnCompoundClickListener(new CompoundTextView.CompoundDrawableClickListener() {
+        findViewById(R.id.row_clear2).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DrawablePosition target) {
-                if (target.compareTo(DrawablePosition.RIGHT) == 0) {
-                    ((CompoundTextView) findViewById(R.id.spinner_row2)).setText("");
-                }
+            public void onClick(View v) {
+                binding.contentLayout.spinnerRow2.setText("");
             }
         });
-
-        binding.contentLayout.spinnerRow3.setOnCompoundClickListener(new CompoundTextView.CompoundDrawableClickListener() {
+        findViewById(R.id.row_clear3).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DrawablePosition target) {
-                if (target.compareTo(DrawablePosition.RIGHT) == 0) {
-                    ((CompoundTextView) findViewById(R.id.spinner_row3)).setText("");
-                }
+            public void onClick(View v) {
+                binding.contentLayout.spinnerRow3.setText("");
             }
         });
 

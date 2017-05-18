@@ -36,7 +36,7 @@ public class PrefillActivity extends BaseActivity {
 
     private static final String TAG = PrefillActivity.class.getSimpleName();
     private static final int INIT_PREFILL_ADAPTER = 10010;
-    private String preString;
+    private String preString = "";
     private FilterRecyclerAdapter filterableCursorAdapter;
     private RecyclerView recyclerView;
 

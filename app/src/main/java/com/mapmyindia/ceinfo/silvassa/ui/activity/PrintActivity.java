@@ -35,6 +35,7 @@ public class PrintActivity extends BaseActivity {
 
     private static final String TAG = PrintActivity.class.getSimpleName();
     private String propertyId;
+    private long paymentId = 0;
 
     @Override
     public void setmTitle(String mTitle) {
@@ -62,7 +63,11 @@ public class PrintActivity extends BaseActivity {
             propertyId = extras.getString(INTENT_PARAMETERS._PREFILL_PROPERTYID);
         }
 
-        if (!StringUtils.isNullOrEmpty(propertyId)) {
+        if (null != extras && extras.containsKey(INTENT_PARAMETERS._PREFILL_PAYMENTID)) {
+            paymentId = extras.getLong(INTENT_PARAMETERS._PREFILL_PAYMENTID);
+        }
+
+        if (!StringUtils.isNullOrEmpty(propertyId) && paymentId != 0) {
             findViewByIDs();
         } else {
             ((TextView) findViewById(R.id.print_tv)).setTextColor(getResources().getColor(R.color.login_color));
@@ -89,7 +94,7 @@ public class PrintActivity extends BaseActivity {
         propertySelection.propertyuniqueid(propertyId);
 
         PaymentSelection paymentSelection = new PaymentSelection();
-        paymentSelection.propertyuniqueid(propertyId);
+        paymentSelection.id(paymentId);
 
         TaxdetailCursor taxdetailCursor = selection.query(getContentResolver());
 
@@ -153,6 +158,14 @@ public class PrintActivity extends BaseActivity {
             textView5.setText(String.format(Locale.getDefault(), "%-22s : %s", "Date of Payment", DateTimeUtils.getFormattedDatefromLong(Long.parseLong(Pdate))));
 
             TextView textView6 = new TextView(this);
+            textView5.setAllCaps(false);
+            textView5.setTypeface(Typeface.MONOSPACE);
+            textView5.setTextSize(11.0f);
+            textView5.setLayoutParams(tv_params);
+            String Mode = paymentCursor.getStringOrNull(PaymentColumns.MODE) == null ? "" : paymentCursor.getStringOrNull(PaymentColumns.MODE);
+            textView5.setText(String.format(Locale.getDefault(), "%-22s : %s", "Mode of Payment", Mode));
+
+            TextView textView7 = new TextView(this);
             textView6.setAllCaps(false);
             textView6.setTypeface(Typeface.MONOSPACE);
             textView6.setTextSize(11.0f);
@@ -160,7 +173,7 @@ public class PrintActivity extends BaseActivity {
             String taxNo = taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO);
             textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", "Tax Number", taxNo));
 
-            TextView textView7 = new TextView(this);
+            TextView textView8 = new TextView(this);
             textView7.setAllCaps(false);
             textView7.setTypeface(Typeface.MONOSPACE);
             textView7.setTextSize(11.0f);
@@ -168,7 +181,7 @@ public class PrintActivity extends BaseActivity {
             String phone = propertyCursor.getStringOrNull(PropertyColumns.PHONE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PHONE);
             textView7.setText(String.format(Locale.getDefault(), "%-22s : %s", "Phone", phone));
 
-            TextView textView8 = new TextView(this);
+            TextView textView9 = new TextView(this);
             textView8.setAllCaps(false);
             textView8.setTypeface(Typeface.MONOSPACE);
             textView8.setTextSize(11.0f);
@@ -185,6 +198,7 @@ public class PrintActivity extends BaseActivity {
             linear_parent.addView(textView6);
             linear_parent.addView(textView7);
             linear_parent.addView(textView8);
+            linear_parent.addView(textView9);
         }
     }
 

@@ -151,7 +151,7 @@ public class LoginActivity extends BaseActivity {
 
         } else {
             focusView.requestFocus();
-            showSnackBarLong(getWindow().getDecorView(), "This page has empty fields!.", true, null);
+            showToast(this, "This page has empty fields!.");
         }
     }
 

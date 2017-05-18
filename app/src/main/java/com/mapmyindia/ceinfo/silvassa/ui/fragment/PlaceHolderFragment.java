@@ -321,7 +321,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail02.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail02.setLayoutParams(tv_params);
             String propertyTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.PROPERTYTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.PROPERTYTAX);
-            tv_taxdetail02.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Tax (Rs)", Double.parseDouble(propertyTax)));
+            tv_taxdetail02.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Tax(Rs)", Double.parseDouble(propertyTax)));
             linearChild.addView(tv_taxdetail02);
 
             TextView tv_taxdetail03 = new TextView(getActivity());
@@ -330,7 +330,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail03.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail03.setLayoutParams(tv_params);
             String waterTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERTAX);
-            tv_taxdetail03.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Tax (Rs)", Double.parseDouble(waterTax)));
+            tv_taxdetail03.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Tax(Rs)", Double.parseDouble(waterTax)));
             linearChild.addView(tv_taxdetail03);
 
             TextView tv_taxdetail04 = new TextView(getActivity());
@@ -339,7 +339,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail04.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail04.setLayoutParams(tv_params);
             String conservancyTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.CONSERVANCYTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.CONSERVANCYTAX);
-            tv_taxdetail04.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Conservancy Tax (Rs)", Double.parseDouble(conservancyTax)));
+            tv_taxdetail04.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Conservancy Tax(Rs)", Double.parseDouble(conservancyTax)));
             linearChild.addView(tv_taxdetail04);
 
             TextView tv_taxdetail05 = new TextView(getActivity());
@@ -348,7 +348,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail05.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail05.setLayoutParams(tv_params);
             String waterSewerageCharge = taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERSEWERAGECHARGE) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERSEWERAGECHARGE);
-            tv_taxdetail05.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Sewerage Charge (Rs)", Double.parseDouble(waterSewerageCharge)));
+            tv_taxdetail05.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Sewerage Charge(Rs)", Double.parseDouble(waterSewerageCharge)));
             linearChild.addView(tv_taxdetail05);
 
             TextView tv_taxdetail06 = new TextView(getActivity());
@@ -357,7 +357,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail06.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail06.setLayoutParams(tv_params);
             String waterMeterBillAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERMETERBILLAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.WATERMETERBILLAMOUNT);
-            tv_taxdetail06.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Bill Amount (Rs)", Double.parseDouble(waterMeterBillAmount)));
+            tv_taxdetail06.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Bill Amount(Rs)", Double.parseDouble(waterMeterBillAmount)));
             linearChild.addView(tv_taxdetail06);
 
             TextView tv_taxdetail07 = new TextView(getActivity());
@@ -366,7 +366,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail07.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail07.setLayoutParams(tv_params);
             String arrearAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.ARREARAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.ARREARAMOUNT);
-            tv_taxdetail07.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Arrear Amount (Rs)", Double.parseDouble(arrearAmount)));
+            tv_taxdetail07.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Arrear Amount(Rs)", Double.parseDouble(arrearAmount)));
             linearChild.addView(tv_taxdetail07);
 
 
@@ -376,7 +376,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail08.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail08.setLayoutParams(tv_params);
             String advancePaidAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.ADVANCEPAIDAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.ADVANCEPAIDAMOUNT);
-            tv_taxdetail08.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Advance Paid Amount (Rs)", Double.parseDouble(advancePaidAmount)));
+            tv_taxdetail08.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Advance Paid Amount(Rs)", Double.parseDouble(advancePaidAmount)));
             linearChild.addView(tv_taxdetail08);
 
             TextView tv_taxdetail09 = new TextView(getActivity());
@@ -394,7 +394,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail10.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail10.setLayoutParams(tv_params);
             String adjustmentAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.ADJUSTMENTAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.ADJUSTMENTAMOUNT);
-            tv_taxdetail10.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Adjustment Amount (Rs)", Double.parseDouble(adjustmentAmount)));
+            tv_taxdetail10.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Adjustment Amount(Rs)", Double.parseDouble(adjustmentAmount)));
             linearChild.addView(tv_taxdetail10);
 
             TextView tv_taxdetail11 = new TextView(getActivity());
@@ -412,7 +412,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail12.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail12.setLayoutParams(tv_params);
             String serviceTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.SERVICETAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.SERVICETAX);
-            tv_taxdetail12.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Service Tax (Rs)", Double.parseDouble(serviceTax)));
+            tv_taxdetail12.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Service Tax(Rs)", Double.parseDouble(serviceTax)));
             linearChild.addView(tv_taxdetail12);
 
             TextView tv_taxdetail13 = new TextView(getActivity());
@@ -421,7 +421,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail13.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail13.setLayoutParams(tv_params);
             String otherTax = taxdetailCursor.getStringOrNull(TaxdetailColumns.OTHERTAX) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.OTHERTAX);
-            tv_taxdetail13.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Other Tax (Rs)", Double.parseDouble(otherTax)));
+            tv_taxdetail13.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Other Tax(Rs)", Double.parseDouble(otherTax)));
             linearChild.addView(tv_taxdetail13);
 
             TextView tv_taxdetail14 = new TextView(getActivity());
@@ -430,7 +430,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail14.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail14.setLayoutParams(tv_params);
             String grandTotal = taxdetailCursor.getStringOrNull(TaxdetailColumns.GRANDTOTAL) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.GRANDTOTAL);
-            tv_taxdetail14.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Grand Total (Rs)", Double.parseDouble(grandTotal)));
+            tv_taxdetail14.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Grand Total(Rs)", Double.parseDouble(grandTotal)));
             linearChild.addView(tv_taxdetail14);
 
             TextView tv_taxdetail15 = new TextView(getActivity());
@@ -439,7 +439,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail15.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail15.setLayoutParams(tv_params);
             String delayPaymentCharges = taxdetailCursor.getStringOrNull(TaxdetailColumns.DELAYPAYMENTCHARGES) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.DELAYPAYMENTCHARGES);
-            tv_taxdetail15.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Delayed Payment Charges (Rs)", Double.parseDouble(delayPaymentCharges)));
+            tv_taxdetail15.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Delayed Payment Charges(Rs)", Double.parseDouble(delayPaymentCharges)));
             linearChild.addView(tv_taxdetail15);
 
             TextView tv_taxdetail16 = new TextView(getActivity());
@@ -448,7 +448,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail16.setTypeface(Typeface.MONOSPACE);
             tv_taxdetail16.setLayoutParams(tv_params);
             String payableAmount = taxdetailCursor.getStringOrNull(TaxdetailColumns.PAYABLEAMOUNT) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.PAYABLEAMOUNT);
-            tv_taxdetail16.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Payable Amount (Rs)", Double.parseDouble(payableAmount)));
+            tv_taxdetail16.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Payable Amount(Rs)", Double.parseDouble(payableAmount)));
             linearChild.addView(tv_taxdetail16);
 
             TextView tv_taxdetail17 = new TextView(getActivity());
