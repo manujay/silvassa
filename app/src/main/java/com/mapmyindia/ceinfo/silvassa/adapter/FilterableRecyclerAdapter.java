@@ -10,8 +10,10 @@ import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by ceinfo on 08-03-2017.
@@ -19,26 +21,46 @@ import java.util.ArrayList;
 
 public class FilterableRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Filterable {
 
-    private ArrayList<String> mArrayList;
-    private ArrayList<String> mFilteredArrayList;
+    private ArrayList<Model> mArrayList;
+    private ArrayList<Model> mFilteredArrayList;
     private Context mActivityContext;
     private CustomFilter mFilter;
 
-    public FilterableRecyclerAdapter(Context mActivityContext, ArrayList<String> mArrayList) {
+    public FilterableRecyclerAdapter(Context mActivityContext, ArrayList<Model> mArrayList) {
         this.mActivityContext = mActivityContext;
         this.mArrayList = mArrayList;
         this.mFilteredArrayList = mArrayList;
-        this.mFilter = new CustomFilter(FilterableRecyclerAdapter.this);
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ItemViewHolder(LayoutInflater.from(mActivityContext).inflate(R.layout.layout_recycler_single_item, parent, false));
+        return new ItemViewHolder(LayoutInflater.from(mActivityContext).inflate(R.layout.layout_single_item_results, parent, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ((ItemViewHolder) holder).itemTextView.setText(mFilteredArrayList.get(position));
+
+        ((ItemViewHolder) holder).mItemTextView0.setText(
+                String.format(Locale.getDefault(), "%-16s : %s",
+                        "Property Id", mFilteredArrayList.get(position).getPropUniqueId()));
+
+        ((ItemViewHolder) holder).mItemTextView1.setText(
+                String.format(Locale.getDefault(), "%-16s : %s",
+                        "Owner", !StringUtils.isNullOrEmpty(mFilteredArrayList.get(position).getOwner()) ? mFilteredArrayList.get(position).getOwner() : ""));
+
+        ((ItemViewHolder) holder).mItemTextView2.setText(
+                String.format(Locale.getDefault(), "%-16s : %s",
+                        "Occupier", !StringUtils.isNullOrEmpty(mFilteredArrayList.get(position).getOccupier()) ? mFilteredArrayList.get(position).getOccupier() : ""));
+
+        ((ItemViewHolder) holder).mItemTextView3.setText(
+                String.format(Locale.getDefault(), "%-16s : %s",
+                        "Building", !StringUtils.isNullOrEmpty(mFilteredArrayList.get(position).getBuilding()) ? mFilteredArrayList.get(position).getBuilding() : ""));
+
+        ((ItemViewHolder) holder).mItemTextView4.setText(
+                String.format(Locale.getDefault(), "%-16s : %s",
+                        "House Number", !StringUtils.isNullOrEmpty(mFilteredArrayList.get(position).getHouseNo()) ? mFilteredArrayList.get(position).getHouseNo() : ""));
+
+        ((ItemViewHolder) holder).itemView.setTag(mFilteredArrayList.get(position).getPropUniqueId());
     }
 
     @Override
@@ -48,29 +70,34 @@ public class FilterableRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public Filter getFilter() {
+        if (null == mFilter)
+            mFilter = new CustomFilter();
         return mFilter;
     }
 
-    public class CustomFilter extends Filter {
-
-        FilterableRecyclerAdapter mAdapter;
-
-        public CustomFilter(FilterableRecyclerAdapter adapter) {
-            super();
-            this.mAdapter = adapter;
-        }
+    class CustomFilter extends Filter {
 
         @Override
         protected Filter.FilterResults performFiltering(CharSequence constraint) {
-            ArrayList<String> temp = new ArrayList<>();
-            final Filter.FilterResults results = new Filter.FilterResults();
+            ArrayList<Model> temp = new ArrayList<>();
+            Filter.FilterResults results = new Filter.FilterResults();
             if (constraint.length() == 0) {
-                temp.addAll(mArrayList);
+                results.count = mArrayList.size();
+                results.values = mArrayList;
+                return results;
             } else {
                 final String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for (String item : mArrayList) {
-                    if (item.toLowerCase().trim().contains(filterPattern)) {
+                for (Model item : mArrayList) {
+                    if (!StringUtils.isNullOrEmpty(item.getPropUniqueId()) && item.getPropUniqueId().toLowerCase().trim().contains(filterPattern)) {
+                        temp.add(item);
+                    } else if (!StringUtils.isNullOrEmpty(item.getOccupier()) && item.getOccupier().toLowerCase().trim().contains(filterPattern)) {
+                        temp.add(item);
+                    } else if (!StringUtils.isNullOrEmpty(item.getOwner()) && item.getOwner().toLowerCase().trim().contains(filterPattern)) {
+                        temp.add(item);
+                    } else if (!StringUtils.isNullOrEmpty(item.getBuilding()) && item.getBuilding().toLowerCase().trim().contains(filterPattern)) {
+                        temp.add(item);
+                    } else if (!StringUtils.isNullOrEmpty(item.getHouseNo()) && item.getHouseNo().toLowerCase().trim().contains(filterPattern)) {
                         temp.add(item);
                     }
                 }
@@ -85,21 +112,24 @@ public class FilterableRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
         protected void publishResults(CharSequence constraint, Filter.FilterResults results) {
 
             if (results.count > 0) {
-                mFilteredArrayList.clear();
-                mFilteredArrayList.addAll((ArrayList<String>) results.values);
+                mFilteredArrayList = new ArrayList<Model>(((ArrayList<Model>) results.values));
             }
 
-            this.mAdapter.notifyDataSetChanged();
+            notifyDataSetChanged();
         }
     }
 
     private class ItemViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView itemTextView;
+        TextView mItemTextView0, mItemTextView1, mItemTextView2, mItemTextView3, mItemTextView4;
 
         private ItemViewHolder(View itemView) {
             super(itemView);
-            itemTextView = (TextView) itemView.findViewById(R.id.item_tv);
+            mItemTextView0 = (TextView) itemView.findViewById(R.id.list_item_results0);
+            mItemTextView1 = (TextView) itemView.findViewById(R.id.list_item_results1);
+            mItemTextView2 = (TextView) itemView.findViewById(R.id.list_item_results2);
+            mItemTextView3 = (TextView) itemView.findViewById(R.id.list_item_results3);
+            mItemTextView4 = (TextView) itemView.findViewById(R.id.list_item_results4);
         }
     }
 }

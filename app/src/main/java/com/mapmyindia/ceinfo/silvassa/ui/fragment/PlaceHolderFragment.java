@@ -1,5 +1,6 @@
 package com.mapmyindia.ceinfo.silvassa.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -37,6 +38,8 @@ public class PlaceHolderFragment extends Fragment {
     public static final String TAG = PlaceHolderFragment.class.getSimpleName();
 
     public static final String PLACEHOLDER_KEY = "key-property";
+    private ResultsActivity mActivity;
+    private Context mContext;
 
     public PlaceHolderFragment() {
     }
@@ -64,18 +67,18 @@ public class PlaceHolderFragment extends Fragment {
         view.findViewById(R.id.et_back_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().onBackPressed();
+                mActivity.onBackPressed();
             }
         });
 
         view.findViewById(R.id.et_pay_buttom).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PaymentActivity.class);
+                Intent intent = new Intent(mActivity, PaymentActivity.class);
                 Bundle bundle = new Bundle();
                 bundle.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, getArguments().getString(PLACEHOLDER_KEY));
                 intent.putExtras(bundle);
-                ((ResultsActivity) getActivity()).startActivityForIntent(intent);
+                mActivity.startActivityForIntent(intent);
             }
         });
 
@@ -91,7 +94,7 @@ public class PlaceHolderFragment extends Fragment {
 
         selection.propertyuniqueid(getArguments().getString(PLACEHOLDER_KEY));
 
-        PropertyCursor propertyCursor = selection.query(getActivity().getContentResolver());
+        PropertyCursor propertyCursor = selection.query(mActivity.getContentResolver());
 
         LinearLayout parent = (LinearLayout) view.findViewById(R.id.linear_parent_tax_detail);
 
@@ -108,7 +111,7 @@ public class PlaceHolderFragment extends Fragment {
         tv_params.bottomMargin = paddingBottom;
 
         if (propertyCursor.moveToFirst()) {
-            TextView tv_property0 = new TextView(getActivity());
+            TextView tv_property0 = new TextView(mContext);
             tv_property0.setAllCaps(false);
             tv_property0.setTypeface(Typeface.MONOSPACE);
             tv_property0.setTextSize(11.0f);
@@ -117,7 +120,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property0.setText(String.format(Locale.getDefault(), "%-22s : %s", "Property Id", propertyUniqueId));
             parent.addView(tv_property0);
 
-            TextView tv_property1 = new TextView(getActivity());
+            TextView tv_property1 = new TextView(mContext);
             tv_property1.setAllCaps(false);
             tv_property1.setTypeface(Typeface.MONOSPACE);
             tv_property1.setTextSize(11.0f);
@@ -126,7 +129,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property1.setText(String.format(Locale.getDefault(), "%-22s : %s", "Owner", propertyOwner));
             parent.addView(tv_property1);
 
-            TextView tv_property2 = new TextView(getActivity());
+            TextView tv_property2 = new TextView(mContext);
             tv_property2.setAllCaps(false);
             tv_property2.setTypeface(Typeface.MONOSPACE);
             tv_property2.setTextSize(11.0f);
@@ -135,7 +138,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property2.setText(String.format(Locale.getDefault(), "%-22s : %s", "Occupier", propertyOccupierName));
             parent.addView(tv_property2);
 
-            TextView tv_property3 = new TextView(getActivity());
+            TextView tv_property3 = new TextView(mContext);
             tv_property3.setAllCaps(false);
             tv_property3.setTypeface(Typeface.MONOSPACE);
             tv_property3.setTextSize(11.0f);
@@ -144,7 +147,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property3.setText(String.format(Locale.getDefault(), "%-22s : %s", "Occupier Relation", propertyRelationOwner));
             parent.addView(tv_property3);
 
-            TextView tv_property4 = new TextView(getActivity());
+            TextView tv_property4 = new TextView(mContext);
             tv_property4.setAllCaps(false);
             tv_property4.setTypeface(Typeface.MONOSPACE);
             tv_property4.setTextSize(11.0f);
@@ -153,7 +156,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property4.setText(String.format(Locale.getDefault(), "%-22s : %s", "Sublocality", propertySublocality));
             parent.addView(tv_property4);
 
-            TextView tv_property5 = new TextView(getActivity());
+            TextView tv_property5 = new TextView(mContext);
             tv_property5.setAllCaps(false);
             tv_property5.setTypeface(Typeface.MONOSPACE);
             tv_property5.setTextSize(11.0f);
@@ -162,7 +165,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property5.setText(String.format(Locale.getDefault(), "%-22s : %s", "Email", email));
             parent.addView(tv_property5);
 
-            TextView tv_property6 = new TextView(getActivity());
+            TextView tv_property6 = new TextView(mContext);
             tv_property6.setAllCaps(false);
             tv_property6.setTypeface(Typeface.MONOSPACE);
             tv_property6.setTextSize(11.0f);
@@ -171,7 +174,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property6.setText(String.format(Locale.getDefault(), "%-22s : %s", "Phone", phone));
             parent.addView(tv_property6);
 
-            TextView tv_property7 = new TextView(getActivity());
+            TextView tv_property7 = new TextView(mContext);
             tv_property7.setAllCaps(false);
             tv_property7.setTypeface(Typeface.MONOSPACE);
             tv_property7.setTextSize(11.0f);
@@ -180,7 +183,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property7.setText(String.format(Locale.getDefault(), "%-22s : %s", "Landmark", propertyLandmark));
             parent.addView(tv_property7);
 
-            TextView tv_property8 = new TextView(getActivity());
+            TextView tv_property8 = new TextView(mContext);
             tv_property8.setAllCaps(false);
             tv_property8.setTextSize(11.0f);
             tv_property8.setTypeface(Typeface.MONOSPACE);
@@ -189,7 +192,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property8.setText(String.format(Locale.getDefault(), "%-22s : %s", "Plot Number", propertyPlotNo));
             parent.addView(tv_property8);
 
-            TextView tv_property9 = new TextView(getActivity());
+            TextView tv_property9 = new TextView(mContext);
             tv_property9.setAllCaps(false);
             tv_property9.setTypeface(Typeface.MONOSPACE);
             tv_property9.setTextSize(11.0f);
@@ -198,7 +201,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property9.setText(String.format(Locale.getDefault(), "%-22s : %s", "House Number", propertyHouseNo));
             parent.addView(tv_property9);
 
-            TextView tv_property10 = new TextView(getActivity());
+            TextView tv_property10 = new TextView(mContext);
             tv_property10.setTextSize(11.0f);
             tv_property10.setAllCaps(false);
             tv_property10.setTypeface(Typeface.MONOSPACE);
@@ -207,7 +210,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property10.setText(String.format(Locale.getDefault(), "%-22s : %s", "Road", propertyRoad));
             parent.addView(tv_property10);
 
-            TextView tv_property11 = new TextView(getActivity());
+            TextView tv_property11 = new TextView(mContext);
             tv_property11.setTextSize(11.0f);
             tv_property11.setAllCaps(false);
             tv_property11.setTypeface(Typeface.MONOSPACE);
@@ -216,7 +219,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_property11.setText(String.format(Locale.getDefault(), "%-22s : %s", "Pincode", propertyPincode));
             parent.addView(tv_property11);
 
-            TextView tv_property12 = new TextView(getActivity());
+            TextView tv_property12 = new TextView(mContext);
             tv_property12.setTextSize(11.0f);
             tv_property12.setAllCaps(false);
             tv_property12.setTypeface(Typeface.MONOSPACE);
@@ -228,13 +231,13 @@ public class PlaceHolderFragment extends Fragment {
 
         propertyCursor.close();
 
-        RelativeLayout relativeChild = new RelativeLayout(getActivity());
+        RelativeLayout relativeChild = new RelativeLayout(mContext);
         relativeChild.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         relativeChild.setBackgroundColor(getResources().getColor(R.color.gray));
         ((LinearLayout.LayoutParams) relativeChild.getLayoutParams()).gravity = Gravity.CENTER_VERTICAL;
         ((LinearLayout.LayoutParams) relativeChild.getLayoutParams()).bottomMargin = paddingBottom;
 
-        TextView taxDetailHeader = new TextView(getActivity());
+        TextView taxDetailHeader = new TextView(mContext);
         taxDetailHeader.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         RelativeLayout.LayoutParams taxDetailHeaderLayoutParams = (RelativeLayout.LayoutParams) taxDetailHeader.getLayoutParams();
         taxDetailHeaderLayoutParams.leftMargin = paddingLeft;
@@ -249,7 +252,7 @@ public class PlaceHolderFragment extends Fragment {
         taxDetailHeader.setAllCaps(false);
         taxDetailHeader.setText("Tax Details(Rs)");
 
-        final ImageView imageView = new ImageView(getActivity());
+        final ImageView imageView = new ImageView(mContext);
         imageView.setLayoutParams(new RelativeLayout.LayoutParams(dpToPixel(24), dpToPixel(24)));
         RelativeLayout.LayoutParams paramsImageView = (RelativeLayout.LayoutParams) imageView.getLayoutParams();
         paramsImageView.leftMargin = paddingLeft;
@@ -260,7 +263,7 @@ public class PlaceHolderFragment extends Fragment {
         imageView.setLayoutParams(paramsImageView);
         imageView.setImageDrawable(getResources().getDrawable(R.drawable.ic_add_circle_outline));
 
-        final LinearLayout linearChild = new LinearLayout(getActivity());
+        final LinearLayout linearChild = new LinearLayout(mContext);
         linearChild.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         linearChild.setOrientation(LinearLayout.VERTICAL);
         linearChild.setVisibility(View.GONE);
@@ -293,11 +296,11 @@ public class PlaceHolderFragment extends Fragment {
 
         taxdetailSelection.propertyid(getArguments().getString(PLACEHOLDER_KEY));
 
-        TaxdetailCursor taxdetailCursor = taxdetailSelection.query(getActivity().getContentResolver());
+        TaxdetailCursor taxdetailCursor = taxdetailSelection.query(mActivity.getContentResolver());
 
         if (taxdetailCursor.moveToFirst()) {
 
-            TextView tv_taxdetail0 = new TextView(getActivity());
+            TextView tv_taxdetail0 = new TextView(mContext);
             tv_taxdetail0.setAllCaps(false);
             tv_taxdetail0.setTextSize(11.0f);
             tv_taxdetail0.setTypeface(Typeface.MONOSPACE);
@@ -306,7 +309,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail0.setText(String.format(Locale.getDefault(), "%-22s : %s", "TaxNo", taxNo));
             linearChild.addView(tv_taxdetail0);
 
-            TextView tv_taxdetail01 = new TextView(getActivity());
+            TextView tv_taxdetail01 = new TextView(mContext);
             tv_taxdetail01.setTextSize(11.0f);
             tv_taxdetail01.setAllCaps(false);
             tv_taxdetail01.setTypeface(Typeface.MONOSPACE);
@@ -315,7 +318,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail01.setText(String.format(Locale.getDefault(), "%-22s : %s", "Financial Year", financialYear));
             linearChild.addView(tv_taxdetail01);
 
-            TextView tv_taxdetail02 = new TextView(getActivity());
+            TextView tv_taxdetail02 = new TextView(mContext);
             tv_taxdetail02.setTextSize(11.0f);
             tv_taxdetail02.setAllCaps(false);
             tv_taxdetail02.setTypeface(Typeface.MONOSPACE);
@@ -324,7 +327,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail02.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Tax(Rs)", Double.parseDouble(propertyTax)));
             linearChild.addView(tv_taxdetail02);
 
-            TextView tv_taxdetail03 = new TextView(getActivity());
+            TextView tv_taxdetail03 = new TextView(mContext);
             tv_taxdetail03.setTextSize(11.0f);
             tv_taxdetail03.setAllCaps(false);
             tv_taxdetail03.setTypeface(Typeface.MONOSPACE);
@@ -333,7 +336,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail03.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Tax(Rs)", Double.parseDouble(waterTax)));
             linearChild.addView(tv_taxdetail03);
 
-            TextView tv_taxdetail04 = new TextView(getActivity());
+            TextView tv_taxdetail04 = new TextView(mContext);
             tv_taxdetail04.setTextSize(11.0f);
             tv_taxdetail04.setAllCaps(false);
             tv_taxdetail04.setTypeface(Typeface.MONOSPACE);
@@ -342,7 +345,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail04.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Conservancy Tax(Rs)", Double.parseDouble(conservancyTax)));
             linearChild.addView(tv_taxdetail04);
 
-            TextView tv_taxdetail05 = new TextView(getActivity());
+            TextView tv_taxdetail05 = new TextView(mContext);
             tv_taxdetail05.setTextSize(11.0f);
             tv_taxdetail05.setAllCaps(false);
             tv_taxdetail05.setTypeface(Typeface.MONOSPACE);
@@ -351,7 +354,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail05.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Sewerage Charge(Rs)", Double.parseDouble(waterSewerageCharge)));
             linearChild.addView(tv_taxdetail05);
 
-            TextView tv_taxdetail06 = new TextView(getActivity());
+            TextView tv_taxdetail06 = new TextView(mContext);
             tv_taxdetail06.setTextSize(11.0f);
             tv_taxdetail06.setAllCaps(false);
             tv_taxdetail06.setTypeface(Typeface.MONOSPACE);
@@ -360,7 +363,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail06.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Water Bill Amount(Rs)", Double.parseDouble(waterMeterBillAmount)));
             linearChild.addView(tv_taxdetail06);
 
-            TextView tv_taxdetail07 = new TextView(getActivity());
+            TextView tv_taxdetail07 = new TextView(mContext);
             tv_taxdetail07.setTextSize(11.0f);
             tv_taxdetail07.setAllCaps(false);
             tv_taxdetail07.setTypeface(Typeface.MONOSPACE);
@@ -370,7 +373,7 @@ public class PlaceHolderFragment extends Fragment {
             linearChild.addView(tv_taxdetail07);
 
 
-            TextView tv_taxdetail08 = new TextView(getActivity());
+            TextView tv_taxdetail08 = new TextView(mContext);
             tv_taxdetail08.setTextSize(11.0f);
             tv_taxdetail08.setAllCaps(false);
             tv_taxdetail08.setTypeface(Typeface.MONOSPACE);
@@ -379,7 +382,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail08.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Advance Paid Amount(Rs)", Double.parseDouble(advancePaidAmount)));
             linearChild.addView(tv_taxdetail08);
 
-            TextView tv_taxdetail09 = new TextView(getActivity());
+            TextView tv_taxdetail09 = new TextView(mContext);
             tv_taxdetail09.setTextSize(11.0f);
             tv_taxdetail09.setAllCaps(false);
             tv_taxdetail09.setTypeface(Typeface.MONOSPACE);
@@ -388,7 +391,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail09.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Rebate Amount (Rs)", Double.parseDouble(rebateAmount)));
             linearChild.addView(tv_taxdetail09);
 
-            TextView tv_taxdetail10 = new TextView(getActivity());
+            TextView tv_taxdetail10 = new TextView(mContext);
             tv_taxdetail10.setTextSize(11.0f);
             tv_taxdetail10.setAllCaps(false);
             tv_taxdetail10.setTypeface(Typeface.MONOSPACE);
@@ -397,7 +400,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail10.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Adjustment Amount(Rs)", Double.parseDouble(adjustmentAmount)));
             linearChild.addView(tv_taxdetail10);
 
-            TextView tv_taxdetail11 = new TextView(getActivity());
+            TextView tv_taxdetail11 = new TextView(mContext);
             tv_taxdetail11.setTextSize(11.0f);
             tv_taxdetail11.setAllCaps(false);
             tv_taxdetail11.setTypeface(Typeface.MONOSPACE);
@@ -406,7 +409,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail11.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Total Property Tax (Rs)", Double.parseDouble(totalPropertyTax)));
             linearChild.addView(tv_taxdetail11);
 
-            TextView tv_taxdetail12 = new TextView(getActivity());
+            TextView tv_taxdetail12 = new TextView(mContext);
             tv_taxdetail12.setTextSize(11.0f);
             tv_taxdetail12.setAllCaps(false);
             tv_taxdetail12.setTypeface(Typeface.MONOSPACE);
@@ -415,7 +418,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail12.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Service Tax(Rs)", Double.parseDouble(serviceTax)));
             linearChild.addView(tv_taxdetail12);
 
-            TextView tv_taxdetail13 = new TextView(getActivity());
+            TextView tv_taxdetail13 = new TextView(mContext);
             tv_taxdetail13.setTextSize(11.0f);
             tv_taxdetail13.setAllCaps(false);
             tv_taxdetail13.setTypeface(Typeface.MONOSPACE);
@@ -424,7 +427,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail13.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Other Tax(Rs)", Double.parseDouble(otherTax)));
             linearChild.addView(tv_taxdetail13);
 
-            TextView tv_taxdetail14 = new TextView(getActivity());
+            TextView tv_taxdetail14 = new TextView(mContext);
             tv_taxdetail14.setTextSize(11.0f);
             tv_taxdetail14.setAllCaps(false);
             tv_taxdetail14.setTypeface(Typeface.MONOSPACE);
@@ -433,7 +436,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail14.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Grand Total(Rs)", Double.parseDouble(grandTotal)));
             linearChild.addView(tv_taxdetail14);
 
-            TextView tv_taxdetail15 = new TextView(getActivity());
+            TextView tv_taxdetail15 = new TextView(mContext);
             tv_taxdetail15.setTextSize(11.0f);
             tv_taxdetail15.setAllCaps(false);
             tv_taxdetail15.setTypeface(Typeface.MONOSPACE);
@@ -442,7 +445,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail15.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Delayed Payment Charges(Rs)", Double.parseDouble(delayPaymentCharges)));
             linearChild.addView(tv_taxdetail15);
 
-            TextView tv_taxdetail16 = new TextView(getActivity());
+            TextView tv_taxdetail16 = new TextView(mContext);
             tv_taxdetail16.setTextSize(11.0f);
             tv_taxdetail16.setAllCaps(false);
             tv_taxdetail16.setTypeface(Typeface.MONOSPACE);
@@ -451,7 +454,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail16.setText(String.format(Locale.getDefault(), "%-22s : %.2f", "Payable Amount(Rs)", Double.parseDouble(payableAmount)));
             linearChild.addView(tv_taxdetail16);
 
-            TextView tv_taxdetail17 = new TextView(getActivity());
+            TextView tv_taxdetail17 = new TextView(mContext);
             tv_taxdetail17.setTextSize(11.0f);
             tv_taxdetail17.setAllCaps(false);
             tv_taxdetail17.setTypeface(Typeface.MONOSPACE);
@@ -460,7 +463,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail17.setText(String.format(Locale.getDefault(), "%-22s : %s", "DueDate", DateTimeUtils.getFormattedDatefromLong(Long.parseLong(dueDate))));
             linearChild.addView(tv_taxdetail17);
 
-            TextView tv_taxdetail18 = new TextView(getActivity());
+            TextView tv_taxdetail18 = new TextView(mContext);
             tv_taxdetail18.setTextSize(11.0f);
             tv_taxdetail18.setAllCaps(false);
             tv_taxdetail18.setTypeface(Typeface.MONOSPACE);
@@ -469,7 +472,7 @@ public class PlaceHolderFragment extends Fragment {
             tv_taxdetail18.setText(String.format(Locale.getDefault(), "%-22s : %s", "Notice Generated", noticeGenerated));
             linearChild.addView(tv_taxdetail18);
 
-            TextView tv_taxdetail19 = new TextView(getActivity());
+            TextView tv_taxdetail19 = new TextView(mContext);
             tv_taxdetail19.setTextSize(11.0f);
             tv_taxdetail19.setAllCaps(false);
             tv_taxdetail19.setTypeface(Typeface.MONOSPACE);
@@ -502,4 +505,14 @@ public class PlaceHolderFragment extends Fragment {
         return (int) (dp * scale + 0.5f);
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            this.mContext = context;
+            this.mActivity = (ResultsActivity) context;
+        } catch (Exception e) {
+            throw new ClassCastException("must be an instance of ResultsActivity");
+        }
+    }
 }

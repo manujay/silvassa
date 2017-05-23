@@ -100,7 +100,7 @@ public class PaymentActivity extends BaseActivity {
 //            }
 //        });
 
-        mEditText.setHint(String.format(Locale.getDefault(), "%.2f", null != payableAmount && !payableAmount.isEmpty() ? Double.parseDouble(payableAmount) : 0));
+        mEditText.setHint(String.format(Locale.getDefault(), "%.2f INR", null != payableAmount && !payableAmount.isEmpty() ? Double.parseDouble(payableAmount) : 0));
 
         ((RadioButton) rgPtop.findViewById(R.id.rb_pmode_cash)).setChecked(true);
 

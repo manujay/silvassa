@@ -7,10 +7,10 @@
     android:drawableEnd="@drawable/ic_expand_more"
     android:drawableRight="@drawable/ic_expand_more"
     android:paddingBottom="@dimen/padding_large"
-    android:paddingEnd="@dimen/padding_small"
-    android:paddingLeft="@dimen/padding_small"
-    android:paddingRight="@dimen/padding_small"
-    android:paddingStart="@dimen/padding_small"
+    android:paddingEnd="@dimen/padding_large"
+    android:paddingLeft="@dimen/padding_large"
+    android:paddingRight="@dimen/padding_large"
+    android:paddingStart="@dimen/padding_large"
     android:paddingTop="@dimen/padding_large">
 
 </android.support.v7.widget.AppCompatTextView>

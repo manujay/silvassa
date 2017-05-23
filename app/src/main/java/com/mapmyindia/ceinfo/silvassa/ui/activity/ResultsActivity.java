@@ -18,10 +18,11 @@ import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.FilterQueryProvider;
 import android.widget.TextView;
 
 import com.mapmyindia.ceinfo.silvassa.R;
+import com.mapmyindia.ceinfo.silvassa.adapter.FilterableRecyclerAdapter;
+import com.mapmyindia.ceinfo.silvassa.adapter.Model;
 import com.mapmyindia.ceinfo.silvassa.adapter.ResultsCursorAdapter;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyColumns;
 import com.mapmyindia.ceinfo.silvassa.provider.property.PropertyCursor;
@@ -32,6 +33,8 @@ import com.mapmyindia.ceinfo.silvassa.utils.RecyclerItemClickListener;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
 import com.mapmyindia.ceinfo.silvassa.utils.ViewUtils;
+
+import java.util.ArrayList;
 
 /**
  * Created by ceinfo on 01-03-2017.
@@ -44,6 +47,7 @@ public class ResultsActivity extends BaseActivity {
     private String zoneId, occupier, owner, propertyId;
     private RecyclerView recyclerView;
     private ResultsCursorAdapter resultsCursorAdapter;
+    private FilterableRecyclerAdapter filterableRecyclerAdapter;
     private AppCompatEditText mSearchableEditText;
 
     @Override
@@ -79,43 +83,60 @@ public class ResultsActivity extends BaseActivity {
 
     }
 
-    private void setfilterQueryProvider() {
-        resultsCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
-
-            @Override
-            public Cursor runQuery(CharSequence constraint) {
-
-                PropertySelection selection = new PropertySelection();
-
-                if (constraint.length() > 0) {
-                    selection.propertyuniqueidContains(constraint.toString().toLowerCase())
-                            .or().propertyownerContains(constraint.toString().toLowerCase())
-                            .or().propertyoccupiernameContains(constraint.toString().toLowerCase())
-                            .or().propertybuildingnameContains(constraint.toString().toLowerCase())
-                            .or().propertyhousenoContains(constraint.toString().toLowerCase());
-                    return selection.query(getContentResolver());
-                }
-
-                if (!StringUtils.isNullOrEmpty(zoneId)) {
-                    selection.zoneidContains(zoneId);
-                }
-
-                if (!StringUtils.isNullOrEmpty(propertyId)) {
-                    selection.and().propertyuniqueidContains(propertyId);
-                }
-
-                if (!StringUtils.isNullOrEmpty(owner)) {
-                    selection.and().propertyownerContains(owner);
-                }
-
-                if (!StringUtils.isNullOrEmpty(occupier)) {
-                    selection.and().propertyoccupiernameContains(occupier);
-                }
-
-                return selection.query(getContentResolver());
-            }
-        });
-    }
+//    private void setfilterQueryProvider() {
+//        resultsCursorAdapter.setFilterQueryProvider(new FilterQueryProvider() {
+//
+//            @Override
+//            public Cursor runQuery(CharSequence constraint) {
+//
+//                PropertySelection selection = new PropertySelection();
+//
+//                if (constraint.length() > 0) {
+//                    selection.propertyuniqueidContains(constraint.toString().toLowerCase())
+//                            .or().propertyownerContains(constraint.toString().toLowerCase())
+//                            .or().propertyoccupiernameContains(constraint.toString().toLowerCase())
+//                            .or().propertybuildingnameContains(constraint.toString().toLowerCase())
+//                            .or().propertyhousenoContains(constraint.toString().toLowerCase());
+//
+//                    if (!StringUtils.isNullOrEmpty(zoneId)) {
+//                        selection.and().zoneidContains(zoneId);
+//                    }
+//
+//                    if (!StringUtils.isNullOrEmpty(propertyId)) {
+//                        selection.and().propertyuniqueidContains(propertyId);
+//                    }
+//
+//                    if (!StringUtils.isNullOrEmpty(owner)) {
+//                        selection.and().propertyownerContains(owner);
+//                    }
+//
+//                    if (!StringUtils.isNullOrEmpty(occupier)) {
+//                        selection.and().propertyoccupiernameContains(occupier);
+//                    }
+//
+//                } else {
+//
+//                    if (!StringUtils.isNullOrEmpty(zoneId)) {
+//                        selection.zoneidContains(zoneId);
+//                    }
+//
+//                    if (!StringUtils.isNullOrEmpty(propertyId)) {
+//                        selection.and().propertyuniqueidContains(propertyId);
+//                    }
+//
+//                    if (!StringUtils.isNullOrEmpty(owner)) {
+//                        selection.and().propertyownerContains(owner);
+//                    }
+//
+//                    if (!StringUtils.isNullOrEmpty(occupier)) {
+//                        selection.and().propertyoccupiernameContains(occupier);
+//                    }
+//                }
+//
+//                return selection.query(getContentResolver());
+//            }
+//        });
+//    }
 
     @Override
     protected void onDestroy() {
@@ -129,7 +150,19 @@ public class ResultsActivity extends BaseActivity {
         getSupportLoaderManager().initLoader(INIT_RESULTS_LOADER, null, new LoaderManager.LoaderCallbacks<Cursor>() {
             @Override
             public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+
+                String[] projection = {
+                        PropertyColumns._ID,
+                        PropertyColumns.ZONEID,
+                        PropertyColumns.PROPERTYUNIQUEID,
+                        PropertyColumns.PROPERTYOWNER,
+                        PropertyColumns.PROPERTYOCCUPIERNAME,
+                        PropertyColumns.PROPERTYBUILDINGNAME,
+                        PropertyColumns.PROPERTYHOUSENO
+                };
+
                 PropertySelection selection = new PropertySelection();
+
 
                 if (!StringUtils.isNullOrEmpty(zoneId)) {
                     selection.zoneidContains(zoneId);
@@ -147,18 +180,40 @@ public class ResultsActivity extends BaseActivity {
                     selection.and().propertyoccupiernameContains(occupier);
                 }
 
-                return selection.getCursorLoader(ResultsActivity.this);
+                return selection.getCursorLoader(ResultsActivity.this, projection);
             }
 
             @Override
             public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
                 PropertyCursor cursor = new PropertyCursor(data);
 
-                if (null == resultsCursorAdapter) {
-                    resultsCursorAdapter = new ResultsCursorAdapter(cursor);
-                    recyclerView.setAdapter(resultsCursorAdapter);
-                    setfilterQueryProvider();
+                ArrayList<Model> modelArrayList = new ArrayList<Model>();
+
+                cursor.moveToFirst();
+
+                while (!cursor.isAfterLast()) {
+                    Model model = new Model();
+                    model.setPropUniqueId(cursor.getPropertyuniqueid());
+                    model.setOwner(cursor.getPropertyowner());
+                    model.setOccupier(cursor.getPropertyoccupiername());
+                    model.setHouseNo(cursor.getPropertyhouseno());
+                    model.setBuilding(cursor.getPropertybuildingname());
+                    modelArrayList.add(model);
+
+                    cursor.moveToNext();
                 }
+
+                if (null == filterableRecyclerAdapter) {
+                    filterableRecyclerAdapter = new FilterableRecyclerAdapter(ResultsActivity.this, modelArrayList);
+                    recyclerView.setAdapter(filterableRecyclerAdapter);
+                }
+
+//                if (null == resultsCursorAdapter) {
+//                    resultsCursorAdapter = new ResultsCursorAdapter(cursor);
+//                    recyclerView.setAdapter(resultsCursorAdapter);
+//                    setfilterQueryProvider();
+//                }
 
                 /* handle empty results */
 
@@ -195,12 +250,16 @@ public class ResultsActivity extends BaseActivity {
                     mSearchableEditText.setVisibility(View.GONE);
                 }
 
-                resultsCursorAdapter.changeCursor(cursor);
+                if (!cursor.isClosed()) {
+                    cursor.close();
+                }
+
+//                resultsCursorAdapter.changeCursor(cursor);
             }
 
             @Override
             public void onLoaderReset(Loader<Cursor> loader) {
-                resultsCursorAdapter.swapCursor(null);
+//                resultsCursorAdapter.swapCursor(null);
             }
         });
     }
@@ -225,11 +284,11 @@ public class ResultsActivity extends BaseActivity {
 
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
 
-        resultsCursorAdapter = new ResultsCursorAdapter(null);
-
-        setfilterQueryProvider();
-
-        recyclerView.setAdapter(resultsCursorAdapter);
+//        resultsCursorAdapter = new ResultsCursorAdapter(null);
+//
+//        setfilterQueryProvider();
+//
+//        recyclerView.setAdapter(resultsCursorAdapter);
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -256,7 +315,8 @@ public class ResultsActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                resultsCursorAdapter.getFilter().filter(s.toString());
+//                resultsCursorAdapter.getFilter().filter(s.toString());
+                filterableRecyclerAdapter.getFilter().filter(s.toString());
             }
         });
 
@@ -302,13 +362,9 @@ public class ResultsActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-
-        if (getSupportFragmentManager().getBackStackEntryCount() > 1)
-            getSupportFragmentManager().popBackStack();
-
-        if (null != resultsCursorAdapter && resultsCursorAdapter.getItemCount() == 1) {
+        if (null != filterableRecyclerAdapter && filterableRecyclerAdapter.getItemCount() == 1)
             finish();
-        } else
+        else
             super.onBackPressed();
     }
 

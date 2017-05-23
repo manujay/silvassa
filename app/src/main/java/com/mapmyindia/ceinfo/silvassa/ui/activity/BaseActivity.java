@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.ui.activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -28,6 +29,17 @@ public abstract class BaseActivity extends AppCompatActivity implements Snackbar
     }
 
     private static void showSnackBarLong(View view, String mesg, final SnackbarActionListener listener) {
+
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.JELLY_BEAN) {
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            view.setSystemUiVisibility(uiOptions);
+        } else {
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
+            view.setSystemUiVisibility(uiOptions);
+        }
+
+
         Snackbar.make(view, mesg, Snackbar.LENGTH_INDEFINITE).setAction("OK", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
