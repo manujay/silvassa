@@ -68,7 +68,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
             if (!Connectivity.isConnected(this)) {
-                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false, null);
+                showToast(SyncSearchActivity.this, getString(R.string.error_network));
             } else {
                 showProgress(true);
 
@@ -128,7 +128,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onClick(View v) {
                 if (!Connectivity.isConnected(SyncSearchActivity.this)) {
-                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false, null);
+                    showToast(SyncSearchActivity.this, getString(R.string.error_network));
                 } else {
                     doSync();
                 }
@@ -326,7 +326,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                 public void onSyncError(String msg) {
                     showProgress(false);
                     Logger.e(TAG, " @onSyncError: " + msg);
-                    showSnackBarLong(getWindow().getDecorView(), msg, true, null);
+                    showToast(SyncSearchActivity.this, msg);
                 }
             }, payload);
 
@@ -428,7 +428,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
     @Override
     public void onBackPressed() {
         if (!isBackPressed) {
-            showSnackBarLong(getWindow().getDecorView(), "Press Again to Exit", true, null);
+            showToast(SyncSearchActivity.this, "Press Again to Exit");
             isBackPressed = true;
         } else {
             super.onBackPressed();

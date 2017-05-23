@@ -144,7 +144,7 @@ public class LoginActivity extends BaseActivity {
         if (isvalid) {
 
             if (!Connectivity.isConnected(LoginActivity.this)) {  //online login
-                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), false, null);
+                showToast(LoginActivity.this, getString(R.string.error_network));
             } else {
                 attemptLogin(userId, paswd);
             }
@@ -190,7 +190,7 @@ public class LoginActivity extends BaseActivity {
                         }
 
                         if (!StringUtils.isNullOrEmpty(message) && Status != ApiCodes.STATUS_200) {
-                            showSnackBarLong(getWindow().getDecorView(), message, false, null);
+                            showToast(LoginActivity.this, message);
                             return;
                         }
 
@@ -216,7 +216,7 @@ public class LoginActivity extends BaseActivity {
                     }
 
                 } else {
-                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network_connectivity), true, null);
+                    showToast(LoginActivity.this, getString(R.string.error_network_connectivity));
                     Logger.e(TAG, " @attemptLogin : FAILURE : REQUEST " + call.request() + " ERROR: " + response.message());
                 }
 
@@ -234,7 +234,7 @@ public class LoginActivity extends BaseActivity {
                         throw new Exception(t.getMessage());
                     }
                 } catch (Exception e) {
-                    showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network_connectivity), true, null);
+                    showToast(LoginActivity.this, getString(R.string.error_network_connectivity));
                     e.printStackTrace();
                 }
             }

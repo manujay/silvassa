@@ -34,7 +34,7 @@ public class SplashActivity extends BaseActivity {
 
         if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
             if (!Connectivity.isConnected(this)) {
-                showSnackBarLong(getWindow().getDecorView(), getString(R.string.error_network), true, this);
+                showToast(SplashActivity.this, getString(R.string.error_network));
             } else {
 
                 showProgress(true);
@@ -50,7 +50,7 @@ public class SplashActivity extends BaseActivity {
                     public void onError(String msg) {
                         showProgress(false);
                         Logger.e(TAG, " @ZoneProvider.onError ", msg);
-                        showSnackBarLong(getWindow().getDecorView(), msg, true, null);
+                        showToast(SplashActivity.this, msg);
                     }
                 });
 
