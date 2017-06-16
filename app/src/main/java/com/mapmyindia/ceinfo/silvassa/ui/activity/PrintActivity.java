@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -73,6 +74,18 @@ public class PrintActivity extends BaseActivity {
             ((TextView) findViewById(R.id.print_tv)).setTextColor(getResources().getColor(R.color.login_color));
             ((TextView) findViewById(R.id.print_tv)).setText(R.string.error_payment);
         }
+
+        findViewById(R.id.et_print_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(PrintActivity.this, WebViewActivity.class);
+                Bundle extras = new Bundle();
+                extras.putString(INTENT_PARAMETERS._PREFILL_PROPERTYID, propertyId);
+                extras.putLong(INTENT_PARAMETERS._PREFILL_PAYMENTID, paymentId);
+                intent.putExtras(extras);
+                startActivityForIntent(intent);
+            }
+        });
 
     }
 
@@ -158,36 +171,44 @@ public class PrintActivity extends BaseActivity {
             textView5.setText(String.format(Locale.getDefault(), "%-22s : %s", "Date of Payment", DateTimeUtils.getFormattedDatefromLong(Long.parseLong(Pdate))));
 
             TextView textView6 = new TextView(this);
-            textView5.setAllCaps(false);
-            textView5.setTypeface(Typeface.MONOSPACE);
-            textView5.setTextSize(11.0f);
-            textView5.setLayoutParams(tv_params);
-            String Mode = paymentCursor.getStringOrNull(PaymentColumns.MODE) == null ? "" : paymentCursor.getStringOrNull(PaymentColumns.MODE);
-            textView5.setText(String.format(Locale.getDefault(), "%-22s : %s", "Mode of Payment", Mode));
-
-            TextView textView7 = new TextView(this);
             textView6.setAllCaps(false);
             textView6.setTypeface(Typeface.MONOSPACE);
             textView6.setTextSize(11.0f);
             textView6.setLayoutParams(tv_params);
-            String taxNo = taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO);
-            textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", "Tax Number", taxNo));
+            String Mode = paymentCursor.getStringOrNull(PaymentColumns.MODE) == null ? "" : paymentCursor.getStringOrNull(PaymentColumns.MODE);
+            textView6.setText(String.format(Locale.getDefault(), "%-22s : %s", "Mode of Payment", Mode));
 
-            TextView textView8 = new TextView(this);
+            TextView textView7 = new TextView(this);
             textView7.setAllCaps(false);
             textView7.setTypeface(Typeface.MONOSPACE);
             textView7.setTextSize(11.0f);
             textView7.setLayoutParams(tv_params);
-            String phone = propertyCursor.getStringOrNull(PropertyColumns.PHONE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PHONE);
-            textView7.setText(String.format(Locale.getDefault(), "%-22s : %s", "Phone", phone));
+            String taxNo = taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO) == null ? "" : taxdetailCursor.getStringOrNull(TaxdetailColumns.TAXNO);
+            textView7.setText(String.format(Locale.getDefault(), "%-22s : %s", "Tax Number", taxNo));
 
-            TextView textView9 = new TextView(this);
+            TextView textView8 = new TextView(this);
             textView8.setAllCaps(false);
             textView8.setTypeface(Typeface.MONOSPACE);
             textView8.setTextSize(11.0f);
             textView8.setLayoutParams(tv_params);
+            String phone = propertyCursor.getStringOrNull(PropertyColumns.PHONE) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.PHONE);
+            textView8.setText(String.format(Locale.getDefault(), "%-22s : %s", "Phone", phone));
+
+            TextView textView9 = new TextView(this);
+            textView9.setAllCaps(false);
+            textView9.setTypeface(Typeface.MONOSPACE);
+            textView9.setTextSize(11.0f);
+            textView9.setLayoutParams(tv_params);
             String email = propertyCursor.getStringOrNull(PropertyColumns.EMAIL) == null ? "" : propertyCursor.getStringOrNull(PropertyColumns.EMAIL);
-            textView8.setText(String.format(Locale.getDefault(), "%-22s : %s", "Email", email));
+            textView9.setText(String.format(Locale.getDefault(), "%-22s : %s", "Email", email));
+
+            TextView textView10 = new TextView(this);
+            textView10.setAllCaps(false);
+            textView10.setTypeface(Typeface.MONOSPACE);
+            textView10.setTextSize(11.0f);
+            textView10.setLayoutParams(tv_params);
+            String cheque = paymentCursor.getStringOrNull(PaymentColumns.CHEQUE) == null ? "" : paymentCursor.getStringOrNull(PaymentColumns.CHEQUE);
+            textView10.setText(String.format(Locale.getDefault(), "%-22s : %s", "Cheque/DD", cheque));
 
             linear_parent.addView(textView0);
             linear_parent.addView(textView1);
@@ -199,6 +220,11 @@ public class PrintActivity extends BaseActivity {
             linear_parent.addView(textView7);
             linear_parent.addView(textView8);
             linear_parent.addView(textView9);
+            linear_parent.addView(textView10);
+
+            paymentCursor.close();
+            propertyCursor.close();
+            taxdetailCursor.close();
         }
     }
 

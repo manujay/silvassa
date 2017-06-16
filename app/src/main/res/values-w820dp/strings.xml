@@ -34,4 +34,6 @@
     <string name="string_hint_search_owner">Search Owner Name</string>
     <string name="string_hint_search_occupier">Search Occupier Name</string>
     <string name="string_hint_search_property">Search Property Id</string>
+    <string name="push">Push</string>
+    <string name="string_close">Close</string>
 </resources>

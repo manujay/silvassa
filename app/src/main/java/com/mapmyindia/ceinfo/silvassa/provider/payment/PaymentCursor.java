@@ -4,6 +4,7 @@ package com.mapmyindia.ceinfo.silvassa.provider.payment;
 
 import android.database.Cursor;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapmyindia.ceinfo.silvassa.provider.base.AbstractCursor;
 
@@ -41,7 +42,7 @@ public class PaymentCursor extends AbstractCursor implements PaymentModel {
     }
 
     /**
-     * propertyUniqueId.
+     * PropertyUniqueId.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -67,7 +68,7 @@ public class PaymentCursor extends AbstractCursor implements PaymentModel {
     }
 
     /**
-     * mode
+     * Mode
      * Cannot be {@code null}.
      */
     @NonNull
@@ -76,6 +77,17 @@ public class PaymentCursor extends AbstractCursor implements PaymentModel {
         String res = getStringOrNull(PaymentColumns.MODE);
         if (res == null)
             throw new NullPointerException("The value of 'mode' in the database was null, which is not allowed according to the model definition");
+        return res;
+    }
+
+    /**
+     * Cheque
+     * Can be {@code null}.
+     */
+    @Nullable
+    @Override
+    public String getCheque() {
+        String res = getStringOrNull(PaymentColumns.CHEQUE);
         return res;
     }
 

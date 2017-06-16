@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'Silvassa'
             keyPassword 'mapmyindia'
-            storeFile file('D:/AndroidWorkSpace/Silvassa/silvassa_keystore.jks')
+            storeFile file('E:/AndroidWorkSpaceManujay_May2015/Silvassa/silvassa_keystore.jks')
             storePassword 'mapmyindia'
         }
     }

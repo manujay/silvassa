@@ -45,6 +45,7 @@ public class SampleSQLiteOpenHelper extends SQLiteOpenHelper {
             + PaymentColumns.PROPERTYUNIQUEID + " TEXT NOT NULL, "
             + PaymentColumns.TAXNO + " TEXT NOT NULL, "
             + PaymentColumns.MODE + " TEXT NOT NULL, "
+            + PaymentColumns.CHEQUE + " TEXT, "
             + PaymentColumns.AMOUNT + " TEXT NOT NULL, "
             + PaymentColumns.PDATE + " TEXT NOT NULL "
             + " );";

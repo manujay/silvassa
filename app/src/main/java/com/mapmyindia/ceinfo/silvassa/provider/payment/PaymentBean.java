@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.provider.payment;
 // @formatter:off
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * Payment Table Schema
@@ -14,6 +15,7 @@ public class PaymentBean implements PaymentModel {
     private String mPropertyuniqueid;
     private String mTaxno;
     private String mMode;
+    private String mCheque;
     private String mAmount;
     private String mPdate;
 
@@ -21,7 +23,7 @@ public class PaymentBean implements PaymentModel {
      * Instantiate a new PaymentBean with specified values.
      */
     @NonNull
-    public static PaymentBean newInstance(long id, @NonNull String userid, @NonNull String propertyuniqueid, @NonNull String taxno, @NonNull String mode, @NonNull String amount, @NonNull String pdate) {
+    public static PaymentBean newInstance(long id, @NonNull String userid, @NonNull String propertyuniqueid, @NonNull String taxno, @NonNull String mode, @Nullable String cheque, @NonNull String amount, @NonNull String pdate) {
         if (userid == null) throw new IllegalArgumentException("userid must not be null");
         if (propertyuniqueid == null)
             throw new IllegalArgumentException("propertyuniqueid must not be null");
@@ -35,6 +37,7 @@ public class PaymentBean implements PaymentModel {
         res.mPropertyuniqueid = propertyuniqueid;
         res.mTaxno = taxno;
         res.mMode = mode;
+        res.mCheque = cheque;
         res.mAmount = amount;
         res.mPdate = pdate;
         return res;
@@ -51,6 +54,7 @@ public class PaymentBean implements PaymentModel {
         res.mPropertyuniqueid = from.getPropertyuniqueid();
         res.mTaxno = from.getTaxno();
         res.mMode = from.getMode();
+        res.mCheque = from.getCheque();
         res.mAmount = from.getAmount();
         res.mPdate = from.getPdate();
         return res;
@@ -95,7 +99,7 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
-     * propertyUniqueId.
+     * PropertyUniqueId.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -105,7 +109,7 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
-     * propertyUniqueId.
+     * PropertyUniqueId.
      * Must not be {@code null}.
      */
     public void setPropertyuniqueid(@NonNull String propertyuniqueid) {
@@ -134,7 +138,7 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
-     * mode
+     * Mode
      * Cannot be {@code null}.
      */
     @NonNull
@@ -144,12 +148,30 @@ public class PaymentBean implements PaymentModel {
     }
 
     /**
-     * mode
+     * Mode
      * Must not be {@code null}.
      */
     public void setMode(@NonNull String mode) {
         if (mode == null) throw new IllegalArgumentException("mode must not be null");
         mMode = mode;
+    }
+
+    /**
+     * Cheque
+     * Can be {@code null}.
+     */
+    @Nullable
+    @Override
+    public String getCheque() {
+        return mCheque;
+    }
+
+    /**
+     * Cheque
+     * Can be {@code null}.
+     */
+    public void setCheque(@Nullable String cheque) {
+        mCheque = cheque;
     }
 
     /**
@@ -225,7 +247,7 @@ public class PaymentBean implements PaymentModel {
         }
 
         /**
-         * propertyUniqueId.
+         * PropertyUniqueId.
          * Must not be {@code null}.
          */
         public Builder propertyuniqueid(@NonNull String propertyuniqueid) {
@@ -246,12 +268,21 @@ public class PaymentBean implements PaymentModel {
         }
 
         /**
-         * mode
+         * Mode
          * Must not be {@code null}.
          */
         public Builder mode(@NonNull String mode) {
             if (mode == null) throw new IllegalArgumentException("mode must not be null");
             mRes.mMode = mode;
+            return this;
+        }
+
+        /**
+         * Cheque
+         * Can be {@code null}.
+         */
+        public Builder cheque(@Nullable String cheque) {
+            mRes.mCheque = cheque;
             return this;
         }
 

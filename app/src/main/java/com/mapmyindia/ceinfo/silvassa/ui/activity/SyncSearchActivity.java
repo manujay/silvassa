@@ -31,7 +31,6 @@ import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.zone.ZoneSelection;
 import com.mapmyindia.ceinfo.silvassa.service.SyncService;
 import com.mapmyindia.ceinfo.silvassa.sync.SyncProvider;
-import com.mapmyindia.ceinfo.silvassa.sync.ZoneProvider;
 import com.mapmyindia.ceinfo.silvassa.utils.Connectivity;
 import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
@@ -57,36 +56,14 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
     private ProgressBar progressBar;
     private LayoutActivitySyncsearchBinding binding;
     private SyncSpinnerAdapter spinnerAdapter;
+    private boolean hasZone = false;
 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         binding = DataBindingUtil.setContentView(this, R.layout.layout_activity_syncsearch);
 
         findViewByIDs();
-
-        if (StringUtils.isNullOrEmpty(SharedPrefeHelper.getZoneId(this))) {
-            if (!Connectivity.isConnected(this)) {
-                showToast(SyncSearchActivity.this, getString(R.string.error_network));
-            } else {
-                showProgress(true);
-
-                ZoneProvider.getInstance(this).GetZone(new ZoneProvider.GetZoneListener() {
-                    @Override
-                    public void onSuccess(String msg) {
-                        showProgress(false);
-                        showToast(SyncSearchActivity.this, msg);
-                    }
-
-                    @Override
-                    public void onError(String msg) {
-                        showProgress(false);
-                        showToast(SyncSearchActivity.this, getString(R.string.error_sync_failed_response));
-                    }
-                });
-            }
-        }
     }
 
     @Override
@@ -130,7 +107,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
                 if (!Connectivity.isConnected(SyncSearchActivity.this)) {
                     showToast(SyncSearchActivity.this, getString(R.string.error_network));
                 } else {
-                    doSync();
+                    doPublish();
                 }
             }
         });
@@ -143,10 +120,19 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                ZoneCursor cursor = ((ZoneCursor) ((SyncSpinnerAdapter) parent.getAdapter()).getCursor());
+                hasZone = position > -1;
 
-                if (cursor.moveToFirst())
+                if (hasZone) {
+                    ZoneCursor cursor = ((ZoneCursor) ((SyncSpinnerAdapter) parent.getAdapter()).getCursor());
                     SharedPrefeHelper.setZoneId(SyncSearchActivity.this, cursor.getZoneid());
+
+                    PropertySelection selection = new PropertySelection();
+                    PropertyCursor propertyCursor = selection.query(getContentResolver());
+
+                    if (!propertyCursor.moveToFirst()) {
+                        doSync();
+                    }
+                }
             }
 
             @Override
@@ -246,14 +232,14 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
 
-        String zoneId = zoneCursor.moveToFirst() ? zoneCursor.getZoneid() : SharedPrefeHelper.getZoneId(this);
+        String zoneId = hasZone ? zoneCursor.getZoneid() : "";
 
         String owner = binding.contentLayout.spinnerRow1.getText().toString();
         String occupier = binding.contentLayout.spinnerRow2.getText().toString();
         String property_id = binding.contentLayout.spinnerRow3.getText().toString();
 
-        if (!StringUtils.isNullOrEmpty(zoneId))
-            isValid = true;
+        if (StringUtils.isNullOrEmpty(zoneId))
+            isValid = false;
 
         if (!StringUtils.isNullOrEmpty(owner))
             isValid = true;
@@ -299,7 +285,7 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
         ZoneCursor zoneCursor = (ZoneCursor) spinnerAdapter.getItem(binding.contentLayout.spinnerRow0.getSelectedItemPosition());
 
-        String zoneId = zoneCursor.moveToFirst() ? zoneCursor.getZoneid() : SharedPrefeHelper.getZoneId(this);
+        String zoneId = hasZone ? zoneCursor.getZoneid() : SharedPrefeHelper.getZoneId(this);
 
         if (!StringUtils.isNullOrEmpty(zoneId))
             isValid = true;
@@ -318,8 +304,6 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
 
                     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault());
                     SharedPrefeHelper.setLastSync(SyncSearchActivity.this, sdf.format(new Date()));
-
-                    doPublish();
                 }
 
                 @Override
@@ -333,8 +317,6 @@ public class SyncSearchActivity extends BaseActivity implements View.OnClickList
         } else {
             new DialogHandler(SyncSearchActivity.this).showAlertDialog("Please select \n\n\tZone ID");
         }
-
-//        setmTitle("Last Synced: " + SharedPrefeHelper.getLastSync(SyncSearchActivity.this));
     }
 
     private void doPublish() {

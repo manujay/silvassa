@@ -15,4 +15,5 @@ public class INTENT_PARAMETERS {
     /* Request Codes*/
     public static final int _PREFILL_REQUEST = 11101;
     public static final String _PREFILL_PAYMENTID = "prefill-payment";
+    public static final String _PRINT_URL = "print-web-urlstring";
 }

@@ -17,6 +17,7 @@ import com.mapmyindia.ceinfo.silvassa.provider.payment.PaymentContentValues;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailCursor;
 import com.mapmyindia.ceinfo.silvassa.provider.taxdetail.TaxdetailSelection;
 import com.mapmyindia.ceinfo.silvassa.utils.DateTimeUtils;
+import com.mapmyindia.ceinfo.silvassa.utils.DialogHandler;
 import com.mapmyindia.ceinfo.silvassa.utils.INTENT_PARAMETERS;
 import com.mapmyindia.ceinfo.silvassa.utils.SharedPrefeHelper;
 import com.mapmyindia.ceinfo.silvassa.utils.StringUtils;
@@ -28,12 +29,14 @@ import java.util.Locale;
  * Created by ceinfo on 06-03-2017.
  */
 
-public class PaymentActivity extends BaseActivity {
+public class PaymentActivity extends BaseActivity implements DialogHandler.OnProceedDialogListener {
     private static final String TAG = PaymentActivity.class.getSimpleName();
 
     private String payableAmount;
     private String propId;
-    private EditText mEditText;
+    private EditText mEtAmount;
+    private RadioGroup rgPtop;
+    private EditText mEtCheque;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +65,11 @@ public class PaymentActivity extends BaseActivity {
     }
 
     @Override
+    public void onProceedClicked() {
+        paymentOffline();
+    }
+
+    @Override
     public void onActionCliked() {
 
     }
@@ -79,28 +87,34 @@ public class PaymentActivity extends BaseActivity {
 
         setSupportActionBar(getToolbar());
 
-        mEditText = ((EditText) findViewById(R.id.et_amount));
+        mEtAmount = (EditText) findViewById(R.id.et_amount);
+        mEtCheque = (EditText) findViewById(R.id.et_cheque);
 
-        final RadioGroup rgPtop = (RadioGroup) findViewById(R.id.rg_ptp);
+        mEtAmount = ((EditText) findViewById(R.id.et_amount));
 
-//        rgPtop.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(RadioGroup group, int checkedId) {
-//                switch (checkedId) {
-//                    case R.id.rb_pmode_cash:
-//                        mEditText.setText(String.format(Locale.getDefault(), "%.2f", Double.parseDouble(payableAmount)));
-//                        break;
-//                    case R.id.rb_pmode_cheque:
-//                        break;
-//                    case R.id.rb_pmode_pos:
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//        });
+        rgPtop = (RadioGroup) findViewById(R.id.rg_ptp);
 
-        mEditText.setHint(String.format(Locale.getDefault(), "%.2f INR", null != payableAmount && !payableAmount.isEmpty() ? Double.parseDouble(payableAmount) : 0));
+        rgPtop.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_pmode_cash:
+                        findViewById(R.id.linear_container_cheque).setVisibility(View.GONE);
+                        break;
+                    case R.id.rb_pmode_cheque:
+                        findViewById(R.id.linear_container_cheque).setVisibility(View.VISIBLE);
+                        break;
+                    case R.id.rb_pmode_pos:
+                        findViewById(R.id.linear_container_cheque).setVisibility(View.GONE);
+                        break;
+                    default:
+                        findViewById(R.id.linear_container_cheque).setVisibility(View.GONE);
+                        break;
+                }
+            }
+        });
+
+        mEtAmount.setText(String.format(Locale.getDefault(), "%.2f", null != payableAmount && !payableAmount.isEmpty() ? Double.parseDouble(payableAmount) : 0));
 
         ((RadioButton) rgPtop.findViewById(R.id.rb_pmode_cash)).setChecked(true);
 
@@ -108,25 +122,26 @@ public class PaymentActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                RadioButton rb = (RadioButton) rgPtop.findViewById(rgPtop.getCheckedRadioButtonId());
-
-                paymentOffline(null != rb && rb.isChecked() ? rb.getText().toString() : null, mEditText.getText().toString());
+                new DialogHandler(PaymentActivity.this).showProceedDialog(PaymentActivity.this, "Proceed With Payment Of \n\r\t Rs. " + mEtAmount.getText().toString() + "");
             }
         });
     }
 
-    private void paymentOffline(String mode, String amount) {
+    private void paymentOffline() {
 
         boolean isValid = true;
-
-        String propId = getIntent().getExtras().getString(INTENT_PARAMETERS._PREFILL_PROPERTYID);
 
         TaxdetailSelection selection = new TaxdetailSelection();
         selection.propertyid(propId);
         TaxdetailCursor cursor = selection.query(getContentResolver());
+        RadioButton rb = (RadioButton) rgPtop.findViewById(rgPtop.getCheckedRadioButtonId());
 
+        String propId = getIntent().getExtras().getString(INTENT_PARAMETERS._PREFILL_PROPERTYID);
+        String mode = null != rb && rb.isChecked() ? rb.getText().toString() : null;
+        String amount = mEtAmount.getText().toString();
         String taxNo = cursor.moveToFirst() ? cursor.getTaxno() : "";
         String userId = SharedPrefeHelper.getUserId(this);
+        String cheque = !StringUtils.isNullOrEmpty(mode) && mode.equalsIgnoreCase(getString(R.string.cheque)) ? mEtCheque.getText().toString() : "";
 
         long timeInMillis = System.currentTimeMillis();
 
@@ -156,9 +171,15 @@ public class PaymentActivity extends BaseActivity {
             isValid = false;
         }
 
+        if (!StringUtils.isNullOrEmpty(mode)
+                && mode.equalsIgnoreCase(getString(R.string.cheque))
+                && StringUtils.isNullOrEmpty(cheque)) {
+            isValid = false;
+        }
+
         if (isValid) {
 
-            long id = insertPayment(userId, propId, taxNo, amount, pdate, mode);
+            long id = insertPayment(userId, propId, taxNo, amount, pdate, mode, cheque);
 
             if (id < 0L) {
 
@@ -174,16 +195,21 @@ public class PaymentActivity extends BaseActivity {
                 startActivityForIntent(intent);
                 finish();
             }
-        } else {
+        } else if (StringUtils.isNullOrEmpty(amount)) {
             findViewById(R.id.et_amount).requestFocus();
             showToast(this, "Please fill in the Amount!.");
+        } else if (!StringUtils.isNullOrEmpty(mode)
+                && mode.equalsIgnoreCase(getString(R.string.cheque))
+                && StringUtils.isNullOrEmpty(cheque)) {
+            findViewById(R.id.et_cheque).requestFocus();
+            showToast(this, "Please provide valid Cheque/DD Number.");
         }
 
         cursor.close();
 
     }
 
-    private long insertPayment(String userId, String propId, String taxno, String amount, String pdate, String mode) {
+    private long insertPayment(String userId, String propId, String taxno, String amount, String pdate, String mode, String cheque) {
 
         Logger.d(TAG, " @Payment Date" + pdate);
 
@@ -194,6 +220,7 @@ public class PaymentActivity extends BaseActivity {
         contentValues.putAmount(amount);
         contentValues.putPdate(Long.toString(System.currentTimeMillis()));
         contentValues.putMode(mode);
+        contentValues.putCheque(cheque);
         Uri uri = contentValues.insert(getContentResolver());
         return ContentUris.parseId(uri);
     }

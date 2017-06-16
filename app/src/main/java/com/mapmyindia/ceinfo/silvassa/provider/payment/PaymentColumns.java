@@ -26,7 +26,7 @@ public class PaymentColumns implements BaseColumns {
     public static final String USERID = "userId";
 
     /**
-     * propertyUniqueId.
+     * PropertyUniqueId.
      */
     public static final String PROPERTYUNIQUEID = "propertyUniqueId";
 
@@ -36,9 +36,14 @@ public class PaymentColumns implements BaseColumns {
     public static final String TAXNO = "taxNo";
 
     /**
-     * mode
+     * Mode
      */
     public static final String MODE = "mode";
+
+    /**
+     * Cheque
+     */
+    public static final String CHEQUE = "cheque";
 
     /**
      * Amount
@@ -59,6 +64,7 @@ public class PaymentColumns implements BaseColumns {
             PROPERTYUNIQUEID,
             TAXNO,
             MODE,
+            CHEQUE,
             AMOUNT,
             PDATE
     };
@@ -70,6 +76,7 @@ public class PaymentColumns implements BaseColumns {
             if (c.equals(PROPERTYUNIQUEID) || c.contains("." + PROPERTYUNIQUEID)) return true;
             if (c.equals(TAXNO) || c.contains("." + TAXNO)) return true;
             if (c.equals(MODE) || c.contains("." + MODE)) return true;
+            if (c.equals(CHEQUE) || c.contains("." + CHEQUE)) return true;
             if (c.equals(AMOUNT) || c.contains("." + AMOUNT)) return true;
             if (c.equals(PDATE) || c.contains("." + PDATE)) return true;
         }

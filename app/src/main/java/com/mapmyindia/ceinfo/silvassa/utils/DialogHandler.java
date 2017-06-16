@@ -82,6 +82,40 @@ public class DialogHandler {
         }
     }
 
+    /**
+     *
+     */
+    public void showProceedDialog(final OnProceedDialogListener dialogLogoutListener, String message) {
+        if (mTwoButtonDialog != null && !mTwoButtonDialog.isShowing()) {
+            TextView textViewMessage = (TextView) mTwoButtonDialog.findViewById(R.id.content_message);
+            textViewMessage.setText(message);
+            AppCompatButton positiveButton = (AppCompatButton) mTwoButtonDialog.findViewById(R.id.positive_button);
+            AppCompatButton negativeButton = (AppCompatButton) mTwoButtonDialog.findViewById(R.id.ok_button);
+
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (dialogLogoutListener != null)
+                        dialogLogoutListener.onProceedClicked();
+
+                    if (mTwoButtonDialog != null && mTwoButtonDialog.isShowing())
+                        mTwoButtonDialog.dismiss();
+                }
+            });
+
+            // on pressing cancel button
+            negativeButton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    if (mTwoButtonDialog != null && mTwoButtonDialog.isShowing())
+                        mTwoButtonDialog.dismiss();
+                }
+            });
+            mTwoButtonDialog.show();
+        }
+    }
+
     private void setDialogWidth() {
 
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
@@ -114,6 +148,10 @@ public class DialogHandler {
 
     public interface DialogLogoutListener {
         void onLogoutClicked();
+    }
+
+    public interface OnProceedDialogListener {
+        void onProceedClicked();
     }
 }
 

@@ -51,7 +51,7 @@ public class PaymentContentValues extends AbstractContentValues {
 
 
     /**
-     * propertyUniqueId.
+     * PropertyUniqueId.
      */
     public PaymentContentValues putPropertyuniqueid(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("propertyuniqueid must not be null");
@@ -71,7 +71,7 @@ public class PaymentContentValues extends AbstractContentValues {
 
 
     /**
-     * mode
+     * Mode
      */
     public PaymentContentValues putMode(@NonNull String value) {
         if (value == null) throw new IllegalArgumentException("mode must not be null");
@@ -79,6 +79,19 @@ public class PaymentContentValues extends AbstractContentValues {
         return this;
     }
 
+
+    /**
+     * Cheque
+     */
+    public PaymentContentValues putCheque(@Nullable String value) {
+        mContentValues.put(PaymentColumns.CHEQUE, value);
+        return this;
+    }
+
+    public PaymentContentValues putChequeNull() {
+        mContentValues.putNull(PaymentColumns.CHEQUE);
+        return this;
+    }
 
     /**
      * Amount

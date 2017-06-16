@@ -239,6 +239,46 @@ public class PaymentSelection extends AbstractSelection<PaymentSelection> {
         return this;
     }
 
+    public PaymentSelection cheque(String... value) {
+        addEquals(PaymentColumns.CHEQUE, value);
+        return this;
+    }
+
+    public PaymentSelection chequeNot(String... value) {
+        addNotEquals(PaymentColumns.CHEQUE, value);
+        return this;
+    }
+
+    public PaymentSelection chequeLike(String... value) {
+        addLike(PaymentColumns.CHEQUE, value);
+        return this;
+    }
+
+    public PaymentSelection chequeContains(String... value) {
+        addContains(PaymentColumns.CHEQUE, value);
+        return this;
+    }
+
+    public PaymentSelection chequeStartsWith(String... value) {
+        addStartsWith(PaymentColumns.CHEQUE, value);
+        return this;
+    }
+
+    public PaymentSelection chequeEndsWith(String... value) {
+        addEndsWith(PaymentColumns.CHEQUE, value);
+        return this;
+    }
+
+    public PaymentSelection orderByCheque(boolean desc) {
+        orderBy(PaymentColumns.CHEQUE, desc);
+        return this;
+    }
+
+    public PaymentSelection orderByCheque() {
+        orderBy(PaymentColumns.CHEQUE, false);
+        return this;
+    }
+
     public PaymentSelection amount(String... value) {
         addEquals(PaymentColumns.AMOUNT, value);
         return this;

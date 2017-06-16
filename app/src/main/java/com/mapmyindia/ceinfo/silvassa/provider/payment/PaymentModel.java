@@ -3,6 +3,7 @@ package com.mapmyindia.ceinfo.silvassa.provider.payment;
 // @formatter:off
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.mapmyindia.ceinfo.silvassa.provider.base.BaseModel;
 
@@ -25,7 +26,7 @@ public interface PaymentModel extends BaseModel {
     String getUserid();
 
     /**
-     * propertyUniqueId.
+     * PropertyUniqueId.
      * Cannot be {@code null}.
      */
     @NonNull
@@ -39,11 +40,18 @@ public interface PaymentModel extends BaseModel {
     String getTaxno();
 
     /**
-     * mode
+     * Mode
      * Cannot be {@code null}.
      */
     @NonNull
     String getMode();
+
+    /**
+     * Cheque
+     * Can be {@code null}.
+     */
+    @Nullable
+    String getCheque();
 
     /**
      * Amount
